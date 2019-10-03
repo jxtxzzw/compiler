@@ -16,12 +16,9 @@ public class Test {
 
         ParseTree tree = parser.r();
 
-        for (int i = 0; i < tree.getChildCount(); i++) {
-            ParseTree t = tree.getChild(i);
-            ExpressionTest et = new ExpressionTest(t);
-            String code = et.compile();
-            System.out.println(code);
-        }
+        Program p = new Program();
+        p.buildAbstractSyntaxTree(tree);
+        System.out.println(p.outputCode());
 
     }
 }
