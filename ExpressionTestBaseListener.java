@@ -39,13 +39,25 @@ public class ExpressionTestBaseListener implements ExpressionTestListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterCalc(ExpressionTestParser.CalcContext ctx) { }
+	@Override public void enterArithmetic(ExpressionTestParser.ArithmeticContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitCalc(ExpressionTestParser.CalcContext ctx) { }
+	@Override public void exitArithmetic(ExpressionTestParser.ArithmeticContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterOp(ExpressionTestParser.OpContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitOp(ExpressionTestParser.OpContext ctx) { }
 
 	/**
 	 * {@inheritDoc}
