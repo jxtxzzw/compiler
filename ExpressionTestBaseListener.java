@@ -39,6 +39,18 @@ public class ExpressionTestBaseListener implements ExpressionTestListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterAssignment(ExpressionTestParser.AssignmentContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitAssignment(ExpressionTestParser.AssignmentContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterArithmetic(ExpressionTestParser.ArithmeticContext ctx) { }
 	/**
 	 * {@inheritDoc}

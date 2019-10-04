@@ -16,7 +16,7 @@ public class ExpressionTestParser extends Parser {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		NUM=1, INT=2, ADD=3, SUB=4, MUL=5, DIV=6, WS=7;
+		NUM=1, INT=2, ADD=3, SUB=4, MUL=5, DIV=6, X=7, ASSIGN=8, WS=9;
 	public static final int
 		RULE_r = 0, RULE_expr = 1;
 	private static String[] makeRuleNames() {
@@ -28,13 +28,13 @@ public class ExpressionTestParser extends Parser {
 
 	private static String[] makeLiteralNames() {
 		return new String[] {
-			null, null, null, "'+'", "'-'", "'*'", "'/'"
+			null, null, null, "'+'", "'-'", "'*'", "'/'", "'x'", "'='"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
 	private static String[] makeSymbolicNames() {
 		return new String[] {
-			null, "NUM", "INT", "ADD", "SUB", "MUL", "DIV", "WS"
+			null, "NUM", "INT", "ADD", "SUB", "MUL", "DIV", "X", "ASSIGN", "WS"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -150,6 +150,22 @@ public class ExpressionTestParser extends Parser {
 			if ( listener instanceof ExpressionTestListener ) ((ExpressionTestListener)listener).exitNumber(this);
 		}
 	}
+	public static class AssignmentContext extends ExprContext {
+		public TerminalNode X() { return getToken(ExpressionTestParser.X, 0); }
+		public TerminalNode ASSIGN() { return getToken(ExpressionTestParser.ASSIGN, 0); }
+		public ExprContext expr() {
+			return getRuleContext(ExprContext.class,0);
+		}
+		public AssignmentContext(ExprContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof ExpressionTestListener ) ((ExpressionTestListener)listener).enterAssignment(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof ExpressionTestListener ) ((ExpressionTestListener)listener).exitAssignment(this);
+		}
+	}
 	public static class ArithmeticContext extends ExprContext {
 		public List<ExprContext> expr() {
 			return getRuleContexts(ExprContext.class);
@@ -188,18 +204,39 @@ public class ExpressionTestParser extends Parser {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			{
-			_localctx = new NumberContext(_localctx);
-			_ctx = _localctx;
-			_prevctx = _localctx;
+			setState(11);
+			_errHandler.sync(this);
+			switch (_input.LA(1)) {
+			case NUM:
+				{
+				_localctx = new NumberContext(_localctx);
+				_ctx = _localctx;
+				_prevctx = _localctx;
 
-			setState(7);
-			match(NUM);
+				setState(7);
+				match(NUM);
+				}
+				break;
+			case X:
+				{
+				_localctx = new AssignmentContext(_localctx);
+				_ctx = _localctx;
+				_prevctx = _localctx;
+				setState(8);
+				match(X);
+				setState(9);
+				match(ASSIGN);
+				setState(10);
+				expr(1);
+				}
+				break;
+			default:
+				throw new NoViableAltException(this);
 			}
 			_ctx.stop = _input.LT(-1);
-			setState(14);
+			setState(18);
 			_errHandler.sync(this);
-			_alt = getInterpreter().adaptivePredict(_input,0,_ctx);
+			_alt = getInterpreter().adaptivePredict(_input,1,_ctx);
 			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
 				if ( _alt==1 ) {
 					if ( _parseListeners!=null ) triggerExitRuleEvent();
@@ -208,9 +245,9 @@ public class ExpressionTestParser extends Parser {
 					{
 					_localctx = new ArithmeticContext(new ExprContext(_parentctx, _parentState));
 					pushNewRecursionContext(_localctx, _startState, RULE_expr);
-					setState(9);
-					if (!(precpred(_ctx, 2))) throw new FailedPredicateException(this, "precpred(_ctx, 2)");
-					setState(10);
+					setState(13);
+					if (!(precpred(_ctx, 3))) throw new FailedPredicateException(this, "precpred(_ctx, 3)");
+					setState(14);
 					_la = _input.LA(1);
 					if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << ADD) | (1L << SUB) | (1L << MUL) | (1L << DIV))) != 0)) ) {
 					_errHandler.recoverInline(this);
@@ -220,14 +257,14 @@ public class ExpressionTestParser extends Parser {
 						_errHandler.reportMatch(this);
 						consume();
 					}
-					setState(11);
-					expr(3);
+					setState(15);
+					expr(4);
 					}
 					} 
 				}
-				setState(16);
+				setState(20);
 				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,0,_ctx);
+				_alt = getInterpreter().adaptivePredict(_input,1,_ctx);
 			}
 			}
 		}
@@ -252,18 +289,19 @@ public class ExpressionTestParser extends Parser {
 	private boolean expr_sempred(ExprContext _localctx, int predIndex) {
 		switch (predIndex) {
 		case 0:
-			return precpred(_ctx, 2);
+			return precpred(_ctx, 3);
 		}
 		return true;
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\t\24\4\2\t\2\4\3"+
-		"\t\3\3\2\3\2\3\3\3\3\3\3\3\3\3\3\3\3\7\3\17\n\3\f\3\16\3\22\13\3\3\3\2"+
-		"\3\4\4\2\4\2\3\3\2\5\b\2\22\2\6\3\2\2\2\4\b\3\2\2\2\6\7\5\4\3\2\7\3\3"+
-		"\2\2\2\b\t\b\3\1\2\t\n\7\3\2\2\n\20\3\2\2\2\13\f\f\4\2\2\f\r\t\2\2\2\r"+
-		"\17\5\4\3\5\16\13\3\2\2\2\17\22\3\2\2\2\20\16\3\2\2\2\20\21\3\2\2\2\21"+
-		"\5\3\2\2\2\22\20\3\2\2\2\3\20";
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\13\30\4\2\t\2\4\3"+
+		"\t\3\3\2\3\2\3\3\3\3\3\3\3\3\3\3\5\3\16\n\3\3\3\3\3\3\3\7\3\23\n\3\f\3"+
+		"\16\3\26\13\3\3\3\2\3\4\4\2\4\2\3\3\2\5\b\2\27\2\6\3\2\2\2\4\r\3\2\2\2"+
+		"\6\7\5\4\3\2\7\3\3\2\2\2\b\t\b\3\1\2\t\16\7\3\2\2\n\13\7\t\2\2\13\f\7"+
+		"\n\2\2\f\16\5\4\3\3\r\b\3\2\2\2\r\n\3\2\2\2\16\24\3\2\2\2\17\20\f\5\2"+
+		"\2\20\21\t\2\2\2\21\23\5\4\3\6\22\17\3\2\2\2\23\26\3\2\2\2\24\22\3\2\2"+
+		"\2\24\25\3\2\2\2\25\5\3\2\2\2\26\24\3\2\2\2\4\r\24";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

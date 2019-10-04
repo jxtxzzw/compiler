@@ -29,6 +29,18 @@ public interface ExpressionTestListener extends ParseTreeListener {
 	 */
 	void exitNumber(ExpressionTestParser.NumberContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code assignment}
+	 * labeled alternative in {@link ExpressionTestParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterAssignment(ExpressionTestParser.AssignmentContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code assignment}
+	 * labeled alternative in {@link ExpressionTestParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitAssignment(ExpressionTestParser.AssignmentContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code arithmetic}
 	 * labeled alternative in {@link ExpressionTestParser#expr}.
 	 * @param ctx the parse tree

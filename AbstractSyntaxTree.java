@@ -10,7 +10,12 @@ public class AbstractSyntaxTree {
     private static Expression buildExpression(ParseTree tree) {
         // TODO: token validation + decide the switch
         if (tree.getChildCount() == 3) {
-            return buildArithmeticExpression(tree);
+            if (!(tree.getChild(1).getPayload() instanceof Token)); // TODO exception here
+            Token token = (Token) tree.getChild(1).getPayload();
+            if (token.getType() == ExpressionTestLexer.ASSIGN)
+                return buildAssignmentExpression(tree);
+            else
+                return buildArithmeticExpression(tree);
         } else if (tree.getChildCount() == 1) {
             return buildConstantExpression(tree);
         }
@@ -27,5 +32,11 @@ public class AbstractSyntaxTree {
 
     private static ConstantExpression buildConstantExpression(ParseTree tree) {
         return new ConstantExpression(new BaseType("int", "i"), tree);
+    }
+
+    private static AssignmentExpression buildAssignmentExpression(ParseTree tree) {
+        Expression expression = buildExpression(tree.getChild(2));
+        System.out.println(expression);
+        return new AssignmentExpression(new BaseType("int", "i"), expression);
     }
 }
