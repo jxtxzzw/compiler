@@ -10,3 +10,4 @@
         MUL: '*';
         DIV: '/';
         WS: [ \t\r\n]+ -> skip;
+        // TODO: Arithematic expression priority, eg: *|/ > +|-

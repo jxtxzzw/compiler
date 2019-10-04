@@ -10,13 +10,16 @@ public class Program {
         for (int i = 0; i < tree.getChildCount(); i++) {
             statements.add(AbstractSyntaxTree.buildStatement(tree.getChild(i)));
         }
+        // TODO: make sure the exception will not cause halt
 
     }
 
     private void generateCode() {
+        code.append("INITIAL_CODE_PLACEHOLDER\n"); // TODO placeholder
         for (Statement statement : statements) {
             code.append(statement.compile());
         }
+        code.append("hlt\n");
     }
 
     public String outputCode() {

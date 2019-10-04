@@ -1,22 +1,23 @@
-import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.Token;
 
 public class ArithmeticExpression extends Expression {
 
-    private ParseTree tree;
+    private Expression leftExpression;
+    private Expression rightExpression;
+    private Token token;
 
-    ArithmeticExpression(BaseType baseType, ParseTree tree) {
+    ArithmeticExpression(BaseType baseType, Expression leftExpression, Expression rightExpression, Token token) {
         super(baseType);
-        this.tree = tree; // TODO: do we really need the whole tree? or can just use built expression
+        this.leftExpression = leftExpression;
+        this.rightExpression = rightExpression;
+        this.token = token;
     }
 
     @Override
     public String compile() {
         String code = "";
-        // TODO: use recursively build here, 'cause we can just compile 1+2 but not 1+2+3 now
-        code += "ldc i " + tree.getChild(0).getText() + "\n";
-        code += "ldc i " + tree.getChild(2).getText() + "\n";
-        Token token = (Token) tree.getChild(1).getPayload();
+        code += leftExpression.compile();
+        code += rightExpression.compile();
         switch (token.getType()) {
             case ExpressionTestLexer.ADD:
                 code += "add i \n";
