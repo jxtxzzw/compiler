@@ -1,3 +1,7 @@
+package com.jxtxzzw.compiler.ast;
+
+import com.jxtxzzw.compiler.type.BaseType;
+
 public class AssignmentExpression extends Expression {
 
     private Expression expression;

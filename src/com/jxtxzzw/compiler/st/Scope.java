@@ -1,3 +1,7 @@
+package com.jxtxzzw.compiler.st;
+
+import com.jxtxzzw.compiler.ast.Variable;
+
 public class Scope {
     private int level;
 

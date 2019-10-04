@@ -1,12 +1,9 @@
-// Generated from ExpressionTest.g4 by ANTLR 4.7.2
+package resources;// Generated from ExpressionTest.g4 by ANTLR 4.7.2
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.*;
-import org.antlr.v4.runtime.misc.*;
 import org.antlr.v4.runtime.tree.*;
 import java.util.List;
-import java.util.Iterator;
-import java.util.ArrayList;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
 public class ExpressionTestParser extends Parser {
@@ -72,7 +69,7 @@ public class ExpressionTestParser extends Parser {
 	}
 
 	@Override
-	public String getGrammarFileName() { return "ExpressionTest.g4"; }
+	public String getGrammarFileName() { return "src/main/resources/ExpressionTest.g4"; }
 
 	@Override
 	public String[] getRuleNames() { return ruleNames; }

@@ -1,4 +1,7 @@
+package com.jxtxzzw.compiler.ast;
+
 import org.antlr.v4.runtime.tree.ParseTree;
+import com.jxtxzzw.compiler.type.BaseType;
 
 public class ConstantExpression extends Expression {
     private ParseTree tree;

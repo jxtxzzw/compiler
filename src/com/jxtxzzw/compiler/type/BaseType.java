@@ -1,3 +1,5 @@
+package com.jxtxzzw.compiler.type;
+
 public class BaseType {
     private String name;
     private String code;

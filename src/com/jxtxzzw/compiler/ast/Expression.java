@@ -1,3 +1,6 @@
+package com.jxtxzzw.compiler.ast;
+
+import com.jxtxzzw.compiler.type.BaseType;
 
 abstract class Expression implements Statement {
 

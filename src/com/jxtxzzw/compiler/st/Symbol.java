@@ -1,3 +1,5 @@
+package com.jxtxzzw.compiler.st;
+
 public class Symbol {
     private Scope scope;
 

@@ -92,3 +92,4 @@ typings/
 
 # Java Class
 *.class
+out/

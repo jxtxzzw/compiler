@@ -1,4 +1,8 @@
+package com.jxtxzzw.compiler;
+
 import org.antlr.v4.runtime.tree.ParseTree;
+import com.jxtxzzw.compiler.ast.AbstractSyntaxTree;
+import com.jxtxzzw.compiler.ast.Statement;
 
 import java.util.ArrayList;
 
