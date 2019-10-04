@@ -18,10 +18,10 @@ public class ExpressionTestParser extends Parser {
 	public static final int
 		NUM=1, INT=2, ADD=3, SUB=4, MUL=5, DIV=6, WS=7;
 	public static final int
-		RULE_r = 0, RULE_expr = 1, RULE_op = 2;
+		RULE_r = 0, RULE_expr = 1;
 	private static String[] makeRuleNames() {
 		return new String[] {
-			"r", "expr", "op"
+			"r", "expr"
 		};
 	}
 	public static final String[] ruleNames = makeRuleNames();
@@ -112,7 +112,7 @@ public class ExpressionTestParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(6);
+			setState(4);
 			expr(0);
 			}
 		}
@@ -157,9 +157,10 @@ public class ExpressionTestParser extends Parser {
 		public ExprContext expr(int i) {
 			return getRuleContext(ExprContext.class,i);
 		}
-		public OpContext op() {
-			return getRuleContext(OpContext.class,0);
-		}
+		public TerminalNode ADD() { return getToken(ExpressionTestParser.ADD, 0); }
+		public TerminalNode SUB() { return getToken(ExpressionTestParser.SUB, 0); }
+		public TerminalNode MUL() { return getToken(ExpressionTestParser.MUL, 0); }
+		public TerminalNode DIV() { return getToken(ExpressionTestParser.DIV, 0); }
 		public ArithmeticContext(ExprContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
@@ -182,6 +183,7 @@ public class ExpressionTestParser extends Parser {
 		ExprContext _prevctx = _localctx;
 		int _startState = 2;
 		enterRecursionRule(_localctx, 2, RULE_expr, _p);
+		int _la;
 		try {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
@@ -191,11 +193,11 @@ public class ExpressionTestParser extends Parser {
 			_ctx = _localctx;
 			_prevctx = _localctx;
 
-			setState(9);
+			setState(7);
 			match(NUM);
 			}
 			_ctx.stop = _input.LT(-1);
-			setState(17);
+			setState(14);
 			_errHandler.sync(this);
 			_alt = getInterpreter().adaptivePredict(_input,0,_ctx);
 			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
@@ -206,16 +208,24 @@ public class ExpressionTestParser extends Parser {
 					{
 					_localctx = new ArithmeticContext(new ExprContext(_parentctx, _parentState));
 					pushNewRecursionContext(_localctx, _startState, RULE_expr);
-					setState(11);
+					setState(9);
 					if (!(precpred(_ctx, 2))) throw new FailedPredicateException(this, "precpred(_ctx, 2)");
-					setState(12);
-					op();
-					setState(13);
+					setState(10);
+					_la = _input.LA(1);
+					if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << ADD) | (1L << SUB) | (1L << MUL) | (1L << DIV))) != 0)) ) {
+					_errHandler.recoverInline(this);
+					}
+					else {
+						if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
+						_errHandler.reportMatch(this);
+						consume();
+					}
+					setState(11);
 					expr(3);
 					}
 					} 
 				}
-				setState(19);
+				setState(16);
 				_errHandler.sync(this);
 				_alt = getInterpreter().adaptivePredict(_input,0,_ctx);
 			}
@@ -228,55 +238,6 @@ public class ExpressionTestParser extends Parser {
 		}
 		finally {
 			unrollRecursionContexts(_parentctx);
-		}
-		return _localctx;
-	}
-
-	public static class OpContext extends ParserRuleContext {
-		public TerminalNode ADD() { return getToken(ExpressionTestParser.ADD, 0); }
-		public TerminalNode SUB() { return getToken(ExpressionTestParser.SUB, 0); }
-		public TerminalNode MUL() { return getToken(ExpressionTestParser.MUL, 0); }
-		public TerminalNode DIV() { return getToken(ExpressionTestParser.DIV, 0); }
-		public OpContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_op; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ExpressionTestListener ) ((ExpressionTestListener)listener).enterOp(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ExpressionTestListener ) ((ExpressionTestListener)listener).exitOp(this);
-		}
-	}
-
-	public final OpContext op() throws RecognitionException {
-		OpContext _localctx = new OpContext(_ctx, getState());
-		enterRule(_localctx, 4, RULE_op);
-		int _la;
-		try {
-			enterOuterAlt(_localctx, 1);
-			{
-			setState(20);
-			_la = _input.LA(1);
-			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << ADD) | (1L << SUB) | (1L << MUL) | (1L << DIV))) != 0)) ) {
-			_errHandler.recoverInline(this);
-			}
-			else {
-				if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
-				_errHandler.reportMatch(this);
-				consume();
-			}
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			_errHandler.reportError(this, re);
-			_errHandler.recover(this, re);
-		}
-		finally {
-			exitRule();
 		}
 		return _localctx;
 	}
@@ -297,13 +258,12 @@ public class ExpressionTestParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\t\31\4\2\t\2\4\3"+
-		"\t\3\4\4\t\4\3\2\3\2\3\3\3\3\3\3\3\3\3\3\3\3\3\3\7\3\22\n\3\f\3\16\3\25"+
-		"\13\3\3\4\3\4\3\4\2\3\4\5\2\4\6\2\3\3\2\5\b\2\26\2\b\3\2\2\2\4\n\3\2\2"+
-		"\2\6\26\3\2\2\2\b\t\5\4\3\2\t\3\3\2\2\2\n\13\b\3\1\2\13\f\7\3\2\2\f\23"+
-		"\3\2\2\2\r\16\f\4\2\2\16\17\5\6\4\2\17\20\5\4\3\5\20\22\3\2\2\2\21\r\3"+
-		"\2\2\2\22\25\3\2\2\2\23\21\3\2\2\2\23\24\3\2\2\2\24\5\3\2\2\2\25\23\3"+
-		"\2\2\2\26\27\t\2\2\2\27\7\3\2\2\2\3\23";
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\t\24\4\2\t\2\4\3"+
+		"\t\3\3\2\3\2\3\3\3\3\3\3\3\3\3\3\3\3\7\3\17\n\3\f\3\16\3\22\13\3\3\3\2"+
+		"\3\4\4\2\4\2\3\3\2\5\b\2\22\2\6\3\2\2\2\4\b\3\2\2\2\6\7\5\4\3\2\7\3\3"+
+		"\2\2\2\b\t\b\3\1\2\t\n\7\3\2\2\n\20\3\2\2\2\13\f\f\4\2\2\f\r\t\2\2\2\r"+
+		"\17\5\4\3\5\16\13\3\2\2\2\17\22\3\2\2\2\20\16\3\2\2\2\20\21\3\2\2\2\21"+
+		"\5\3\2\2\2\22\20\3\2\2\2\3\20";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

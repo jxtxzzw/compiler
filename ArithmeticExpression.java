@@ -1,4 +1,5 @@
 import org.antlr.v4.runtime.tree.ParseTree;
+import org.antlr.v4.runtime.Token;
 
 public class ArithmeticExpression extends Expression {
 
@@ -15,22 +16,23 @@ public class ArithmeticExpression extends Expression {
         // TODO: use recursively build here, 'cause we can just compile 1+2 but not 1+2+3 now
         code += "ldc i " + tree.getChild(0).getText() + "\n";
         code += "ldc i " + tree.getChild(2).getText() + "\n";
-        // TODO: better change the String compare to token == in lexer
-        ParseTree token = (ParseTree) tree.getChild(1).getPayload();
-        switch (token.getText()) {
-            case "+":
+        Token token = (Token) tree.getChild(1).getPayload();
+        switch (token.getType()) {
+            case ExpressionTestLexer.ADD:
                 code += "add i \n";
                 break;
-            case "-":
+            case ExpressionTestLexer.SUB:
                 code += "sub i \n";
                 break;
-            case "*":
+            case ExpressionTestLexer.MUL:
                 code += "mul i \n";
                 break;
-            case "/":
+            case ExpressionTestLexer.DIV:
                 code += "div i \n";
                 break;
-            // TODO: default branch
+            default:
+                System.out.println(token.getType());
+                // TODO: throw exception here
         }
         return code;
     }

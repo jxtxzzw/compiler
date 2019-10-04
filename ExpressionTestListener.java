@@ -40,14 +40,4 @@ public interface ExpressionTestListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitArithmetic(ExpressionTestParser.ArithmeticContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link ExpressionTestParser#op}.
-	 * @param ctx the parse tree
-	 */
-	void enterOp(ExpressionTestParser.OpContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link ExpressionTestParser#op}.
-	 * @param ctx the parse tree
-	 */
-	void exitOp(ExpressionTestParser.OpContext ctx);
 }
