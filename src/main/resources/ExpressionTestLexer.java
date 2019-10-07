@@ -1,4 +1,4 @@
-package resources;// Generated from ExpressionTest.g4 by ANTLR 4.7.2
+package main.resources;// Generated from ExpressionTest.g4 by ANTLR 4.7.2
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.*;
@@ -81,7 +81,7 @@ public class ExpressionTestLexer extends Lexer {
 	}
 
 	@Override
-	public String getGrammarFileName() { return "src/main/resources/ExpressionTest.g4"; }
+	public String getGrammarFileName() { return "src/main/main.resources/ExpressionTest.g4"; }
 
 	@Override
 	public String[] getRuleNames() { return ruleNames; }

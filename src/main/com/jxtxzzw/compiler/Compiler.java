@@ -1,15 +1,16 @@
-package com.jxtxzzw.compiler;// import ANTLR's runtime libraries
+package com.jxtxzzw.compiler;
+
+// import ANTLR's runtime libraries
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.*;
-import resources.ExpressionTestLexer;
-import resources.ExpressionTestParser;
+import main.resources.ExpressionTestLexer;
+import main.resources.ExpressionTestParser;
 
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 
-public class Test {
+public class Compiler {
     public static void main(String[] args) throws IOException {
-        InputStream cx = System.in;
+        InputStream cx = new BufferedInputStream(new FileInputStream("test.cx"));
         @SuppressWarnings("deprecation")
         ANTLRInputStream input = new ANTLRInputStream(cx);
         ExpressionTestLexer lexer = new ExpressionTestLexer(input);
@@ -20,7 +21,10 @@ public class Test {
 
         Program p = new Program();
         p.buildAbstractSyntaxTree(tree);
-        System.out.println(p.outputCode());
+
+        BufferedWriter bw = new BufferedWriter(new FileWriter(new File("test.p")));
+        bw.write(p.outputCode());
+        bw.close();
 
     }
 }

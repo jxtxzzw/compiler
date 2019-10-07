@@ -2,7 +2,7 @@ package com.jxtxzzw.compiler.ast;
 
 import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.tree.ParseTree;
-import resources.ExpressionTestLexer;
+import main.resources.ExpressionTestLexer;
 
 import com.jxtxzzw.compiler.type.BaseType;
 

@@ -19,11 +19,11 @@ public class Program {
     }
 
     private void generateCode() {
-        code.append("INITIAL_CODE_PLACEHOLDER\n"); // TODO placeholder
+//        code.append("INITIAL_CODE_PLACEHOLDER\n"); // TODO placeholder
         for (Statement statement : statements) {
             code.append(statement.compile());
         }
-        code.append("hlt\n");
+        code.append("out i\nhlt\n");
     }
 
     public String outputCode() {
