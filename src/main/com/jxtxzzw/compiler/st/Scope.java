@@ -1,33 +1,70 @@
 package com.jxtxzzw.compiler.st;
 
-import com.jxtxzzw.compiler.ast.Variable;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Scope {
-    private int level;
+    private Scope parent;
 
 
-    public Scope(int level) {
-        this.level = level;
+    private int allocated;
+    private HashMap<String, Symbol> symbols = new HashMap<>();
+    private ArrayList<Scope> scopes = new ArrayList<>();
+
+    public Scope(Scope parent) {
+        this.parent = parent;
     }
 
-    public void addSymbol() {
-
+    private int level() {
+        int level = 0;
+        while (parent != null) {
+            level++;
+            parent = parent.parent;
+        }
+        return level;
     }
 
-    public void addFunction() {
-
+    public Scope openScope() {
+        Scope scope = new Scope(this);
+        scopes.add(scope);
+        return scope;
     }
 
-    public Variable getSymbol() {
-        return null;
+    public int getAllocated() {
+        return allocated;
     }
 
-    public Function getFunction() {
-        return null;
+    public void addAllocated(int size) {
+        allocated += size;
     }
+
+    public int getTotalAllocated () {
+        int totalAllocated = allocated;
+        for (Scope scope : scopes) {
+            totalAllocated += scope.getTotalAllocated();
+        }
+        return  totalAllocated;
+    }
+
+    public void addSymbol(Symbol symbol) {
+        symbols.put(symbol.getIdentifier(), symbol);
+    }
+
+    public Symbol getSymbol(String identifier) {
+        return symbols.get(identifier);
+    }
+
+    public boolean containsSymbol(String identifier) {
+        return symbols.containsKey(identifier);
+    }
+
 
     @Override
     public String toString() {
-        return "in scope " + level;
+        StringBuilder sb = new StringBuilder("level: " + level() + "\n");
+        for (Symbol symbol : symbols.values()) {
+            sb.append(symbol.getIdentifier()).append(":").append(symbol.getBeseType().getName()).append("\n");
+        }
+        return sb.toString();
     }
 }
