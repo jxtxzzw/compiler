@@ -1,9 +1,16 @@
-package main.resources;// Generated from ExpressionTest.g4 by ANTLR 4.7.2
+package resources;
+
+// Generated from .\src\main\resources\ExpressionTest.g4 by ANTLR 4.7.2
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.*;
+import org.antlr.v4.runtime.misc.*;
 import org.antlr.v4.runtime.tree.*;
+import resources.ExpressionTestListener;
+
 import java.util.List;
+import java.util.Iterator;
+import java.util.ArrayList;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
 public class ExpressionTestParser extends Parser {
@@ -25,7 +32,7 @@ public class ExpressionTestParser extends Parser {
 
 	private static String[] makeLiteralNames() {
 		return new String[] {
-			null, null, null, "'+'", "'-'", "'*'", "'/'", "'x'", "'='"
+			null, null, null, "'+'", "'-'", "'*'", "'/'", null, "'='"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
@@ -69,7 +76,7 @@ public class ExpressionTestParser extends Parser {
 	}
 
 	@Override
-	public String getGrammarFileName() { return "src/main/main.resources/ExpressionTest.g4"; }
+	public String getGrammarFileName() { return "ExpressionTest.g4"; }
 
 	@Override
 	public String[] getRuleNames() { return ruleNames; }
@@ -95,7 +102,7 @@ public class ExpressionTestParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_r; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ExpressionTestListener ) ((ExpressionTestListener)listener).enterR(this);
+			if ( listener instanceof ExpressionTestListener) ((ExpressionTestListener)listener).enterR(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {

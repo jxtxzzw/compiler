@@ -1,15 +1,18 @@
 package com.jxtxzzw.compiler;
 
 // import ANTLR's runtime libraries
-import org.antlr.v4.runtime.*;
-import org.antlr.v4.runtime.tree.*;
-import main.resources.ExpressionTestLexer;
-import main.resources.ExpressionTestParser;
+
+import org.antlr.v4.runtime.ANTLRInputStream;
+import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.tree.ParseTree;
+import resources.ExpressionTestLexer;
+import resources.ExpressionTestParser;
+
 
 import java.io.*;
 
 public class Compiler {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws Exception {
         InputStream cx = new BufferedInputStream(new FileInputStream("test.cx"));
         @SuppressWarnings("deprecation")
         ANTLRInputStream input = new ANTLRInputStream(cx);

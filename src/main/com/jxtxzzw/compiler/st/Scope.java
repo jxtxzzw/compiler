@@ -5,8 +5,6 @@ import java.util.HashMap;
 
 public class Scope {
     private Scope parent;
-
-
     private int allocated;
     private HashMap<String, Symbol> symbols = new HashMap<>();
     private ArrayList<Scope> scopes = new ArrayList<>();
@@ -30,11 +28,15 @@ public class Scope {
         return scope;
     }
 
+    public Scope getParent() {
+        return parent;
+    }
+
     public int getAllocated() {
         return allocated;
     }
 
-    public void addAllocated(int size) {
+    private void addAllocated(int size) {
         allocated += size;
     }
 
@@ -48,6 +50,7 @@ public class Scope {
 
     public void addSymbol(Symbol symbol) {
         symbols.put(symbol.getIdentifier(), symbol);
+        addAllocated(symbol.getBeseType().getSize());
     }
 
     public Symbol getSymbol(String identifier) {

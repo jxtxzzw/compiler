@@ -5,15 +5,19 @@ import com.jxtxzzw.compiler.type.BaseType;
 public class AssignmentExpression extends Expression {
 
     private Expression expression;
-    AssignmentExpression(BaseType baseType, Expression expression) {
-        super(baseType);
+    private VariableExpression variableExpression;
+    AssignmentExpression(VariableExpression variableExpression, Expression expression) {
+        super(variableExpression.getBaseType());
+        this.variableExpression = variableExpression;
         this.expression = expression;
     }
 
     @Override
     public String compile() {
-        String code = expression.compile();
-        code += "str " + getBaseType().getCode() + " 0 " + "get_var_address_placeholder" + "\n";
-        return code;
+
+        StringBuilder code = new StringBuilder();
+        code.append(expression.compile());
+        code.append("str ").append(variableExpression.getBaseType().getCode()).append(" 0 ").append(variableExpression.getSymbol().getAddress()).append("\n");
+        return code.toString();
     }
 }

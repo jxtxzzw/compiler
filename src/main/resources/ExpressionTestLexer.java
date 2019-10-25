@@ -1,9 +1,13 @@
-package main.resources;// Generated from ExpressionTest.g4 by ANTLR 4.7.2
+package resources;
+// Generated from .\src\main\resources\ExpressionTest.g4 by ANTLR 4.7.2
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;
+import org.antlr.v4.runtime.Token;
+import org.antlr.v4.runtime.TokenStream;
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
+import org.antlr.v4.runtime.misc.*;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
 public class ExpressionTestLexer extends Lexer {
@@ -31,7 +35,7 @@ public class ExpressionTestLexer extends Lexer {
 
 	private static String[] makeLiteralNames() {
 		return new String[] {
-			null, null, null, "'+'", "'-'", "'*'", "'/'", "'x'", "'='"
+			null, null, null, "'+'", "'-'", "'*'", "'/'", null, "'='"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
@@ -81,7 +85,7 @@ public class ExpressionTestLexer extends Lexer {
 	}
 
 	@Override
-	public String getGrammarFileName() { return "src/main/main.resources/ExpressionTest.g4"; }
+	public String getGrammarFileName() { return "ExpressionTest.g4"; }
 
 	@Override
 	public String[] getRuleNames() { return ruleNames; }
@@ -109,9 +113,9 @@ public class ExpressionTestLexer extends Lexer {
 		"\3\2\2\2\13 \3\2\2\2\r\"\3\2\2\2\17$\3\2\2\2\21&\3\2\2\2\23)\3\2\2\2\25"+
 		"\26\5\5\3\2\26\4\3\2\2\2\27\31\t\2\2\2\30\27\3\2\2\2\31\32\3\2\2\2\32"+
 		"\30\3\2\2\2\32\33\3\2\2\2\33\6\3\2\2\2\34\35\7-\2\2\35\b\3\2\2\2\36\37"+
-		"\7/\2\2\37\n\3\2\2\2 !\7,\2\2!\f\3\2\2\2\"#\7\61\2\2#\16\3\2\2\2$%\7z"+
-		"\2\2%\20\3\2\2\2&\'\7?\2\2\'\22\3\2\2\2(*\t\3\2\2)(\3\2\2\2*+\3\2\2\2"+
-		"+)\3\2\2\2+,\3\2\2\2,-\3\2\2\2-.\b\n\2\2.\24\3\2\2\2\5\2\32+\3\b\2\2";
+		"\7/\2\2\37\n\3\2\2\2 !\7,\2\2!\f\3\2\2\2\"#\7\61\2\2#\16\3\2\2\2$%\4z"+
+		"{\2%\20\3\2\2\2&\'\7?\2\2\'\22\3\2\2\2(*\t\3\2\2)(\3\2\2\2*+\3\2\2\2+"+
+		")\3\2\2\2+,\3\2\2\2,-\3\2\2\2-.\b\n\2\2.\24\3\2\2\2\5\2\32+\3\b\2\2";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

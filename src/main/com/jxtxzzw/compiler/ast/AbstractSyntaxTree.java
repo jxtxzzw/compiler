@@ -1,18 +1,23 @@
 package com.jxtxzzw.compiler.ast;
 
+import com.jxtxzzw.compiler.st.Symbol;
+import com.jxtxzzw.compiler.st.SymbolTable;
 import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.tree.ParseTree;
-import main.resources.ExpressionTestLexer;
+import resources.ExpressionTestLexer;
 
-import com.jxtxzzw.compiler.type.BaseType;
+import com.jxtxzzw.compiler.type.Int;
 
 public class AbstractSyntaxTree {
-    public static Statement buildStatement(ParseTree tree) {
+
+    private static SymbolTable symbolTable = new SymbolTable();
+
+    public static Statement buildStatement(ParseTree tree) throws Exception {
         // TODO: token validation + decide the switch
         return buildExpression(tree);
     }
 
-    private static Expression buildExpression(ParseTree tree) {
+    private static Expression buildExpression(ParseTree tree) throws Exception {
         // TODO: token validation + decide the switch
         if (tree.getChildCount() == 3) {
             if (!(tree.getChild(1).getPayload() instanceof Token)); // TODO exception here
@@ -27,21 +32,26 @@ public class AbstractSyntaxTree {
         return null;
     }
 
-    private static ArithmeticExpression buildArithmeticExpression(ParseTree tree) {
+    private static ArithmeticExpression buildArithmeticExpression(ParseTree tree) throws Exception {
         Expression leftExpression = buildExpression(tree.getChild(0));
         Expression rightExpression = buildExpression(tree.getChild(2));
         if (!(tree.getChild(1).getPayload() instanceof Token)); // TODO exception here
         Token token = (Token) tree.getChild(1).getPayload();
-        return new ArithmeticExpression(new BaseType("int", "i"), leftExpression, rightExpression, token);
+        return new ArithmeticExpression(new Int(), leftExpression, rightExpression, token);
     }
 
     private static ConstantExpression buildConstantExpression(ParseTree tree) {
-        return new ConstantExpression(new BaseType("int", "i"), tree);
+        return new ConstantExpression(new Int(), tree);
     }
 
-    private static AssignmentExpression buildAssignmentExpression(ParseTree tree) {
+    private static AssignmentExpression buildAssignmentExpression(ParseTree tree) throws Exception {
+        // TODO should be done in declaration
+        symbolTable.registerSymbol("x", new Int());
+        symbolTable.registerSymbol("y", new Int());
+        // TODO check type
+        String identifier = tree.getChild(0).getText();
+        VariableExpression variableExpression = new VariableExpression(symbolTable.getSymbol(identifier));
         Expression expression = buildExpression(tree.getChild(2));
-        System.out.println(expression);
-        return new AssignmentExpression(new BaseType("int", "i"), expression);
+        return new AssignmentExpression(variableExpression, expression);
     }
 }

@@ -1,4 +1,4 @@
-package main.resources;// Generated from ExpressionTest.g4 by ANTLR 4.7.2
+package resources;// Generated from .\src\main\resources\ExpressionTest.g4 by ANTLR 4.7.2
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**

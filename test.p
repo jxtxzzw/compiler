@@ -1,7 +1,7 @@
-ldc i 111
-ldc i 222
+ldc i 3
+ldc i 4
 add i
-ldc i 333
-add i
+str i 0 7
+lod i 0 7
 out i
 hlt

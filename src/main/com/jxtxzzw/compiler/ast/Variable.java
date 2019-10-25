@@ -1,16 +1,15 @@
 package com.jxtxzzw.compiler.ast;
 
-import com.jxtxzzw.compiler.type.BaseType;
+import com.jxtxzzw.compiler.st.Symbol;
 
 public class Variable implements Statement {
 
-    private BaseType baseType;
-    private String identifier; // before we can implement the variable, the symbol table should be implemented first
-    private int size; // prepare for array
-//    private Address address; // is it necessary for address to be a class? or merely a String?
+    private Symbol symbol;
+
 
     @Override
     public String compile() {
-        return "variable";
+        String code = "lod " + symbol.getBeseType().getCode() + " 0 " + symbol.getAddress() + "\n";
+        return code;
     }
 }

@@ -10,7 +10,7 @@ public class Program {
     private ArrayList<Statement> statements = new ArrayList<>();
     private StringBuffer code = new StringBuffer();
 
-    public void buildAbstractSyntaxTree(ParseTree tree) {
+    public void buildAbstractSyntaxTree(ParseTree tree) throws Exception {
         for (int i = 0; i < tree.getChildCount(); i++) {
             statements.add(AbstractSyntaxTree.buildStatement(tree.getChild(i)));
         }
@@ -23,7 +23,7 @@ public class Program {
         for (Statement statement : statements) {
             code.append(statement.compile());
         }
-        code.append("out i\nhlt\n");
+        code.append("lod i 0 7\nout i\nhlt\n");
     }
 
     public String outputCode() {
