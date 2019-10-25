@@ -23,7 +23,7 @@ public class Program {
         for (Statement statement : statements) {
             code.append(statement.compile());
         }
-        code.append("lod i 0 7\nout i\nhlt\n");
+        code.append("out i\nhlt\n");
     }
 
     public String outputCode() {

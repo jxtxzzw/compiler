@@ -1,7 +1,7 @@
-ldc i 3
-ldc i 4
-add i
-str i 0 7
-lod i 0 7
+ldc i 100
+ldc i 20
+sub i
+ldc i 30
+sub i
 out i
 hlt

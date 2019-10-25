@@ -5,6 +5,7 @@ import org.junit.Before;
 import org.junit.After;
 
 import java.io.*;
+import java.util.ArrayList;
 
 
 /**
@@ -16,25 +17,32 @@ import java.io.*;
  */
 public class SimpleAddTest {
 
+
     @Before
-    public void before() throws Exception {
-        StringBuilder code = new StringBuilder();
-        code.append("111+222+333");
-        PmachineResultTest.cx(code);
+    public void before() {
+
     }
 
     @After
-    public void after() throws Exception {
-        String expected = "666";
-        assert PmachineResultTest.p(expected);
+    public void after(){
     }
+
 
     /**
      * Method: main(String[] args)
      */
     @Test
-    public void testMain() throws Exception {
+    public void SimpleAdd() throws Exception {
+        PmachineResultTest.prepareCode("SimpleAdd");
         Compiler.main(null);
+        PmachineResultTest.checkAnswer("SimpleAdd");
+    }
+
+    @Test
+    public void SimpleSub() throws Exception {
+        PmachineResultTest.prepareCode("SimpleSub");
+        Compiler.main(null);
+        PmachineResultTest.checkAnswer("SimpleSub");
     }
 
 }
