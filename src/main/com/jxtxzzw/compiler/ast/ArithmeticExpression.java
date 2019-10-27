@@ -1,7 +1,7 @@
 package com.jxtxzzw.compiler.ast;
 
 import org.antlr.v4.runtime.Token;
-import resources.ExpressionTestLexer;
+import resources.CXLexer;
 
 import com.jxtxzzw.compiler.type.BaseType;
 
@@ -24,16 +24,16 @@ public class ArithmeticExpression extends Expression {
         code += leftExpression.compile();
         code += rightExpression.compile();
         switch (token.getType()) {
-            case ExpressionTestLexer.ADD:
+            case CXLexer.PLUS:
                 code += "add i\n";
                 break;
-            case ExpressionTestLexer.SUB:
+            case CXLexer.MINUS:
                 code += "sub i\n";
                 break;
-            case ExpressionTestLexer.MUL:
+            case CXLexer.MUL:
                 code += "mul i\n";
                 break;
-            case ExpressionTestLexer.DIV:
+            case CXLexer.DIV:
                 code += "div i\n";
                 break;
             default:

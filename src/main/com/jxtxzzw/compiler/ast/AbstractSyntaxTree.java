@@ -1,12 +1,11 @@
 package com.jxtxzzw.compiler.ast;
 
-import com.jxtxzzw.compiler.st.Symbol;
 import com.jxtxzzw.compiler.st.SymbolTable;
 import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.tree.ParseTree;
-import resources.ExpressionTestLexer;
 
 import com.jxtxzzw.compiler.type.Int;
+import resources.CXLexer;
 
 public class AbstractSyntaxTree {
 
@@ -14,7 +13,7 @@ public class AbstractSyntaxTree {
 
     public static Statement buildStatement(ParseTree tree) throws Exception {
         // TODO: token validation + decide the switch
-        return buildExpression(tree);
+        return buildExpression(tree.getChild(0).getChild(2).getChild(0).getChild(0));
     }
 
     private static Expression buildExpression(ParseTree tree) throws Exception {
@@ -22,7 +21,7 @@ public class AbstractSyntaxTree {
         if (tree.getChildCount() == 3) {
             if (!(tree.getChild(1).getPayload() instanceof Token)); // TODO exception here
             Token token = (Token) tree.getChild(1).getPayload();
-            if (token.getType() == ExpressionTestLexer.ASSIGN)
+            if (token.getType() == CXLexer.ASSIGN)
                 return buildAssignmentExpression(tree);
             else
                 return buildArithmeticExpression(tree);

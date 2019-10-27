@@ -5,8 +5,8 @@ package com.jxtxzzw.compiler;
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
-import resources.ExpressionTestLexer;
-import resources.ExpressionTestParser;
+import resources.CXLexer;
+import resources.CXParser;
 
 
 import java.io.*;
@@ -16,9 +16,9 @@ public class Compiler {
         InputStream cx = new BufferedInputStream(new FileInputStream("test.cx"));
         @SuppressWarnings("deprecation")
         ANTLRInputStream input = new ANTLRInputStream(cx);
-        ExpressionTestLexer lexer = new ExpressionTestLexer(input);
+        CXLexer lexer = new CXLexer(input);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
-        ExpressionTestParser parser = new ExpressionTestParser(tokens);
+        CXParser parser = new CXParser(tokens);
 
         ParseTree tree = parser.r();
 
