@@ -13,6 +13,7 @@ statement
 | LEFTBRACE statement* RIGHTBRACE
 | WHILE LEFTPARENTHESIS expression RIGHTPARENTHESIS statement
 | FOR LEFTPARENTHESIS expression? SEMICOLON expression? SEMICOLON expression? RIGHTPARENTHESIS statement
+| basetype IDENTIFIER LEFTPARENTHESIS (VOID|basetype IDENTIFIER? (COMMA basetype IDENTIFIER?)*)? RIGHTPARENTHESIS (SEMICOLON|LEFTBRACE statement* RIGHTBRACE)
 ;
 
 expression
@@ -76,7 +77,8 @@ OR: '||';
 BEGININLINECOMMENT: '//';
 BEGINCOMMENT: '/*';
 ENDCOMMENT: '*/';
-
+COMMA: ',';
+VOID: 'void';
 
 
 
