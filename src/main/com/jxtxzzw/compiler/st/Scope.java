@@ -8,9 +8,12 @@ public class Scope {
     private int allocated;
     private HashMap<String, Symbol> symbols = new HashMap<>();
     private ArrayList<Scope> scopes = new ArrayList<>();
+    private int functionScopeAddress;
+    private ArrayList<Function> functions = new ArrayList<>();
 
-    public Scope(Scope parent) {
+    public Scope(Scope parent, int functionScopeAddress) {
         this.parent = parent;
+        this.functionScopeAddress = functionScopeAddress;
     }
 
     private int level() {
@@ -22,8 +25,8 @@ public class Scope {
         return level;
     }
 
-    public Scope openScope() {
-        Scope scope = new Scope(this);
+    public Scope openScope(int functionScopeAddress) {
+        Scope scope = new Scope(this, functionScopeAddress);
         scopes.add(scope);
         return scope;
     }
@@ -33,7 +36,7 @@ public class Scope {
     }
 
     public int getAllocated() {
-        return allocated;
+        return allocated + functionScopeAddress;
     }
 
     private void addAllocated(int size) {
@@ -60,6 +63,36 @@ public class Scope {
     public boolean containsSymbol(String identifier) {
         return symbols.containsKey(identifier);
     }
+
+    public void addFunction(Function function) {
+        functions.add(function);
+
+    }
+
+    public Function getFunction(String identifier, ArrayList<Symbol> parameters) {
+        for (Function function: functions) {
+            if (function.getIdentifier().equals(identifier)) {
+                if (function.getParameters().size() == parameters.size()) {
+                    int size = parameters.size();
+                    int i = 0;
+                    for (; i < size; i++) {
+                        if (!function.getParameters().get(i).getBeseType().equals(parameters.get(i).getBeseType())){
+                            break;
+                        }
+                    }
+                    if (i == size) {
+                        return function;
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    public boolean containsFunction(String identifier, ArrayList<Symbol> parameters) {
+        return getFunction(identifier, parameters) != null;
+    }
+
 
 
     @Override
