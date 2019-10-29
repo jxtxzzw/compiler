@@ -11,6 +11,7 @@ statement
 | LEFTBRACE statement* RIGHTBRACE
 | WHILE LEFTPARENTHESIS expression RIGHTPARENTHESIS statement
 | FOR LEFTPARENTHESIS expression? SEMICOLON expression? SEMICOLON expression? RIGHTPARENTHESIS statement
+| WRITE expression
 ;
 // TODO break and continue
 
@@ -45,6 +46,7 @@ COMMENT
 | BEGINCOMMENT .*? ENDCOMMENT) -> skip
 ;
 
+WRITE: 'write';
 INT: 'int';
 BOOLEAN: 'bool';
 LEFTBRACE: '{';

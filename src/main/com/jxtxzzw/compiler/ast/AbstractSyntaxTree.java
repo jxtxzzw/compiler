@@ -25,7 +25,14 @@ public class AbstractSyntaxTree {
         }
     }
 
+    // TODO extract this token judgement to a single method
     public static Statement buildStatement(ParseTree tree) throws Exception {
+        if (tree.getChildCount() == 1 && tree.getChild(0).getPayload() instanceof Token && ((Token)(tree.getChild(0).getPayload())).getType() == CXLexer.SEMICOLON) {
+            return new Expression.EmptyStatement();
+        }
+            if (tree.getChild(0).getPayload() instanceof Token && ((Token)(tree.getChild(0).getPayload())).getType() == CXLexer.WRITE) {
+           return buildWriteExpression(tree.getChild(1));
+        }
         return buildExpression(tree.getChild(0));
     }
 
@@ -96,6 +103,9 @@ public class AbstractSyntaxTree {
         // TODO parameters: new P(identifier, basetype), for now, the list is empty
     }
 
+    public static Statement buildWriteExpression(ParseTree tree) throws Exception {
+        return new WriteStatement(buildExpression(tree));
+    }
 
 
 

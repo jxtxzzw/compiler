@@ -18,7 +18,7 @@ public class FunctionStatement implements Statement {
     public String compile() {
         StringBuilder code = new StringBuilder();
         code.append(function.getLabel()).append(":\n");
-        code.append("ssp ").append(function.getParameterSize()).append("\n");
+        code.append("ssp ").append(function.getSize()).append("\n");
         for (Statement statement: statements) {
             code.append(statement.compile());
         }

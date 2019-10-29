@@ -14,4 +14,12 @@ abstract class Expression implements Statement {
     public BaseType getBaseType() {
         return baseType;
     }
+
+    public static class EmptyStatement implements Statement {
+
+        @Override
+        public String compile() {
+            return "";
+        }
+    }
 }
