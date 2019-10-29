@@ -12,7 +12,7 @@ public class Program {
 
     public void buildAbstractSyntaxTree(ParseTree tree) throws Exception {
         for (int i = 0; i < tree.getChildCount(); i++) {
-            statements.add(AbstractSyntaxTree.buildStatement(tree.getChild(i)));
+            statements.add(AbstractSyntaxTree.buildProgeam(tree.getChild(i)));
         }
         // TODO: make sure the exception will not cause halt
 

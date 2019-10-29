@@ -15,7 +15,7 @@ public class AbstractSyntaxTree {
 
     private static SymbolTable symbolTable = new SymbolTable();
 
-    public static Statement buildStatement(ParseTree tree) throws Exception {
+    public static Statement buildProgeam(ParseTree tree) throws Exception {
         // TODO: token validation + decide the switch
         tree = tree.getChild(0);
         if (tree.getChild(1) instanceof Token && (((Token) tree.getChild(1)).getType() == CXLexer.SEMICOLON)) {
@@ -23,6 +23,10 @@ public class AbstractSyntaxTree {
         } else {
             return buildFunctionStatement(tree);
         }
+    }
+
+    public static Statement buildStatement(ParseTree tree) throws Exception {
+        return buildExpression(tree.getChild(0));
     }
 
     private static Expression buildExpression(ParseTree tree) throws Exception {
@@ -78,6 +82,16 @@ public class AbstractSyntaxTree {
         symbolTable.registerFunction(identifier, new Int(), parameters); // TODO
         Function function = symbolTable.getFunction(identifier, parameters);
         ArrayList<Statement> statements = new ArrayList<>();
+        int index = 0;
+        while (!(tree.getChild(index).getPayload() instanceof Token) || ((Token)(tree.getChild(index).getPayload())).getType() != CXLexer.LEFTBRACE) {
+            index++;
+        }
+        index++;
+        while (!(tree.getChild(index).getPayload() instanceof Token) || ((Token)(tree.getChild(index).getPayload())).getType() != CXLexer.RIGHTBRACE) {
+//            System.out.println(tree.getChild(index).getText());
+            statements.add(buildStatement(tree.getChild(index)));
+            index++;
+        }
         return new FunctionStatement(function, statements);
         // TODO parameters: new P(identifier, basetype), for now, the list is empty
     }
