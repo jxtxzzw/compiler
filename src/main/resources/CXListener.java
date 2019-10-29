@@ -1,4 +1,5 @@
-package resources;// Generated from src\main\resources\CX.g4 by ANTLR 4.7.2
+package resources; 
+// Generated from src\main\resources\CX.g4 by ANTLR 4.7.2
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**
@@ -26,46 +27,6 @@ public interface CXListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitProgram(CXParser.ProgramContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link CXParser#block}.
-	 * @param ctx the parse tree
-	 */
-	void enterBlock(CXParser.BlockContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link CXParser#block}.
-	 * @param ctx the parse tree
-	 */
-	void exitBlock(CXParser.BlockContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link CXParser#declarations}.
-	 * @param ctx the parse tree
-	 */
-	void enterDeclarations(CXParser.DeclarationsContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link CXParser#declarations}.
-	 * @param ctx the parse tree
-	 */
-	void exitDeclarations(CXParser.DeclarationsContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link CXParser#declaration}.
-	 * @param ctx the parse tree
-	 */
-	void enterDeclaration(CXParser.DeclarationContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link CXParser#declaration}.
-	 * @param ctx the parse tree
-	 */
-	void exitDeclaration(CXParser.DeclarationContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link CXParser#statements}.
-	 * @param ctx the parse tree
-	 */
-	void enterStatements(CXParser.StatementsContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link CXParser#statements}.
-	 * @param ctx the parse tree
-	 */
-	void exitStatements(CXParser.StatementsContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link CXParser#statement}.
 	 * @param ctx the parse tree

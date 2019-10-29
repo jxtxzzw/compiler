@@ -17,7 +17,12 @@ public class AbstractSyntaxTree {
 
     public static Statement buildStatement(ParseTree tree) throws Exception {
         // TODO: token validation + decide the switch
-        return buildExpression(tree.getChild(0).getChild(2).getChild(0).getChild(0));
+        tree = tree.getChild(0);
+        if (tree.getChild(1) instanceof Token && (((Token) tree.getChild(1)).getType() == CXLexer.SEMICOLON)) {
+            return buildExpression(tree.getChild(0));
+        } else {
+            return buildFunctionStatement(tree);
+        }
     }
 
     private static Expression buildExpression(ParseTree tree) throws Exception {
@@ -34,7 +39,7 @@ public class AbstractSyntaxTree {
         } else if (tree.getChildCount() == 1) {
             return buildConstantExpression(tree);
         } else {
-            return buildFunctionStatement(tree);
+
         }
         return null;
     }
@@ -70,6 +75,7 @@ public class AbstractSyntaxTree {
     private static Statement buildFunctionStatement(ParseTree tree) throws Exception {
         String identifier = tree.getChild(1).getText();
         ArrayList<Symbol> parameters = new ArrayList<>();
+        symbolTable.registerFunction(identifier, new Int(), parameters); // TODO
         Function function = symbolTable.getFunction(identifier, parameters);
         ArrayList<Statement> statements = new ArrayList<>();
         return new FunctionStatement(function, statements);

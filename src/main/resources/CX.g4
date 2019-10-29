@@ -1,19 +1,19 @@
 grammar CX;
 r: program;
-program: block;
-block: LEFTBRACE declarations statements RIGHTBRACE;
-declarations: (declaration declarations)?;
-declaration: basetype IDENTIFIER;
-statements: (statement statements)?;
+program: statement*;
+//block: LEFTBRACE declarations statements RIGHTBRACE;
+//declarations: (declaration declarations)?;
+//declaration: basetype IDENTIFIER;
+//statements: (statement statements)?;
 
 statement
 : SEMICOLON
+| basetype IDENTIFIER LEFTPARENTHESIS (VOID|basetype IDENTIFIER? (COMMA basetype IDENTIFIER?)*)? RIGHTPARENTHESIS (SEMICOLON|LEFTBRACE statement* RIGHTBRACE)
 | expression SEMICOLON
 | IF LEFTPARENTHESIS expression RIGHTPARENTHESIS statement (ELSE statement)?
 | LEFTBRACE statement* RIGHTBRACE
 | WHILE LEFTPARENTHESIS expression RIGHTPARENTHESIS statement
 | FOR LEFTPARENTHESIS expression? SEMICOLON expression? SEMICOLON expression? RIGHTPARENTHESIS statement
-| basetype IDENTIFIER LEFTPARENTHESIS (VOID|basetype IDENTIFIER? (COMMA basetype IDENTIFIER?)*)? RIGHTPARENTHESIS (SEMICOLON|LEFTBRACE statement* RIGHTBRACE)
 ;
 
 expression
@@ -33,7 +33,7 @@ expression
 
 variable
 : IDENTIFIER
-| basetype IDENTIFIER
+//| basetype IDENTIFIER
 ;
 
 basetype: INT | BOOLEAN;
