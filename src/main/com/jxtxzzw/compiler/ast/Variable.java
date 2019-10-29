@@ -1,6 +1,6 @@
 package com.jxtxzzw.compiler.ast;
 
-import com.jxtxzzw.compiler.st.Symbol;
+import com.jxtxzzw.compiler.symboltable.Symbol;
 
 public class Variable implements Statement {
 

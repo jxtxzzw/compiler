@@ -1,4 +1,4 @@
-package com.jxtxzzw.compiler.st;
+package com.jxtxzzw.compiler.symboltable;
 
 import com.jxtxzzw.compiler.type.BaseType;
 

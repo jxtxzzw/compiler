@@ -1,4 +1,4 @@
-package com.jxtxzzw.compiler.st;
+package com.jxtxzzw.compiler.symboltable;
 
 import java.util.ArrayList;
 import java.util.HashMap;

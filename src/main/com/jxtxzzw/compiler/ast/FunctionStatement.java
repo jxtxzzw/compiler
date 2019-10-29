@@ -1,6 +1,6 @@
 package com.jxtxzzw.compiler.ast;
 
-import com.jxtxzzw.compiler.st.Function;
+import com.jxtxzzw.compiler.symboltable.Function;
 
 import java.util.ArrayList;
 

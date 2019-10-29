@@ -1,8 +1,7 @@
 package com.jxtxzzw.compiler.ast;
 
-import com.jxtxzzw.compiler.st.Function;
-import com.jxtxzzw.compiler.st.Symbol;
-import com.jxtxzzw.compiler.type.BaseType;
+import com.jxtxzzw.compiler.symboltable.Function;
+import com.jxtxzzw.compiler.symboltable.Symbol;
 
 public class FunctionCallExpression extends Expression {
 

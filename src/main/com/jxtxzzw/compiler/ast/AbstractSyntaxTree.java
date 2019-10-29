@@ -1,8 +1,8 @@
 package com.jxtxzzw.compiler.ast;
 
-import com.jxtxzzw.compiler.st.Function;
-import com.jxtxzzw.compiler.st.Symbol;
-import com.jxtxzzw.compiler.st.SymbolTable;
+import com.jxtxzzw.compiler.symboltable.Function;
+import com.jxtxzzw.compiler.symboltable.Symbol;
+import com.jxtxzzw.compiler.symboltable.SymbolTable;
 import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.tree.ParseTree;
 
@@ -18,7 +18,7 @@ public class AbstractSyntaxTree {
     public static Statement buildProgeam(ParseTree tree) throws Exception {
         // TODO: token validation + decide the switch
         tree = tree.getChild(0);
-        if (tree.getChild(1) instanceof Token && (((Token) tree.getChild(1)).getType() == CXLexer.SEMICOLON)) {
+        if (TokenJudgement.isTokenAndEqualTo(tree.getChild(1), CXLexer.SEMICOLON)) {
             return buildExpression(tree.getChild(0));
         } else {
             return buildFunctionStatement(tree);
@@ -27,11 +27,11 @@ public class AbstractSyntaxTree {
 
     // TODO extract this token judgement to a single method
     public static Statement buildStatement(ParseTree tree) throws Exception {
-        if (tree.getChildCount() == 1 && tree.getChild(0).getPayload() instanceof Token && ((Token)(tree.getChild(0).getPayload())).getType() == CXLexer.SEMICOLON) {
+        if (tree.getChildCount() == 1 && TokenJudgement.isTokenAndEqualTo(tree.getChild(0), CXLexer.SEMICOLON)) {
             return new Expression.EmptyStatement();
         }
-            if (tree.getChild(0).getPayload() instanceof Token && ((Token)(tree.getChild(0).getPayload())).getType() == CXLexer.WRITE) {
-           return buildWriteExpression(tree.getChild(1));
+        if (TokenJudgement.isTokenAndEqualTo(tree.getChild(0), CXLexer.WRITE)) {
+            return buildWriteExpression(tree.getChild(1));
         }
         return buildExpression(tree.getChild(0));
     }
@@ -39,14 +39,14 @@ public class AbstractSyntaxTree {
     private static Expression buildExpression(ParseTree tree) throws Exception {
         // TODO: token validation + decide the switch
         if (tree.getChildCount() == 3) {
-            if (!(tree.getChild(1).getPayload() instanceof Token)); // TODO exception here
-            Token token = (Token) tree.getChild(1).getPayload();
-            if (token.getType() == CXLexer.ASSIGN)
+            if (TokenJudgement.isTokenAndEqualTo(tree.getChild(1), CXLexer.ASSIGN)) {
                 return buildAssignmentExpression(tree);
-            else if (token.getType() == CXLexer.LEFTPARENTHESIS)
+            } else if (TokenJudgement.isTokenAndEqualTo(tree.getChild(1), CXLexer.LEFTPARENTHESIS)) {
                 return buildFunctionCallExpression(tree);
-            else
+            } else {
                 return buildArithmeticExpression(tree);
+
+            }
         } else if (tree.getChildCount() == 1) {
             return buildConstantExpression(tree);
         } else {
@@ -58,9 +58,12 @@ public class AbstractSyntaxTree {
     private static ArithmeticExpression buildArithmeticExpression(ParseTree tree) throws Exception {
         Expression leftExpression = buildExpression(tree.getChild(0));
         Expression rightExpression = buildExpression(tree.getChild(2));
-        if (!(tree.getChild(1).getPayload() instanceof Token)); // TODO exception here
-        Token token = (Token) tree.getChild(1).getPayload();
-        return new ArithmeticExpression(new Int(), leftExpression, rightExpression, token);
+        if (TokenJudgement.isToken(tree.getChild(1))) {
+            Token token = TokenJudgement.getToken(tree.getChild(1));
+            return new ArithmeticExpression(new Int(), leftExpression, rightExpression, token);
+        } else {
+            return null;
+        }
     }
 
     private static ConstantExpression buildConstantExpression(ParseTree tree) {
@@ -79,7 +82,7 @@ public class AbstractSyntaxTree {
     }
 
     private  static  FunctionCallExpression buildFunctionCallExpression(ParseTree tree) throws Exception {
-       // TODO
+        // TODO
         return null;
     }
 
