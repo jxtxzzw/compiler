@@ -93,3 +93,7 @@ typings/
 # Java Class
 *.class
 out/
+
+# temp files
+test.cx
+test.p
