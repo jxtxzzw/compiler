@@ -11,6 +11,7 @@ public class Program {
     private StringBuffer code = new StringBuffer();
 
     public void buildAbstractSyntaxTree(ParseTree tree) throws Exception {
+        tree = tree.getChild(0);
         for (int i = 0; i < tree.getChildCount(); i++) {
             statements.add(AbstractSyntaxTree.buildProgeam(tree.getChild(i)));
         }

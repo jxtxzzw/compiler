@@ -16,7 +16,6 @@ public class AbstractSyntaxTree {
     private static SymbolTable symbolTable = new SymbolTable();
 
     public static Statement buildProgeam(ParseTree tree) throws Exception {
-        tree = tree.getChild(0); // r->program
         if (TokenJudgement.isTokenAndEqualTo(tree.getChild(1), CXLexer.IDENTIFIER)) {
             return buildFunctionStatement(tree);
         }

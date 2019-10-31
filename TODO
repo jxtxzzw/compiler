@@ -1,4 +1,5 @@
-rearrange the AST entries
-
-
-// a short break
+1. function call
+2. function params
+3. if, for, while, repeat
+4. definition + assignment
+5.
