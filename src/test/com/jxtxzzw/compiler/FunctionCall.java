@@ -50,6 +50,8 @@ public class FunctionCall {
 
     @Test
     public void FunctionCallWithReturnValue() throws Exception {
-        assert true;
+        PmachineResultTest.prepareCode("FunctionCallWithReturnValue");
+        Compiler.main(null);
+        PmachineResultTest.checkAnswer("FunctionCallWithReturnValue");
     }
 }

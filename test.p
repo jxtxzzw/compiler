@@ -7,6 +7,10 @@ cup 0 main0
 hlt
 main0:
 ssp 7
+ldc i 0
+str i 0 5
+ldc i 0
+str i 0 6
 ldc i 5
 str i 0 5
 ldc i 15

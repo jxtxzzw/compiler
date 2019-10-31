@@ -1,8 +1,6 @@
 package com.jxtxzzw.compiler.ast;
 
 import com.jxtxzzw.compiler.symboltable.Function;
-import com.jxtxzzw.compiler.symboltable.FunctionParameter;
-import com.jxtxzzw.compiler.symboltable.Symbol;
 import com.jxtxzzw.compiler.symboltable.SymbolTable;
 import com.jxtxzzw.compiler.type.BaseType;
 import org.antlr.v4.runtime.Token;
@@ -34,7 +32,11 @@ public class AbstractSyntaxTree {
             return new EmptyStatement();
         }
         if (TokenJudgement.isTokenAndEqualTo(tree.getChild(0), CXLexer.RETURN)) {
-
+            if (TokenJudgement.isTokenAndEqualTo(tree.getChild(1), CXLexer.VOID)) {
+                return new EmptyStatement();
+            } else {
+                return buildReturnExpression(tree.getChild(1));
+            }
         }
         if (TokenJudgement.isTokenAndEqualTo(tree.getChild(1), CXLexer.SEMICOLON)) {
             return buildExpression(tree.getChild(0));
@@ -85,8 +87,7 @@ public class AbstractSyntaxTree {
                 return buildConstantExpression(tree);
             } else if (tree.getChild(0).getChildCount() == 2) {
                 if (TokenJudgement.isTokenAndEqualTo(tree.getChild(0).getChild(1), CXLexer.IDENTIFIER)) {
-                    buildDefinition(tree.getChild(0));
-                    return new EmptyExpression(new Int());
+                    return buildDefinition(tree.getChild(0));
                 }
             } else if (TokenJudgement.isTokenAndEqualTo(tree.getChild(0).getChild(0), CXLexer.IDENTIFIER)) {
                 return buildVariableExpression(tree.getChild(0).getChild(0));
@@ -176,17 +177,28 @@ public class AbstractSyntaxTree {
         return new WriteStatement(buildExpression(tree));
     }
 
-    public static void buildDefinition(ParseTree tree) throws Exception {
+    public static DefinitionInitializationExpression buildDefinition(ParseTree tree) throws Exception {
+        BaseType baseType = new Int();
+        DefinitionInitializationExpression list = new DefinitionInitializationExpression(baseType);
         for (int i = 0; i < tree.getChildCount(); i++) {
             if (TokenJudgement.isTokenAndEqualTo(tree.getChild(i), CXLexer.IDENTIFIER)) {
-                symbolTable.registerSymbol(tree.getChild(i).getText(), new Int());
+                String identifier = tree.getChild(i).getText();
+                symbolTable.registerSymbol(identifier, new Int());
+                // int y; y = f(); 由于 y 没有初值，P-machine 不知道这是 int，会爆 instruction str: element you are trying to access is not of type integer.
+                VariableExpression variableExpression = new VariableExpression(symbolTable.getSymbol(identifier));
+                list.append(variableExpression);
             }
         }
+        return list;
     }
 
     public static VariableExpression buildVariableExpression(ParseTree tree) throws Exception {
         String identifier = tree.getText();
         return new VariableExpression(symbolTable.getSymbol(identifier));
+    }
+
+    private static ReturnExpression buildReturnExpression(ParseTree tree) throws Exception {
+        return new ReturnExpression(buildExpression(tree));
     }
 
 

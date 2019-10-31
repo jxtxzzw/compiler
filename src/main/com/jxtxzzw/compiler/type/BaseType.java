@@ -1,27 +1,32 @@
 package com.jxtxzzw.compiler.type;
 
+import com.jxtxzzw.compiler.ast.Expression;
+import com.jxtxzzw.compiler.ast.Statement;
+
 import java.util.Objects;
 
 public class BaseType {
     private String name;
     private String code;
     private int size;
+    private int defaultValue;
 
-    public BaseType(String name, String code, int size) {
+    public BaseType(String name, String code, int size, int defaultValue) {
         this.name = name;
         this.code = code;
         this.size = size;
+        this.defaultValue = defaultValue;
     }
 
     public String getCode() {
         return code;
     }
 
-    public String getName() {
-        return name;
-    }
-
     public int getSize() { return size; }
+
+    public int getDefaultValue() {
+        return defaultValue;
+    }
 
     @Override
     public boolean equals(Object o) {

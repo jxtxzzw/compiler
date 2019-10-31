@@ -1,0 +1,11 @@
+int f(int x) {
+    write x;
+    x = x + 1;
+    write x;
+    return x + 1;
+}
+int main() {
+    int x;
+    x = f(1);
+    write x;
+}
