@@ -20,6 +20,7 @@ public class Program {
 
     private void generateCode() {
         code.append("mst 0\n").append("cup 0 init\n").append("init:\n").append("ssp 5\n").append("mst 0\n").append("cup 0 main0\n").append("hlt\n");
+//        System.out.println(statements.get(0));
         for (Statement statement : statements) {
             code.append(statement.compile());
         }

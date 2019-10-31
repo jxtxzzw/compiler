@@ -37,7 +37,7 @@ public class ArithmeticExpression extends Expression {
                 code += "div i\n";
                 break;
             default:
-                System.out.println(token.getType());
+//                System.out.println(token.getType());
                 // TODO: throw exception here
         }
         return code;

@@ -3,7 +3,7 @@ package com.jxtxzzw.compiler.symboltable;
 import com.jxtxzzw.compiler.type.BaseType;
 
 public class Symbol {
-    private final int BASE_ADDRESS = 3;
+    private final int BASE_ADDRESS = 0;
 
     private String identifier;
     private BaseType beseType;

@@ -7,7 +7,7 @@ class PmachineResultTest {
     private static final String DIR = "./src/test/resources/";
 
     public static void prepareCode(String fileName) throws Exception {
-        fileName = DIR + fileName + ".in";
+        fileName = DIR + fileName + ".cx";
         BufferedReader br = new BufferedReader(new FileReader(new File(fileName)));
         StringBuilder code = new StringBuilder();
         String s;

@@ -32,8 +32,19 @@ public class SimpleAssignment {
      * Method: main(String[] args)
      */
     @Test
-    public void testMain() throws Exception {
-        assert true;
+    public void SimpleVar() throws Exception {
+        PmachineResultTest.prepareCode("SimpleVar");
+        Compiler.main(null);
+        PmachineResultTest.checkAnswer("SimpleVar");
     }
+
+    @Test
+    public void SimpleVarDefAndExpr() throws Exception {
+        PmachineResultTest.prepareCode("SimpleVarDefAndExpr");
+        Compiler.main(null);
+        PmachineResultTest.checkAnswer("SimpleVarDefAndExpr");
+    }
+
+
 
 }

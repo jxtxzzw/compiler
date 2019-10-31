@@ -12,21 +12,22 @@ statement
 | WHILE LEFTPARENTHESIS expression RIGHTPARENTHESIS statement
 | FOR LEFTPARENTHESIS expression? SEMICOLON expression? SEMICOLON expression? RIGHTPARENTHESIS statement
 | WRITE expression
+| variable ASSIGN expression
 ;
 // TODO break and continue
 
 expression
 : TRUE | FALSE | NUMBER
-| variable ASSIGN expression
 | variable
 | basetype IDENTIFIER (COMMA IDENTIFIER(ASSIGN expression)?)*
-| (MINUS|NOT) expression|variable
+| (MINUS|NOT) expression|IDENTIFIER
 | LEFTPARENTHESIS expression RIGHTPARENTHESIS
 | expression (EQUAL|NOTEQUAL|GREATERTHAN|LESSTHAN|GREATERTHANOREQUAL|LESSTHANOREQUAL) expression
 | expression (AND|OR) expression
-| variable (PLUS PLUS|MINUS MINUS)
+| IDENTIFIER (PLUS PLUS|MINUS MINUS)
 | expression (MUL|DIV) expression
 | expression (PLUS|MINUS) expression
+| IDENTIFIER ASSIGN expression
 ;
 // TODO function call expression
 

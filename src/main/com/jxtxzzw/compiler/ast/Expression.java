@@ -15,11 +15,5 @@ abstract class Expression implements Statement {
         return baseType;
     }
 
-    public static class EmptyStatement implements Statement {
 
-        @Override
-        public String compile() {
-            return "";
-        }
-    }
 }

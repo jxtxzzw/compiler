@@ -1,0 +1,18 @@
+int main() {
+int x;
+x = 1 + 2 + 3;
+int y;
+int z;
+y = x;
+z = x - 4;
+write z;
+write x;
+write y;
+int a;
+int b;
+int c;
+x = 123;
+y = 456;
+z = x + y;
+write z;
+}

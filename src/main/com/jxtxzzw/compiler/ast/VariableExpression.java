@@ -15,6 +15,7 @@ public class VariableExpression extends Expression {
 
     @Override
     public String compile() {
-        return null;
+        String code = "lod " + symbol.getBeseType().getCode() + " 0 " + symbol.getAddress() + "\n";
+        return code;
     }
 }
