@@ -28,6 +28,7 @@ expression
 | expression (MUL|DIV) expression
 | expression (PLUS|MINUS) expression
 | IDENTIFIER ASSIGN expression
+| IDENTIFIER LEFTPARENTHESIS (expression (COMMA expression)*)? RIGHTPARENTHESIS
 ;
 // TODO function call expression
 

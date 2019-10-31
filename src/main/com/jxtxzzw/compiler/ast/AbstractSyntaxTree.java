@@ -1,8 +1,10 @@
 package com.jxtxzzw.compiler.ast;
 
 import com.jxtxzzw.compiler.symboltable.Function;
+import com.jxtxzzw.compiler.symboltable.FunctionParameter;
 import com.jxtxzzw.compiler.symboltable.Symbol;
 import com.jxtxzzw.compiler.symboltable.SymbolTable;
+import com.jxtxzzw.compiler.type.BaseType;
 import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.tree.ParseTree;
 
@@ -15,12 +17,15 @@ public class AbstractSyntaxTree {
 
     private static SymbolTable symbolTable = new SymbolTable();
 
-    public static Statement buildProgeam(ParseTree tree) throws Exception {
-        if (TokenJudgement.isTokenAndEqualTo(tree.getChild(1), CXLexer.IDENTIFIER)) {
-            return buildFunctionStatement(tree);
+    public static ArrayList<Statement> buildProgeam(ParseTree tree) throws Exception {
+        ArrayList<Statement> statements = new ArrayList<>();
+        for (int i = 0; i < tree.getChildCount(); i++) {
+            if (TokenJudgement.isTokenAndEqualTo(tree.getChild(i).getChild(1), CXLexer.IDENTIFIER)) {
+                statements.add(buildFunctionStatement(tree.getChild(i)));
+            }
         }
+        return statements;
         // TODO for/while ...
-        throw new Exception();
     }
 
     // TODO extract this token judgement to a single method
@@ -57,6 +62,14 @@ public class AbstractSyntaxTree {
 
     private static Expression buildExpression(ParseTree tree) throws Exception {
         // TODO: token validation + decide the switch
+        if (tree.getChildCount() >= 3) {
+            if (TokenJudgement.isTokenAndEqualTo(tree.getChild(0), CXLexer.IDENTIFIER)
+                    && (TokenJudgement.isTokenAndEqualTo(tree.getChild(1), CXLexer.LEFTPARENTHESIS))
+                    && (TokenJudgement.isTokenAndEqualTo(tree.getChild(tree.getChildCount() - 1), CXLexer.RIGHTPARENTHESIS))
+            ) {
+                return buildFunctionCallExpression(tree);
+            }
+        }
         if (tree.getChildCount() == 3) {
             if (TokenJudgement.isTokenAndEqualTo(tree.getChild(1), CXLexer.ASSIGN)) {
                 return buildAssignmentExpression(tree);
@@ -108,15 +121,42 @@ public class AbstractSyntaxTree {
     }
 
     private  static  FunctionCallExpression buildFunctionCallExpression(ParseTree tree) throws Exception {
-        // TODO
-        return null;
+        String identifier = tree.getChild(0).getText();
+        ArrayList<Expression> parameters = new ArrayList<>();
+        ArrayList<BaseType> parameterTypes = new ArrayList<>();
+        for (int i = 2; i < tree.getChildCount(); i++) {
+            if (TokenJudgement.isTokenAndEqualTo(tree.getChild(i), CXLexer.RIGHTPARENTHESIS)) {
+                break;
+            }
+            if (!TokenJudgement.isTokenAndEqualTo(tree.getChild(i), CXLexer.COMMA)) {
+                Expression expression = buildExpression(tree.getChild(i));
+                parameters.add(expression);
+                parameterTypes.add(expression.getBaseType());
+            }
+        }
+        Function function = symbolTable.getFunction(identifier, parameterTypes);
+        return new FunctionCallExpression(function, parameters);
     }
 
     private static Statement buildFunctionStatement(ParseTree tree) throws Exception {
+        BaseType returnType = new Int(); // TODO get return type from child 0
         String identifier = tree.getChild(1).getText();
-        ArrayList<Symbol> parameters = new ArrayList<>();
-        symbolTable.registerFunction(identifier, new Int(), parameters); // TODO
-        Function function = symbolTable.getFunction(identifier, parameters);
+        ArrayList<BaseType> parameterTypes = new ArrayList<>();
+        ArrayList<String> parameters = new ArrayList<>();
+        for (int i = 3; i < tree.getChildCount(); i++) {
+            if (TokenJudgement.isTokenAndEqualTo(tree.getChild(i), CXLexer.RIGHTPARENTHESIS)) {
+                break;
+            } else if (!TokenJudgement.isTokenAndEqualTo(tree.getChild(i), CXLexer.COMMA)) {
+                String type = tree.getChild(i).getChild(0).getText();
+                BaseType baseType= new Int(); // get BaseType from type
+                parameterTypes.add(baseType);
+                i++;
+                String parameter = tree.getChild(i).getText();
+                parameters.add(parameter);
+            }
+        }
+        symbolTable.registerFunction(identifier, returnType, parameterTypes, parameters); // TODO
+        Function function = symbolTable.getFunction(identifier, parameterTypes);
         ArrayList<Statement> statements = new ArrayList<>();
         symbolTable.openFunction(function);
         int index = 0;
@@ -125,13 +165,11 @@ public class AbstractSyntaxTree {
         }
         index++;
         while (!(tree.getChild(index).getPayload() instanceof Token) || ((Token)(tree.getChild(index).getPayload())).getType() != CXLexer.RIGHTBRACE) {
-//            System.out.println(tree.getChild(index).getText());
             statements.add(buildStatement(tree.getChild(index)));
             index++;
         }
         symbolTable.closeFunction(function);
         return new FunctionStatement(function, statements);
-        // TODO parameters: new P(identifier, basetype), for now, the list is empty
     }
 
     public static Statement buildWriteExpression(ParseTree tree) throws Exception {

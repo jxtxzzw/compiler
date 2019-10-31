@@ -2,7 +2,7 @@ package com.jxtxzzw.compiler.ast;
 
 import com.jxtxzzw.compiler.type.BaseType;
 
-abstract class Expression implements Statement {
+public abstract class Expression implements Statement {
 
     private BaseType baseType;
 

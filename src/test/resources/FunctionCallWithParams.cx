@@ -1,0 +1,10 @@
+int f(int x) {
+    x = x + 1;
+    write x;
+}
+int main() {
+    f(5);
+    int a;
+    a = 10;
+    f(a);
+}

@@ -1,5 +1,7 @@
 package com.jxtxzzw.compiler.symboltable;
 
+import com.jxtxzzw.compiler.type.BaseType;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -11,21 +13,22 @@ public class Scope {
     private int functionScopeAddress;
     private ArrayList<Function> functions = new ArrayList<>();
 
-    public Scope(Scope parent, int functionScopeAddress) {
+    Scope(Scope parent, int functionScopeAddress) {
         this.parent = parent;
         this.functionScopeAddress = functionScopeAddress;
     }
 
-    private int level() {
-        int level = 0;
-        while (parent != null) {
-            level++;
-            parent = parent.parent;
-        }
-        return level;
-    }
+//    private int level() {
+//        int level = 0;
+//        Scope current = this;
+//        while (current.parent != null) {
+//            level++;
+//            current = current.parent;
+//        }
+//        return level;
+//    }
 
-    public Scope openScope(int functionScopeAddress) {
+    Scope openScope(int functionScopeAddress) {
         Scope scope = new Scope(this, functionScopeAddress);
         scopes.add(scope);
         return scope;
@@ -66,17 +69,16 @@ public class Scope {
 
     public void addFunction(Function function) {
         functions.add(function);
-
     }
 
-    public Function getFunction(String identifier, ArrayList<Symbol> parameters) {
+    public Function getFunction(String identifier, ArrayList<BaseType> parameterTypes) {
         for (Function function: functions) {
             if (function.getIdentifier().equals(identifier)) {
-                if (function.getParameters().size() == parameters.size()) {
-                    int size = parameters.size();
+                if (function.getParameterTypes().size() == parameterTypes.size()) {
+                    int size = parameterTypes.size();
                     int i = 0;
                     for (; i < size; i++) {
-                        if (!function.getParameters().get(i).getBeseType().equals(parameters.get(i).getBeseType())){
+                        if (!function.getParameterTypes().get(i).equals(parameterTypes.get(i))){
                             break;
                         }
                     }
@@ -89,18 +91,20 @@ public class Scope {
         return null;
     }
 
-    public boolean containsFunction(String identifier, ArrayList<Symbol> parameters) {
-        return getFunction(identifier, parameters) != null;
+    public boolean containsFunction(String identifier, ArrayList<BaseType> parameterTypes) {
+        return getFunction(identifier, parameterTypes) != null;
     }
 
 
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder("level: " + level() + "\n");
-        for (Symbol symbol : symbols.values()) {
-            sb.append(symbol.getIdentifier()).append(":").append(symbol.getBeseType().getName()).append("\n");
-        }
+        StringBuilder sb = new StringBuilder();
+//        for (int i = 0; i < level(); i++) {
+//            sb.append(" ");
+//        }
+        sb.append(functions);
+        sb.append("\n");
         return sb.toString();
     }
 }

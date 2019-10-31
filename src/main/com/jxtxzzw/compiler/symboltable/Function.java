@@ -10,7 +10,8 @@ public class Function {
     public static final int PRE_OCCUPIED = 5;
     private String identifier;
     private BaseType returnType;
-    private ArrayList<Symbol> parameters = new ArrayList<>();
+    private ArrayList<BaseType> parameterTypes;
+    private ArrayList<String> parameters;
     private String label;
     private int staticSize;
 
@@ -26,23 +27,24 @@ public class Function {
         return label;
     }
 
-    public Function(String identifier, BaseType returnType, ArrayList<Symbol> parameters, String label) {
+    public Function(String identifier, BaseType returnType, ArrayList<BaseType> parameterTypes, ArrayList<String> parameters, String label) {
         this.identifier = identifier;
         this.returnType = returnType;
+        this.parameterTypes = parameterTypes;
         this.parameters = parameters;
         this.label = label;
     }
 
+    public ArrayList<BaseType> getParameterTypes() {
+        return parameterTypes;
+    }
+
+    public ArrayList<String> getParameters() {
+        return parameters;
+    }
+
     public void setStaticSize(int staticSize) {
         this.staticSize = staticSize;
-    }
-
-    public void setParameters(ArrayList<Symbol> parameters) {
-        this.parameters = parameters;
-    }
-
-    public ArrayList<Symbol> getParameters() {
-        return parameters;
     }
 
     public int getSize() {
@@ -51,8 +53,8 @@ public class Function {
 
     public int getParameterSize() {
         int size = 0;
-        for (Symbol symbol: parameters) {
-            size += symbol.getBeseType().getSize();
+        for (BaseType baseType: parameterTypes) {
+            size += baseType.getSize();
         }
         return size;
     }

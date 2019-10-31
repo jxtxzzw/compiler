@@ -33,4 +33,23 @@ public class FunctionCall {
         Compiler.main(null);
         PmachineResultTest.checkAnswer("UnusedFunction");
     }
+
+    @Test
+    public void FunctionCallWithNoParams() throws Exception {
+        PmachineResultTest.prepareCode("FunctionCallWithNoParams");
+        Compiler.main(null);
+        PmachineResultTest.checkAnswer("FunctionCallWithNoParams");
+    }
+
+    @Test
+    public void FunctionCallWithParams() throws Exception {
+        PmachineResultTest.prepareCode("FunctionCallWithParams");
+        Compiler.main(null);
+        PmachineResultTest.checkAnswer("FunctionCallWithParams");
+    }
+
+    @Test
+    public void FunctionCallWithReturnValue() throws Exception {
+        assert true;
+    }
 }
