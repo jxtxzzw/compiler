@@ -3,6 +3,6 @@ int x;
 int y;
 x = 5;
 y = 15;
-write x;
-write y;
+writeln x;
+writeln y;
 }

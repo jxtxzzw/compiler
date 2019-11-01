@@ -1,6 +1,6 @@
 int f(int x) {
     x = x + 1;
-    write x;
+    writeln x;
 }
 int main() {
     f(5);

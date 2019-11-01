@@ -1,15 +1,15 @@
 int f() {
 int x;
 x = 3 + 4;
-write x;
+writeln x;
 }
 int main() {
 int x;
 x = 5 + 6;
-write x;
+writeln x;
 }
 int g() {
 int x;
 x = 7 + 8;
-write x;
+writeln x;
 }

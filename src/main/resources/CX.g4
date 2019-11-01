@@ -12,6 +12,7 @@ statement
 | WHILE LEFTPARENTHESIS expression RIGHTPARENTHESIS statement
 | FOR LEFTPARENTHESIS expression? SEMICOLON expression? SEMICOLON expression? RIGHTPARENTHESIS statement
 | WRITE expression
+| WRITELN expression
 | variable ASSIGN expression
 ;
 // TODO break and continue
@@ -50,6 +51,7 @@ WHITESPACE: (' '|'\t')+ -> skip;
 NEWLINE: '\r'? '\n' -> skip;
 
 WRITE: 'write';
+WRITELN: 'writeln';
 INT: 'int';
 BOOLEAN: 'bool';
 LEFTBRACE: '{';

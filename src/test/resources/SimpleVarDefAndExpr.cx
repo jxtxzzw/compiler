@@ -5,14 +5,14 @@ int y;
 int z;
 y = x;
 z = x - 4;
-write z;
-write x;
-write y;
+writeln z;
+writeln x;
+writeln y;
 int a;
 int b;
 int c;
 x = 123;
 y = 456;
 z = x + y;
-write z;
+writeln z;
 }

@@ -1,9 +1,9 @@
 int main() {
-    write 1;
+    writeln 1;
     // inline comment should be ignored
-    // write 2;
+    // writeln 2;
     /* comment should be ingored */
-    /* write 3; */
-    write 4; // comment
-    write /* comment */ 5 ;
+    /* writeln 3; */
+    writeln 4; // comment
+    writeln /* comment */ 5 ;
 }
