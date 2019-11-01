@@ -42,9 +42,9 @@ null
 
 token symbolic names:
 null
+COMMENT
 WHITESPACE
 NEWLINE
-COMMENT
 WRITE
 INT
 BOOLEAN

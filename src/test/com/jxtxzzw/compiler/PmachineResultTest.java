@@ -13,6 +13,7 @@ class PmachineResultTest {
         String s;
         while ((s = br.readLine()) != null) {
             code.append(s);
+            code.append("\n");
         }
         cx(code.toString());
     }
@@ -24,6 +25,7 @@ class PmachineResultTest {
         String s;
         while ((s = br.readLine()) != null) {
             answer.append(s);
+            answer.append("\n");
         }
         assert p(answer.toString());
     }
@@ -41,6 +43,7 @@ class PmachineResultTest {
         String s;
         while ((s = br.readLine()) != null) {
             sb.append(s);
+            sb.append("\n");
         }
         s = sb.toString();
         return s.contains("--> Execution time: ") && s.contains(expected);

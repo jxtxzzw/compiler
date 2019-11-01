@@ -17,7 +17,7 @@ public class CXParser extends Parser {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		WHITESPACE=1, NEWLINE=2, COMMENT=3, WRITE=4, INT=5, BOOLEAN=6, LEFTBRACE=7, 
+		COMMENT=1, WHITESPACE=2, NEWLINE=3, WRITE=4, INT=5, BOOLEAN=6, LEFTBRACE=7, 
 		RIGHTBRACE=8, VOID=9, RETURN=10, SEMICOLON=11, IF=12, LEFTPARENTHESIS=13, 
 		RIGHTPARENTHESIS=14, ELSE=15, WHILE=16, FOR=17, TRUE=18, FALSE=19, ASSIGN=20, 
 		PLUS=21, MINUS=22, MUL=23, DIV=24, EQUAL=25, NOTEQUAL=26, LESSTHAN=27, 
@@ -46,7 +46,7 @@ public class CXParser extends Parser {
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
 	private static String[] makeSymbolicNames() {
 		return new String[] {
-			null, "WHITESPACE", "NEWLINE", "COMMENT", "WRITE", "INT", "BOOLEAN", 
+			null, "COMMENT", "WHITESPACE", "NEWLINE", "WRITE", "INT", "BOOLEAN", 
 			"LEFTBRACE", "RIGHTBRACE", "VOID", "RETURN", "SEMICOLON", "IF", "LEFTPARENTHESIS", 
 			"RIGHTPARENTHESIS", "ELSE", "WHILE", "FOR", "TRUE", "FALSE", "ASSIGN", 
 			"PLUS", "MINUS", "MUL", "DIV", "EQUAL", "NOTEQUAL", "LESSTHAN", "GREATERTHAN", 

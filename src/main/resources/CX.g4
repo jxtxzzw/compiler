@@ -41,12 +41,13 @@ variable
 
 basetype: INT | VOID;
 
-WHITESPACE: (' '|'\t')+ -> skip;
-NEWLINE: '\r'? '\n' -> skip;
 COMMENT
 : (BEGININLINECOMMENT .*? NEWLINE
 | BEGINCOMMENT .*? ENDCOMMENT) -> skip
 ;
+
+WHITESPACE: (' '|'\t')+ -> skip;
+NEWLINE: '\r'? '\n' -> skip;
 
 WRITE: 'write';
 INT: 'int';
