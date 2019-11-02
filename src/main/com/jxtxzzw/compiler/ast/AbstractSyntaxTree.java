@@ -85,7 +85,15 @@ public class AbstractSyntaxTree {
             } else if (TokenJudgement.isTokenAndEqualTo(tree.getChild(1), CXLexer.LEFTPARENTHESIS)) {
                 return buildFunctionCallExpression(tree);
             } else {
-                return buildArithmeticExpression(tree);
+                final int[] COMPARISON = {CXLexer.EQUAL, CXLexer.NOTEQUAL, CXLexer.GREATERTHAN, CXLexer.LESSTHAN, CXLexer.GREATERTHANOREQUAL, CXLexer.LESSTHANOREQUAL};
+                final int[] LOGIC = {CXLexer.AND, CXLexer.OR};
+                if (TokenJudgement.isTokenAndEqualTo(tree.getChild(1), COMPARISON)) {
+                    return buildComparisonExpression(tree);
+                } else if (TokenJudgement.isTokenAndEqualTo(tree.getChild(1), LOGIC)) {
+                    return buildLogicExpression(tree);
+                } else {
+                    return buildArithmeticExpression(tree);
+                }
             }
         } else if (tree.getChildCount() == 1) {
             if (TokenJudgement.isTokenAndEqualTo(tree.getChild(0), CXLexer.IDENTIFIER)) {
@@ -130,6 +138,22 @@ public class AbstractSyntaxTree {
             return null;
         }
     }
+
+    private static ComparisonExpression buildComparisonExpression(ParseTree tree) throws Exception {
+        Expression leftExpression = buildExpression(tree.getChild(0));
+        Expression rightExpression = buildExpression(tree.getChild(2));
+        Token token = TokenJudgement.getToken(tree.getChild(1));
+        return new ComparisonExpression(leftExpression, rightExpression, token);
+    }
+
+    private static LogicExpression buildLogicExpression(ParseTree tree) throws Exception {
+        Expression leftExpression = buildExpression(tree.getChild(0));
+        Expression rightExpression = buildExpression(tree.getChild(2));
+        Token token = TokenJudgement.getToken(tree.getChild(1));
+        return new LogicExpression(leftExpression, rightExpression, token);
+
+    }
+
 
     private static ConstantExpression buildConstantExpression(ParseTree tree) {
         return new ConstantExpression(new Int(), tree);
@@ -228,6 +252,7 @@ public class AbstractSyntaxTree {
     private static ReturnExpression buildReturnExpression(ParseTree tree) throws Exception {
         return new ReturnExpression(buildExpression(tree));
     }
+
 
 
 

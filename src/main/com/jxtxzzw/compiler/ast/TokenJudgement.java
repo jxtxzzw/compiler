@@ -25,6 +25,15 @@ public class TokenJudgement {
         return isEqualTo(token, type);
     }
 
+    public static boolean isTokenAndEqualTo(ParseTree tree, int[] types) {
+        for (int i: types) {
+            if (isTokenAndEqualTo(tree, i)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
 
 
