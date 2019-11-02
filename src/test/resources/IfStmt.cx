@@ -1,0 +1,23 @@
+int main() {
+    if (true) {
+        write 100;
+    }
+    if (false) {
+        write 200;
+    }
+    if (true) {
+        write 300;
+        if (true) {
+            write 400;
+            if (false) {
+                write 500;
+                if (true) {
+                    write 600;
+                }
+            }
+            if (true) {
+                write 700;
+            }
+        }
+    }
+}

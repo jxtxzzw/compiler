@@ -1,0 +1,12 @@
+int main() {
+    write 1;
+    if (true);
+    write 2;
+    if (false);
+    write 3;
+    if (true)
+        write 4;
+    if (false)
+        write 5;
+    write 6;
+}

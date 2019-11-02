@@ -1,0 +1,38 @@
+int main() {
+    if (true) {
+        writeln 100;
+    } else {
+        writeln 200;
+    }
+    if (false) {
+        writeln 300;
+    } else {
+        writeln 400;
+    }
+
+    if (false) {
+
+    } else {
+        writeln 100;
+    }
+
+    if (true) {
+        if (false) {
+            writeln 1;
+        } else {
+            if (true) {
+                writeln 3;
+            } else {
+                writeln 2;
+            }
+        }
+    } else {
+        writeln 4;
+    }
+    writeln 111;
+
+
+
+
+
+}

@@ -42,10 +42,14 @@ public class AbstractSyntaxTree {
             return buildExpression(tree.getChild(0));
         }
         if (TokenJudgement.isTokenAndEqualTo(tree.getChild(0), CXLexer.IF)) {
-
+            return buildIfElse(tree);
         }
         if (TokenJudgement.isTokenAndEqualTo(tree.getChild(0), CXLexer.LEFTBRACE)) {
-
+            CompoundStatement statements = new CompoundStatement();
+            for (int i = 1; i < tree.getChildCount() - 1; i++) {
+                statements.append(buildStatement(tree.getChild(i)));
+            }
+            return statements;
         }
         if (TokenJudgement.isTokenAndEqualTo(tree.getChild(0), CXLexer.WHILE)) {
 
@@ -88,6 +92,10 @@ public class AbstractSyntaxTree {
                 return buildVariableExpression(tree.getChild(0));
             } else if (TokenJudgement.isTokenAndEqualTo(tree.getChild(0), CXLexer.NUMBER)) {
                 return buildConstantExpression(tree);
+            } else if (TokenJudgement.isTokenAndEqualTo(tree.getChild(0), CXLexer.TRUE)) {
+                return buildBooleanExpression(true);
+            } else if (TokenJudgement.isTokenAndEqualTo(tree.getChild(0), CXLexer.FALSE)) {
+                return buildBooleanExpression(false);
             } else if (tree.getChild(0).getChildCount() == 2) {
                 if (TokenJudgement.isTokenAndEqualTo(tree.getChild(0).getChild(1), CXLexer.IDENTIFIER)) {
                     return buildDefinition(tree.getChild(0));
@@ -100,6 +108,16 @@ public class AbstractSyntaxTree {
 
         }
         return null;
+    }
+
+    private static IfElseStatement buildIfElse(ParseTree tree) throws Exception {
+        Expression condition = buildExpression(tree.getChild(2));
+        Statement thenStatement = tree.getChildCount() > 4 ? buildStatement(tree.getChild(4)) : null;
+        Statement elseStatement = tree.getChildCount() > 6 ? buildStatement(tree.getChild(6)) : null;
+        String endElseLabel = symbolTable.generateLabel("ifelse");
+        String endIfLabel = symbolTable.generateLabel("ifelse");
+        return new IfElseStatement(condition, thenStatement, elseStatement, endElseLabel, endIfLabel);
+
     }
 
     private static ArithmeticExpression buildArithmeticExpression(ParseTree tree) throws Exception {
@@ -115,6 +133,10 @@ public class AbstractSyntaxTree {
 
     private static ConstantExpression buildConstantExpression(ParseTree tree) {
         return new ConstantExpression(new Int(), tree);
+    }
+
+    private static BooleanExpression buildBooleanExpression(boolean b) {
+        return new BooleanExpression(b);
     }
 
     private static AssignmentExpression buildAssignmentExpression(ParseTree tree) throws Exception {
