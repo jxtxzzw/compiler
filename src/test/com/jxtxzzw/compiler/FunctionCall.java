@@ -54,4 +54,11 @@ public class FunctionCall {
         Compiler.main(null);
         PmachineResultTest.checkAnswer("FunctionCallWithReturnValue");
     }
+
+    @Test
+    public void RecursivelyCall() throws Exception {
+        PmachineResultTest.prepareCode("RecursivelyCall");
+        Compiler.main(null);
+        PmachineResultTest.checkAnswer("RecursivelyCall");
+    }
 }
