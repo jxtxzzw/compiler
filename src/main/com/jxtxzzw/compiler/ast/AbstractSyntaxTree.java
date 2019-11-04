@@ -3,12 +3,14 @@ package com.jxtxzzw.compiler.ast;
 import com.jxtxzzw.compiler.symboltable.Function;
 import com.jxtxzzw.compiler.symboltable.SymbolTable;
 import com.jxtxzzw.compiler.type.BaseType;
+import com.jxtxzzw.compiler.type.Void;
 import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.tree.ParseTree;
 
 import com.jxtxzzw.compiler.type.Int;
 import resources.CXLexer;
 
+import javax.swing.plaf.nimbus.State;
 import java.util.ArrayList;
 
 public class AbstractSyntaxTree {
@@ -26,6 +28,9 @@ public class AbstractSyntaxTree {
     }
 
     public static Statement buildStatement(ParseTree tree) throws Exception {
+        if (TokenJudgement.isTokenAndEqualTo(tree.getChild(0), CXLexer.SEMICOLON)) {
+            return new EmptyStatement();
+        }
         if (TokenJudgement.isTokenAndEqualTo(tree.getChild(0), CXLexer.RETURN)) {
             if (TokenJudgement.isTokenAndEqualTo(tree.getChild(1), CXLexer.VOID)) {
                 return new EmptyStatement();
@@ -33,7 +38,6 @@ public class AbstractSyntaxTree {
                 return buildReturnExpression(tree.getChild(1));
             }
         }
-
         if (TokenJudgement.isTokenAndEqualTo(tree.getChild(0), CXLexer.WRITE)) {
             return buildWriteExpression(tree.getChild(1));
         }
@@ -58,13 +62,16 @@ public class AbstractSyntaxTree {
             return statements;
         }
         if (TokenJudgement.isTokenAndEqualTo(tree.getChild(0), CXLexer.WHILE)) {
-
+            return buildWhileStatement(tree);
         }
         if (TokenJudgement.isTokenAndEqualTo(tree.getChild(0), CXLexer.FOR)) {
-
+            return buildForStatement(tree);
         }
         if (TokenJudgement.isTokenAndEqualTo(tree.getChild(0), CXLexer.DO)) {
-
+            return buildDoWhileStatement(tree);
+        }
+        if (TokenJudgement.isTokenAndEqualTo(tree.getChild(0), CXLexer.REPEAT)) {
+            return buildRepeatUntilStatement(tree);
         }
         if (TokenJudgement.isTokenAndEqualTo(tree.getChild(0), CXLexer.SEMICOLON)) {
             return new EmptyStatement();
@@ -72,7 +79,65 @@ public class AbstractSyntaxTree {
         throw new Exception();
     }
 
+    private static Statement buildWhileStatement(ParseTree tree) throws Exception {
+        Expression condition = buildExpression(tree.getChild(2));
+        Statement statement = buildStatement(tree.getChild(4));
+        String beginLoopLabel = symbolTable.generateLoopLabel();
+        String endLoopLabel = symbolTable.generateLoopLabel();
+        return new WhileStatement(condition, false, statement, beginLoopLabel, endLoopLabel);
+    }
+
+    private static Statement buildForStatement(ParseTree tree) throws Exception {
+        ParseTree[] expressionTree = new ParseTree[3];
+        int cursor = 0;
+        for (int i = 2; i < tree.getChildCount(); i++) {
+            if (TokenJudgement.isTokenAndEqualTo(tree.getChild(i), CXLexer.RIGHTPARENTHESIS)) {
+                break;
+            } else if (TokenJudgement.isTokenAndEqualTo(tree.getChild(i), CXLexer.SEMICOLON)) {
+                cursor++;
+            } else {
+                expressionTree[cursor] = tree.getChild(i);
+            }
+        }
+        Expression initialize = buildExpression(expressionTree[0]);
+        Expression condition = buildExpression(expressionTree[1]);
+        Expression step = buildExpression(expressionTree[2]);
+
+        Statement statement = buildStatement(tree.getChild(tree.getChildCount() - 1));
+        CompoundStatement loopBody = new CompoundStatement();
+        loopBody.append(statement);
+        loopBody.append(step);
+
+        String beginLoopLabel = symbolTable.generateLoopLabel();
+        String endLoopLabel = symbolTable.generateLoopLabel();
+
+        Statement whileLoop = new WhileStatement(condition, false, loopBody, beginLoopLabel, endLoopLabel);
+
+        CompoundStatement forLoop = new CompoundStatement();
+        forLoop.append(initialize);
+        forLoop.append(whileLoop);
+        return forLoop;
+    }
+
+    private static Statement buildDoWhileStatement(ParseTree tree) throws Exception {
+        Expression condition = buildExpression(tree.getChild(4));
+        Statement statement = buildStatement(tree.getChild(1));
+        String beginLoopLabel = symbolTable.generateLoopLabel();
+        String endLoopLabel = symbolTable.generateLoopLabel();
+        return new WhileStatement(condition, false, statement, beginLoopLabel, endLoopLabel);
+    }
+
+    private static Statement buildRepeatUntilStatement(ParseTree tree) throws Exception {
+        Expression condition = buildExpression(tree.getChild(4));
+        Statement statement = buildStatement(tree.getChild(1));
+        String beginLoopLabel = symbolTable.generateLoopLabel();
+        String endLoopLabel = symbolTable.generateLoopLabel();
+        return new WhileStatement(condition, true, statement, beginLoopLabel, endLoopLabel);
+    }
+
     private static Expression buildExpression(ParseTree tree) throws Exception {
+        if (tree == null)
+            return new EmptyExpression(new Void());
         return buildAssignmentExpression(tree.getChild(0));
     }
 
@@ -175,6 +240,8 @@ public class AbstractSyntaxTree {
         final int[] TOKEN_SET = { CXLexer.PLUSPLUS, CXLexer.MINUSMINUS};
         if (TokenJudgement.isTokenAndEqualTo(tree.getChild(1), TOKEN_SET)) {
             return new SelfIncrementExpression(buildPostfixExpression(tree.getChild(0)), TokenJudgement.getToken(tree.getChild(1)));
+        } else if (TokenJudgement.isTokenAndEqualTo(tree.getChild(0), CXLexer.NOT)) {
+            return buildLogicalNotExpression(tree.getChild(1));
         } else {
             return buildPrimaryExpression(tree.getChild(0));
         }
@@ -210,8 +277,8 @@ public class AbstractSyntaxTree {
         Expression condition = buildExpression(tree.getChild(2));
         Statement thenStatement = tree.getChildCount() > 4 ? buildStatement(tree.getChild(4)) : null;
         Statement elseStatement = tree.getChildCount() > 6 ? buildStatement(tree.getChild(6)) : null;
-        String endElseLabel = symbolTable.generateLabel("ifelse");
-        String endIfLabel = symbolTable.generateLabel("ifelse");
+        String endElseLabel = symbolTable.generateIfElseLabel();
+        String endIfLabel = symbolTable.generateIfElseLabel();
         return new IfElseStatement(condition, thenStatement, elseStatement, endElseLabel, endIfLabel);
 
     }
@@ -304,5 +371,9 @@ public class AbstractSyntaxTree {
 
     private static ReturnExpression buildReturnExpression(ParseTree tree) throws Exception {
         return new ReturnExpression(buildExpression(tree));
+    }
+
+    private static Expression buildLogicalNotExpression(ParseTree tree) throws Exception {
+        return new LogicNotExpression(buildPrimaryExpression(tree));
     }
 }

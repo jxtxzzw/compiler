@@ -12,8 +12,8 @@ statement
 | WRITE expression SEMICOLON
 | WRITELN expression SEMICOLON
 | basetype IDENTIFIER (COMMA IDENTIFIER(ASSIGN expression)?)* SEMICOLON
+| SEMICOLON
 ;
-
 
 compoundstatement: LEFTBRACE statement* RIGHTBRACE;
 
@@ -25,6 +25,7 @@ iterationstatement
 : WHILE LEFTPARENTHESIS expression RIGHTPARENTHESIS statement
 | FOR LEFTPARENTHESIS expression? SEMICOLON expression? SEMICOLON expression? RIGHTPARENTHESIS statement
 | DO statement WHILE LEFTPARENTHESIS expression RIGHTPARENTHESIS SEMICOLON
+| REPEAT statement UNTIL LEFTPARENTHESIS expression RIGHTPARENTHESIS SEMICOLON
 ;
 
 expression
@@ -97,6 +98,7 @@ postfixexpression
 : primaryexpression
 | postfixexpression PLUSPLUS
 | postfixexpression MINUSMINUS
+| NOT primaryexpression
 ;
 
 primaryexpression
@@ -165,4 +167,6 @@ COLON: ':';
 MOD: '%';
 MINUSMINUS: '--';
 PLUSPLUS: '++';
+REPEAT: 'repeat';
+UNTIL: 'until';
 IDENTIFIER: ('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;

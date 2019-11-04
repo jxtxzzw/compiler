@@ -84,7 +84,15 @@ public class SymbolTable {
         throw new Exception("no function");
     }
 
-    public String generateLabel(String name){
+    public String generateIfElseLabel() {
+        return generateLabel("condition");
+    }
+
+    public String generateLoopLabel() {
+        return generateLabel("loop");
+    }
+
+    private String generateLabel(String name){
         if (labels.containsKey(name)) {
             labels.put(name, labels.get(name) + 1);
         } else {

@@ -1,11 +1,13 @@
-0. grammar + priority
-1. for, while, repeat
-2. xor
-3. mod
-4. odd
-5. ++, --
-more function call tests
-more function call with params and return value tests
-6. const
-7. array
-8. exit
+1. for, while, repeat -> ETA: Mon
+2. xor -> ETA: Tue
+3. mod -> ETA: Tue
+4. odd -> ETA: Tue
+5. ++, -- -> ETA: Tue
+more function call tests  -> ETA: Mon
+more function call with params and return value tests  -> ETA: Mon
+6. const  -> ETA: Wed
+7. array  -> ETA: Wed + Thu
+8. exit  -> ETA: Wed
+9. read -> ETA: Wed
+10. data type(r, c) -> ETA: Tue
+11. singleton -> ETA: Mon

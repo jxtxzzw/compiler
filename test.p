@@ -6,20 +6,18 @@ mst 0
 cup 0 main0
 hlt
 main0:
-ssp 7
+ssp 6
 ldc i 0
 str i 0 5
-ldc i 0
-str i 0 6
-ldc i 5
-str i 0 5
-ldc i 15
-str i 0 6
-lod i 0 5
+ldc i 1
 out i
 ldc c '\n'
 out c
-lod i 0 6
+ldc i 4
+out i
+ldc c '\n'
+out c
+ldc i 5
 out i
 ldc c '\n'
 out c

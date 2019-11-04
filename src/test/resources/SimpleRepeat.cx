@@ -1,0 +1,8 @@
+int main() {
+    int x;
+    x = 10;
+    repeat {
+        x = x + 10;
+        writeln x;
+    } until (x > 60);
+}

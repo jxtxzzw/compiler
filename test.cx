@@ -1,8 +1,10 @@
 int main() {
-int x;
-int y;
-x = 5;
-y = 15;
-writeln x;
-writeln y;
+    int x = 0;
+    writeln 1;
+    // inline comment should be ignored
+    // writeln 2;
+    /* comment should be ingored */
+    /* writeln 3; */
+    writeln 4; // comment
+    writeln /* comment */ 5 ;
 }
