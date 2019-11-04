@@ -1,1 +1,11 @@
-2. if, for, while, repeat
+0. grammar + priority
+1. for, while, repeat
+2. xor
+3. mod
+4. odd
+5. ++, --
+more function call tests
+more function call with params and return value tests
+6. const
+7. array
+8. exit

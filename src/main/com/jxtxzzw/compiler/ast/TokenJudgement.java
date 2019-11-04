@@ -5,7 +5,7 @@ import org.antlr.v4.runtime.tree.ParseTree;
 
 public class TokenJudgement {
     public static boolean isToken(ParseTree tree) {
-        return tree.getPayload() instanceof Token;
+        return tree != null && tree.getPayload() instanceof Token;
     }
 
     public static Token getToken(ParseTree tree) {

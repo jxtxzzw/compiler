@@ -3,43 +3,112 @@ r: program;
 program: statement*;
 
 statement
-: SEMICOLON
+: expressionstatement
+| compoundstatement
+| selectionstatement
+| iterationstatement
 | basetype IDENTIFIER LEFTPARENTHESIS (VOID|basetype IDENTIFIER? (COMMA basetype IDENTIFIER?)*)? RIGHTPARENTHESIS (SEMICOLON|LEFTBRACE statement* RIGHTBRACE)
 | RETURN (expression|VOID)? SEMICOLON
-| expression SEMICOLON
-| IF LEFTPARENTHESIS expression RIGHTPARENTHESIS statement (ELSE statement)?
-| LEFTBRACE statement* RIGHTBRACE
-| WHILE LEFTPARENTHESIS expression RIGHTPARENTHESIS statement
-| FOR LEFTPARENTHESIS expression? SEMICOLON expression? SEMICOLON expression? RIGHTPARENTHESIS statement
-| WRITE expression
-| WRITELN expression
-| variable ASSIGN expression
+| WRITE expression SEMICOLON
+| WRITELN expression SEMICOLON
+| basetype IDENTIFIER (COMMA IDENTIFIER(ASSIGN expression)?)* SEMICOLON
 ;
-// TODO break and continue
+
+
+compoundstatement: LEFTBRACE statement* RIGHTBRACE;
+
+expressionstatement: expression? SEMICOLON;
+
+selectionstatement: IF LEFTPARENTHESIS expression RIGHTPARENTHESIS statement (ELSE statement)?;
+
+iterationstatement
+: WHILE LEFTPARENTHESIS expression RIGHTPARENTHESIS statement
+| FOR LEFTPARENTHESIS expression? SEMICOLON expression? SEMICOLON expression? RIGHTPARENTHESIS statement
+| DO statement WHILE LEFTPARENTHESIS expression RIGHTPARENTHESIS SEMICOLON
+;
 
 expression
-: TRUE | FALSE | NUMBER
-| variable
-| basetype IDENTIFIER (COMMA IDENTIFIER(ASSIGN expression)?)*
-| (MINUS|NOT) expression|IDENTIFIER
-| expression (EQUAL|NOTEQUAL|GREATERTHAN|LESSTHAN|GREATERTHANOREQUAL|LESSTHANOREQUAL) expression
-| expression (AND|OR) expression
-| IDENTIFIER (PLUS PLUS|MINUS MINUS)
-| expression (MUL|DIV) expression
-| expression (PLUS|MINUS) expression
-| IDENTIFIER ASSIGN expression
+: assignmentexpression
+;
+
+assignmentexpression
+: conditionalexpression
+| IDENTIFIER ASSIGN assignmentexpression
+;
+
+conditionalexpression
+: logicalorexpression
+| logicalorexpression QUESTIONMARK expression COLON conditionalexpression
+;
+
+logicalorexpression
+: logicalandexpression
+| logicalorexpression LOGICALOR logicalandexpression
+;
+
+logicalandexpression
+: inclusiveorexpression
+| logicalandexpression LOGICALAND inclusiveorexpression
+;
+
+inclusiveorexpression
+: exclusiveorexpression
+| inclusiveorexpression IOR exclusiveorexpression
+;
+
+exclusiveorexpression
+: andexpression
+| exclusiveorexpression XOR andexpression
+;
+
+andexpression
+: equalityexpression
+| andexpression AND equalityexpression
+;
+
+equalityexpression
+: relationalexpression
+| equalityexpression EQUAL relationalexpression
+| equalityexpression NOTEQUAL relationalexpression
+;
+
+relationalexpression
+: additiveexpression
+| relationalexpression LESSTHAN additiveexpression
+| relationalexpression GREATERTHAN additiveexpression
+| relationalexpression LESSTHANOREQUAL additiveexpression
+| relationalexpression GREATERTHANOREQUAL additiveexpression
+;
+
+additiveexpression
+: multiplicativeexpression
+| additiveexpression PLUS multiplicativeexpression
+| additiveexpression MINUS multiplicativeexpression
+;
+
+multiplicativeexpression
+: postfixexpression
+| multiplicativeexpression MUL postfixexpression
+| multiplicativeexpression DIV postfixexpression
+| multiplicativeexpression MOD postfixexpression
+;
+
+postfixexpression
+: primaryexpression
+| postfixexpression PLUSPLUS
+| postfixexpression MINUSMINUS
+;
+
+primaryexpression
+: IDENTIFIER
+| constant
+| LEFTPARENTHESIS expression RIGHTPARENTHESIS
 | IDENTIFIER LEFTPARENTHESIS (expression (COMMA expression)*)? RIGHTPARENTHESIS
 ;
-// TODO function call expression
 
-// TODO priority: *, / > +, -
+constant: TRUE | FALSE | NUMBER;
 
-variable
-: IDENTIFIER
-| basetype IDENTIFIER
-;
-
-basetype: INT | VOID;
+basetype: INT | VOID | BOOLEAN;
 
 COMMENT
 : (BEGININLINECOMMENT .*? NEWLINE
@@ -59,6 +128,7 @@ VOID: 'void';
 RETURN: 'return';
 SEMICOLON: ';';
 IF: 'if';
+DO: 'do';
 LEFTPARENTHESIS: '(';
 RIGHTPARENTHESIS: ')';
 ELSE: 'else';
@@ -78,11 +148,21 @@ GREATERTHAN: '>';
 LESSTHANOREQUAL: '<=';
 GREATERTHANOREQUAL: '>=';
 NOT: '!';
-AND: '&&';
-OR: '||';
+LOGICALAND: '&&';
+LOGICALOR: '||';
+IOR: '|';
+XOR: '^';
 BEGININLINECOMMENT: '//';
 BEGINCOMMENT: '/*';
 ENDCOMMENT: '*/';
 COMMA: ',';
+LEFTSHIFT: '<<';
+RIGHTSHIFT: '>>';
+AND: '&';
+QUESTIONMARK: '?';
 NUMBER: '0' | [1-9][0-9]*;
+COLON: ':';
+MOD: '%';
+MINUSMINUS: '--';
+PLUSPLUS: '++';
 IDENTIFIER: ('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;

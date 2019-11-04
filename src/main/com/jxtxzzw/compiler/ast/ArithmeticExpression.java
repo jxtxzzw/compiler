@@ -11,8 +11,8 @@ public class ArithmeticExpression extends Expression {
     private Expression rightExpression;
     private Token token;
 
-    ArithmeticExpression(BaseType baseType, Expression leftExpression, Expression rightExpression, Token token) {
-        super(baseType);
+    ArithmeticExpression(Expression leftExpression, Expression rightExpression, Token token) {
+        super(leftExpression.getBaseType());
         this.leftExpression = leftExpression;
         this.rightExpression = rightExpression;
         this.token = token;
