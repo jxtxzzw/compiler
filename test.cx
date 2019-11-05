@@ -1,21 +1,17 @@
 int main() {
     int x;
+    x = 0;
+    while (x < 10) {
+        x = x + 1;
+    }
     writeln x;
-    int y = 10;
-    writeln y;
-    int z;
-    z = 20;
-    writeln z;
 
-    int a, b, c;
-    writeln a;
-    writeln b;
-    writeln c;
-
-    bool d, e = true, f = false, g;
-    writeln d;
-    writeln e;
-    writeln f;
-    writeln g;
+    x = 10;
+    while (x>0) {
+        int y = x + 1;
+        writeln y;
+        x--;
+    }
 }
+
 

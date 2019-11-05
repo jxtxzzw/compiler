@@ -4,5 +4,14 @@ int main() {
     while (x < 10) {
         x = x + 1;
     }
-    write x;
+    writeln x;
+
+    x = 10;
+    while (x>0) {
+        int y = x + 1;
+        writeln y;
+        x--;
+    }
 }
+
+

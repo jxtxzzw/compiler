@@ -24,9 +24,9 @@ public class SymbolTable {
 //        }
 //    }
 
-    public void registerSymbol(String identifier, BaseType baseType){
+    public void registerSymbol(String identifier, BaseType baseType) throws Exception {
         if (scope.containsSymbol(identifier)) {
-            // TODO exception
+            throw new Exception("Symbol " + identifier + " has already existed.");
         }
         int address = scope.getAllocated();
         Symbol symbol = new Symbol(identifier, baseType, address);
@@ -42,7 +42,7 @@ public class SymbolTable {
                 currentScope = currentScope.getParent();
             }
         }
-        throw new Exception("no symbol: " + identifier);
+        throw new Exception("No symbol " + identifier);
     }
 
     public void openFunction(Function function) {
