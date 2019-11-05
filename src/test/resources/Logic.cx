@@ -14,4 +14,8 @@ int main () {
     write true ^ false;
     write true ^ true;
     write true ^ true || true ^ false ;
+    write !true;
+    write !false;
+    write !true || false;
+    write !false && true;
 }
