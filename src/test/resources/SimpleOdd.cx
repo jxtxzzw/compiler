@@ -1,0 +1,15 @@
+int main() {
+    writeln odd 0;
+    writeln odd 1;
+    writeln odd 2;
+    writeln odd 3;
+    writeln odd 4;
+    writeln odd (1 + 1);
+    writeln odd (1 + 2);
+    writeln odd (2 * 3);
+    writeln odd (3 * 3);
+    writeln odd (9 / 4);
+    writeln odd 9 && odd 13;
+    writeln odd 10 || odd 11;
+    writeln odd 20 || odd 30;
+}

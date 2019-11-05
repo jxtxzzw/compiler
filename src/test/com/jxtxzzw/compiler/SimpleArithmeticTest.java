@@ -59,4 +59,11 @@ public class SimpleArithmeticTest {
         PmachineResultTest.checkAnswer("ArithmeticPriority");
     }
 
+    @Test
+    public void SimpleOdd() throws Exception {
+        PmachineResultTest.prepareCode("SimpleOdd");
+        Compiler.main(null);
+        PmachineResultTest.checkAnswer("SimpleOdd");
+    }
+
 }

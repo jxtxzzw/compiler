@@ -99,6 +99,7 @@ postfixexpression
 | postfixexpression PLUSPLUS
 | postfixexpression MINUSMINUS
 | NOT primaryexpression
+| ODD primaryexpression
 ;
 
 primaryexpression
@@ -165,6 +166,7 @@ QUESTIONMARK: '?';
 NUMBER: '0' | [1-9][0-9]*;
 COLON: ':';
 MOD: '%';
+ODD: 'odd';
 MINUSMINUS: '--';
 PLUSPLUS: '++';
 REPEAT: 'repeat';

@@ -18,17 +18,25 @@ public class ArithmeticExpression extends Expression {
         this.token = token;
     }
 
+    public static String mod(String a, String b) {
+        String code = "";
+        code += a;
+        code += a;
+        code += b;
+        code += "div i\n";
+        code += b;
+        code += "mul i\n";
+        code += "sub i\n";
+        return code;
+    }
+
     @Override
     public String compile() {
         String code = "";
         if (token.getType() == CXLexer.MOD) {
-            code += leftExpression.compile();
-            code += leftExpression.compile();
-            code += rightExpression.compile();
-            code += "div " + getBaseType().getCode() + "\n";
-            code += rightExpression.compile();
-            code += "mul " + getBaseType().getCode() + "\n";
-            code += "sub " + getBaseType().getCode() + "\n";
+            String a = leftExpression.compile();
+            String b = rightExpression.compile();
+            code += mod(a, b);
         } else {
             code += leftExpression.compile();
             code += rightExpression.compile();

@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class AbstractSyntaxTree {
 
     private static SymbolTable symbolTable = new SymbolTable();
-    private static TypeFactory typeFactory = new TypeFactory();
+    private static TypeFactory typeFactory = TypeFactory.getInstance();
 
     public static ArrayList<Statement> buildProgram(ParseTree tree) throws Exception {
         ArrayList<Statement> statements = new ArrayList<>();
@@ -242,6 +242,8 @@ public class AbstractSyntaxTree {
             return new SelfIncrementExpression(buildPostfixExpression(tree.getChild(0)), TokenJudgement.getToken(tree.getChild(1)));
         } else if (TokenJudgement.isTokenAndEqualTo(tree.getChild(0), CXLexer.NOT)) {
             return buildLogicalNotExpression(tree.getChild(1));
+        } else if (TokenJudgement.isTokenAndEqualTo(tree.getChild(0), CXLexer.ODD)) {
+            return buildOddExpression(tree.getChild(1));
         } else {
             return buildPrimaryExpression(tree.getChild(0));
         }
@@ -382,5 +384,9 @@ public class AbstractSyntaxTree {
 
     private static Expression buildLogicalNotExpression(ParseTree tree) throws Exception {
         return new LogicNotExpression(buildPrimaryExpression(tree));
+    }
+
+    private static Expression buildOddExpression(ParseTree tree) throws Exception {
+        return new OddExpression(buildPrimaryExpression(tree));
     }
 }
