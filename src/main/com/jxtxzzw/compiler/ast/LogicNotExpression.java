@@ -1,14 +1,13 @@
 package com.jxtxzzw.compiler.ast;
 
-import com.jxtxzzw.compiler.type.BaseType;
-import com.jxtxzzw.compiler.type.Boolean;
+import com.jxtxzzw.compiler.type.Bool;
 
 public class LogicNotExpression extends Expression {
 
     private Expression expression;
 
     LogicNotExpression(Expression expression) {
-        super(new Boolean());
+        super(new Bool());
         this.expression = expression;
     }
 

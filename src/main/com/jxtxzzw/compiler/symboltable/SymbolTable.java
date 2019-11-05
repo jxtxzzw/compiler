@@ -42,7 +42,7 @@ public class SymbolTable {
                 currentScope = currentScope.getParent();
             }
         }
-        throw new Exception("no symbol");
+        throw new Exception("no symbol: " + identifier);
     }
 
     public void openFunction(Function function) {

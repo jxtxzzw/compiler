@@ -1,14 +1,13 @@
 package com.jxtxzzw.compiler.ast;
 
-import com.jxtxzzw.compiler.ast.Expression;
-import com.jxtxzzw.compiler.type.Boolean;
+import com.jxtxzzw.compiler.type.Bool;
 
 public class BooleanExpression extends Expression {
 
     private boolean b;
 
     BooleanExpression(boolean b) {
-        super(new Boolean());
+        super(new Bool());
         this.b = b;
     }
 

@@ -1,7 +1,6 @@
 package com.jxtxzzw.compiler.ast;
 
-import com.jxtxzzw.compiler.type.BaseType;
-import com.jxtxzzw.compiler.type.Boolean;
+import com.jxtxzzw.compiler.type.Bool;
 import org.antlr.v4.runtime.Token;
 
 import java.util.HashMap;
@@ -12,7 +11,7 @@ public class LogicExpression extends Expression {
     private Token operator;
 
     public LogicExpression(Expression leftExpression, Expression rightExpression, Token operator) {
-        super(new Boolean());
+        super(new Bool());
         this.leftExpression = leftExpression;
         this.rightExpression = rightExpression;
         this.operator = operator;

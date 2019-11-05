@@ -1,6 +1,6 @@
 package com.jxtxzzw.compiler.ast;
 
-import com.jxtxzzw.compiler.type.Boolean;
+import com.jxtxzzw.compiler.type.Bool;
 import org.antlr.v4.runtime.Token;
 
 import java.util.HashMap;
@@ -11,7 +11,7 @@ public class ComparisonExpression extends Expression {
     private Token operator;
 
     public ComparisonExpression(Expression leftExpression, Expression rightExpression, Token operator) {
-        super(new Boolean());
+        super(new Bool());
         this.leftExpression = leftExpression;
         this.rightExpression = rightExpression;
         this.operator = operator;

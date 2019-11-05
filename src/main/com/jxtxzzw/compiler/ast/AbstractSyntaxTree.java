@@ -3,19 +3,19 @@ package com.jxtxzzw.compiler.ast;
 import com.jxtxzzw.compiler.symboltable.Function;
 import com.jxtxzzw.compiler.symboltable.SymbolTable;
 import com.jxtxzzw.compiler.type.BaseType;
+import com.jxtxzzw.compiler.type.TypeFactory;
 import com.jxtxzzw.compiler.type.Void;
 import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.tree.ParseTree;
 
-import com.jxtxzzw.compiler.type.Int;
 import resources.CXLexer;
 
-import javax.swing.plaf.nimbus.State;
 import java.util.ArrayList;
 
 public class AbstractSyntaxTree {
 
     private static SymbolTable symbolTable = new SymbolTable();
+    private static TypeFactory typeFactory = new TypeFactory();
 
     public static ArrayList<Statement> buildProgram(ParseTree tree) throws Exception {
         ArrayList<Statement> statements = new ArrayList<>();
@@ -284,7 +284,7 @@ public class AbstractSyntaxTree {
     }
 
     private static ConstantExpression buildConstantExpression(ParseTree tree) {
-        return new ConstantExpression(new Int(), tree);
+        return new ConstantExpression(typeFactory.getType("int"), tree);
     }
 
     private static BooleanExpression buildBooleanExpression(boolean b) {
@@ -310,7 +310,7 @@ public class AbstractSyntaxTree {
     }
 
     private static Statement buildFunctionStatement(ParseTree tree) throws Exception {
-        BaseType returnType = new Int(); // TODO get return type from child 0
+        BaseType returnType = typeFactory.getType(tree.getChild(0).getText());
         String identifier = tree.getChild(1).getText();
         ArrayList<BaseType> parameterTypes = new ArrayList<>();
         ArrayList<String> parameters = new ArrayList<>();
@@ -319,7 +319,7 @@ public class AbstractSyntaxTree {
                 break;
             } else if (!TokenJudgement.isTokenAndEqualTo(tree.getChild(i), CXLexer.COMMA)) {
                 String type = tree.getChild(i).getChild(0).getText();
-                BaseType baseType= new Int(); // get BaseType from type
+                BaseType baseType= typeFactory.getType(type);
                 parameterTypes.add(baseType);
                 i++;
                 String parameter = tree.getChild(i).getText();
@@ -351,12 +351,12 @@ public class AbstractSyntaxTree {
     }
 
     public static DefinitionInitializationExpression buildDefinition(ParseTree tree) throws Exception {
-        BaseType baseType = new Int();
+        BaseType baseType = typeFactory.getType(tree.getChild(0).getText());
         DefinitionInitializationExpression list = new DefinitionInitializationExpression(baseType);
         for (int i = 0; i < tree.getChildCount(); i++) {
             if (TokenJudgement.isTokenAndEqualTo(tree.getChild(i), CXLexer.IDENTIFIER)) {
                 String identifier = tree.getChild(i).getText();
-                symbolTable.registerSymbol(identifier, new Int());
+                symbolTable.registerSymbol(identifier, baseType);
                 VariableExpression variableExpression = buildVariableExpression(tree.getChild(i));
                 Expression initialValue;
                 if (TokenJudgement.isTokenAndEqualTo(tree.getChild(i + 1), CXLexer.ASSIGN)) {
