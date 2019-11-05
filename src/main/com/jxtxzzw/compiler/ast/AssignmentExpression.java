@@ -15,11 +15,7 @@ public class AssignmentExpression extends Expression {
     @Override
     public String compile() {
 
-        StringBuilder code = new StringBuilder();
-//        code.append("==BEGIN==\n");
-        code.append(expression.compile());
-//        code.append("==END==\n");
-        code.append("str ").append(variableExpression.getBaseType().getCode()).append(" 0 ").append(variableExpression.getSymbol().getAddress()).append("\n");
-        return code.toString();
+        return expression.compile() +
+                "str " + variableExpression.getBaseType().getCode() + " 0 " + variableExpression.getSymbol().getAddress() + "\n";
     }
 }

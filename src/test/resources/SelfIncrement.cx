@@ -1,0 +1,10 @@
+int main() {
+    int x = 1;
+    writeln x;
+    x++;
+    writeln x;
+    writeln x++;
+    writeln x;
+    x--;
+    writeln x--;
+}

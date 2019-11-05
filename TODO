@@ -1,5 +1,3 @@
-5. ++, -- -> ETA: Tue
-10. data type(r, c) -> ETA: Tue
 13. negative, not -> ETA: Tue
 14. negative number odd/mod -> ETA: Tue
 
@@ -9,6 +7,6 @@
 12. 3 test cases, use read to get input -> ETA: Wed
 
 7. array  -> ETA: Wed + Thu
-
+15. data type(c) -> ETA: Tue
 
 *: declaration anywhere -> add to README.

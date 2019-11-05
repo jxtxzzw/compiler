@@ -2,20 +2,30 @@ package com.jxtxzzw.compiler.ast;
 
 import com.jxtxzzw.compiler.type.BaseType;
 import org.antlr.v4.runtime.Token;
+import resources.CXLexer;
 
 public class SelfIncrementExpression extends Expression {
 
-    private Expression expression;
+    private VariableExpression variableExpression;
     private Token token;
 
-    SelfIncrementExpression(Expression expression, Token token) {
-        super(expression.getBaseType());
-        this.expression = expression;
+    SelfIncrementExpression(VariableExpression variableExpression, Token token) {
+        super(variableExpression.getBaseType());
+        this.variableExpression = variableExpression;
         this.token = token;
     }
 
     @Override
     public String compile() {
-        return null;
+        String code = "";
+        code += variableExpression.compile();
+        code += "dpl i\n";
+        code += "ldc i 1\n";
+        if (token.getType() == CXLexer.PLUSPLUS)
+            code += "add i\n";
+        else
+            code += "sub i\n";
+        code += "str i 0 " + variableExpression.getSymbol().getAddress() + "\n";
+        return code;
     }
 }

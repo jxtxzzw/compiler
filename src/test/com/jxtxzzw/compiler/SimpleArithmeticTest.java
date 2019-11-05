@@ -73,4 +73,11 @@ public class SimpleArithmeticTest {
         PmachineResultTest.checkAnswer("Real");
     }
 
+    @Test
+    public void SelfIncrement() throws Exception {
+        PmachineResultTest.prepareCode("SelfIncrement");
+        Compiler.main(null);
+        PmachineResultTest.checkAnswer("SelfIncrement");
+    }
+
 }

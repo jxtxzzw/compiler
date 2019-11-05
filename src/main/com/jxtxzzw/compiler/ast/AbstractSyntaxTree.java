@@ -239,7 +239,12 @@ public class AbstractSyntaxTree {
     private static Expression buildPostfixExpression(ParseTree tree) throws Exception {
         final int[] TOKEN_SET = { CXLexer.PLUSPLUS, CXLexer.MINUSMINUS};
         if (TokenJudgement.isTokenAndEqualTo(tree.getChild(1), TOKEN_SET)) {
-            return new SelfIncrementExpression(buildPostfixExpression(tree.getChild(0)), TokenJudgement.getToken(tree.getChild(1)));
+            Expression e = buildPostfixExpression(tree.getChild(0));
+            if (e instanceof VariableExpression) {
+                return new SelfIncrementExpression((VariableExpression)e, TokenJudgement.getToken(tree.getChild(1)));
+            } else {
+                throw new Exception();
+            }
         } else if (TokenJudgement.isTokenAndEqualTo(tree.getChild(0), CXLexer.NOT)) {
             return buildLogicalNotExpression(tree.getChild(1));
         } else if (TokenJudgement.isTokenAndEqualTo(tree.getChild(0), CXLexer.ODD)) {

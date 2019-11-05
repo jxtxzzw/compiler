@@ -1,4 +1,21 @@
 int main() {
-    writeln 1.1 + 2.2;
-    writeln 3.0 * 1.1;
+    int x;
+    writeln x;
+    int y = 10;
+    writeln y;
+    int z;
+    z = 20;
+    writeln z;
+
+    int a, b, c;
+    writeln a;
+    writeln b;
+    writeln c;
+
+    bool d, e = true, f = false, g;
+    writeln d;
+    writeln e;
+    writeln f;
+    writeln g;
 }
+
