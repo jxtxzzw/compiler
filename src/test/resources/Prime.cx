@@ -1,0 +1,22 @@
+bool isDivisible(int x, int i) {
+    return x % i == 0;
+}
+
+bool isPrime(int x) {
+    int i = 2;
+    for (; i < x; i++) {
+        if (isDivisible(x,i)) {
+            return false;
+        }
+    }
+    return true;
+}
+
+int main() {
+    int i;
+    for (i = 2; i <= 100; i++) {
+        if (isPrime(i)) {
+            writeln i;
+        }
+    }
+}

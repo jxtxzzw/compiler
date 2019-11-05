@@ -1,18 +1,21 @@
 int main() {
-
-    writeln 1;
-    writeln -1;
-    writeln 1.1;
-    writeln -1.1;
-    int x = 2;
-    x = -x;
+    int x;
     writeln x;
-    writeln 0;
-    writeln -0;
-    int y = 2 + -2;
+    int y = 10;
     writeln y;
-    y = -2 - -3;
-    writeln y;
-    writeln -2-3;
-    writeln -2 - 3;
+    int z;
+    z = 20;
+    writeln z;
+
+    int a, b, c;
+    writeln a;
+    writeln b;
+    writeln c;
+
+    bool d, e = true, f = false, g;
+    writeln d;
+    writeln e;
+    writeln f;
+    writeln g;
 }
+
