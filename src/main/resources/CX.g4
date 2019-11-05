@@ -100,6 +100,7 @@ postfixexpression
 | postfixexpression MINUSMINUS
 | NOT primaryexpression
 | ODD primaryexpression
+| MINUS primaryexpression
 ;
 
 primaryexpression

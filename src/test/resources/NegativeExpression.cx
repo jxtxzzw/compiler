@@ -1,5 +1,4 @@
 int main() {
-
     writeln 1;
     writeln -1;
     writeln 1.1;

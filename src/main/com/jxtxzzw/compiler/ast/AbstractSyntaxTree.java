@@ -249,6 +249,8 @@ public class AbstractSyntaxTree {
             return buildLogicalNotExpression(tree.getChild(1));
         } else if (TokenJudgement.isTokenAndEqualTo(tree.getChild(0), CXLexer.ODD)) {
             return buildOddExpression(tree.getChild(1));
+        } else if (TokenJudgement.isTokenAndEqualTo(tree.getChild(0), CXLexer.MINUS)) {
+            return buildMinusExpression(tree.getChild(1));
         } else {
             return buildPrimaryExpression(tree.getChild(0));
         }
@@ -391,6 +393,10 @@ public class AbstractSyntaxTree {
 
     private static Expression buildLogicalNotExpression(ParseTree tree) throws Exception {
         return new LogicNotExpression(buildPrimaryExpression(tree));
+    }
+
+    private static Expression buildMinusExpression(ParseTree tree) throws Exception {
+        return new MinusExpression(buildPrimaryExpression(tree));
     }
 
     private static Expression buildOddExpression(ParseTree tree) throws Exception {

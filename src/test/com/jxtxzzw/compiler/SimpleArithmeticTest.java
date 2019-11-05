@@ -80,4 +80,11 @@ public class SimpleArithmeticTest {
         PmachineResultTest.checkAnswer("SelfIncrement");
     }
 
+    @Test
+    public void NegativeExpression() throws Exception {
+        PmachineResultTest.prepareCode("NegativeExpression");
+        Compiler.main(null);
+        PmachineResultTest.checkAnswer("NegativeExpression");
+    }
+
 }
