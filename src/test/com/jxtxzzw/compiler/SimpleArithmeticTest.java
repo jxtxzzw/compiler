@@ -15,7 +15,7 @@ import java.util.ArrayList;
  * @version 1.0
  * @since <pre>10ÔÂ 6, 2019</pre>
  */
-public class SimpleAddTest {
+public class SimpleArithmeticTest {
 
 
     @Before
@@ -43,6 +43,13 @@ public class SimpleAddTest {
         PmachineResultTest.prepareCode("SimpleSub");
         Compiler.main(null);
         PmachineResultTest.checkAnswer("SimpleSub");
+    }
+
+    @Test
+    public void SimpleMod() throws Exception {
+        PmachineResultTest.prepareCode("SimpleMod");
+        Compiler.main(null);
+        PmachineResultTest.checkAnswer("SimpleMod");
     }
 
 }

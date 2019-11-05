@@ -1,0 +1,11 @@
+int main() {
+    writeln 1 % 2;
+    writeln 2 % 2;
+    writeln 3 % 2;
+    writeln 4 % 2;
+    writeln 5 % 2;
+    writeln 5 % 3;
+    writeln 5 % 4;
+    writeln 5 % 5;
+    writeln 5 % 6;
+}

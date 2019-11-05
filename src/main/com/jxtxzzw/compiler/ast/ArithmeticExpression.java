@@ -21,24 +21,33 @@ public class ArithmeticExpression extends Expression {
     @Override
     public String compile() {
         String code = "";
-        code += leftExpression.compile();
-        code += rightExpression.compile();
-        switch (token.getType()) {
-            case CXLexer.PLUS:
-                code += "add i\n";
-                break;
-            case CXLexer.MINUS:
-                code += "sub i\n";
-                break;
-            case CXLexer.MUL:
-                code += "mul i\n";
-                break;
-            case CXLexer.DIV:
-                code += "div i\n";
-                break;
-            default:
-//                System.out.println(token.getType());
-                // TODO: throw exception here
+        if (token.getType() == CXLexer.MOD) {
+            code += leftExpression.compile();
+            code += leftExpression.compile();
+            code += rightExpression.compile();
+            code += "div " + getBaseType().getCode() + "\n";
+            code += rightExpression.compile();
+            code += "mul " + getBaseType().getCode() + "\n";
+            code += "sub " + getBaseType().getCode() + "\n";
+        } else {
+            code += leftExpression.compile();
+            code += rightExpression.compile();
+            switch (token.getType()) {
+                case CXLexer.PLUS:
+                    code += "add "  + getBaseType().getCode() + "\n";
+                    break;
+                case CXLexer.MINUS:
+                    code += "sub " + getBaseType().getCode() + "\n";
+                    break;
+                case CXLexer.MUL:
+                    code += "mul " + getBaseType().getCode() + "\n";
+                    break;
+                case CXLexer.DIV:
+                    code += "div " + getBaseType().getCode() + "\n";
+                    break;
+                default:
+//                    throw new Exception();
+            }
         }
         return code;
     }
