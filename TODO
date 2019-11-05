@@ -1,6 +1,3 @@
-1. initialization -> ETA: Mon
-more function call tests  -> ETA: Mon
-more function call with params and return value tests  -> ETA: Mon
 11. singleton -> ETA: Mon
 
 2. xor -> ETA: Tue
@@ -12,5 +9,9 @@ more function call with params and return value tests  -> ETA: Mon
 6. const  -> ETA: Wed
 8. exit  -> ETA: Wed
 9. read -> ETA: Wed
+12. 3 test cases, use read to get input -> ETA: Wed
 
 7. array  -> ETA: Wed + Thu
+
+
+*: declaration anywhere -> add to README.

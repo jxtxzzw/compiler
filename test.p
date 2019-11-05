@@ -45,28 +45,28 @@ lod i 0 10
 out i
 ldc c '\n'
 out c
-ldc i 0
-str i 0 11
-ldc i 10
-str i 0 12
-ldc i 10
-str i 0 13
-ldc i 0
-str i 0 14
-lod i 0 11
-out i
+ldc b f
+str b 0 11
+ldc b t
+str b 0 12
+ldc b f
+str b 0 13
+ldc b f
+str b 0 14
+lod b 0 11
+out b
 ldc c '\n'
 out c
-lod i 0 12
-out i
+lod b 0 12
+out b
 ldc c '\n'
 out c
-lod i 0 13
-out i
+lod b 0 13
+out b
 ldc c '\n'
 out c
-lod i 0 14
-out i
+lod b 0 14
+out b
 ldc c '\n'
 out c
 retp

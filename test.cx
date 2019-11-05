@@ -12,11 +12,10 @@ int main() {
     writeln b;
     writeln c;
 
-    int d, e = 10, f = 10, g;
+    bool d, e = true, f = false, g;
     writeln d;
     writeln e;
     writeln f;
     writeln g;
-
 }
 
