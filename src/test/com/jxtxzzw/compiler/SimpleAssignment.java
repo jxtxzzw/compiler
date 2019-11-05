@@ -45,6 +45,20 @@ public class SimpleAssignment {
         PmachineResultTest.checkAnswer("SimpleVarDefAndExpr");
     }
 
+    @Test
+    public void DeclarationWithInitialization() throws Exception {
+        PmachineResultTest.prepareCode("DeclarationWithInitialization");
+        Compiler.main(null);
+        PmachineResultTest.checkAnswer("DeclarationWithInitialization");
+    }
+
+    @Test
+    public void DeclarationAnywhere() throws Exception {
+        PmachineResultTest.prepareCode("DeclarationAnywhere");
+        Compiler.main(null);
+        PmachineResultTest.checkAnswer("DeclarationAnywhere");
+    }
+
 
 
 }

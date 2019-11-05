@@ -9,9 +9,9 @@ public class BaseType {
     private String name;
     private String code;
     private int size;
-    private int defaultValue;
+    private String defaultValue;
 
-    public BaseType(String name, String code, int size, int defaultValue) {
+    public BaseType(String name, String code, int size, String defaultValue) {
         this.name = name;
         this.code = code;
         this.size = size;
@@ -24,7 +24,7 @@ public class BaseType {
 
     public int getSize() { return size; }
 
-    public int getDefaultValue() {
+    public String getDefaultValue() {
         return defaultValue;
     }
 

@@ -1,0 +1,20 @@
+int main() {
+    int x;
+    int y;
+    int z;
+    x = 1;
+    y = 2;
+    x = x + y;
+    x = 1 + 2;
+    int a;
+    int b;
+    a = 3;
+    b = 4;
+    int c;
+    int d;
+    d = 3;
+    x = 4;
+    int e;
+    int f;
+    write 100;
+}

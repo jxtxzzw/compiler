@@ -358,7 +358,14 @@ public class AbstractSyntaxTree {
                 String identifier = tree.getChild(i).getText();
                 symbolTable.registerSymbol(identifier, new Int());
                 VariableExpression variableExpression = buildVariableExpression(tree.getChild(i));
-                list.append(variableExpression);
+                Expression initialValue;
+                if (TokenJudgement.isTokenAndEqualTo(tree.getChild(i + 1), CXLexer.ASSIGN)) {
+                    initialValue = buildExpression(tree.getChild(i + 2));
+                    i += 2;
+                } else {
+                    initialValue = null;
+                }
+                list.append(variableExpression, initialValue);
             }
         }
         return list;
