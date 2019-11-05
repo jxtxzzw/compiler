@@ -1,4 +1,17 @@
 int main () {
+    write false || true;
+    write true || false;
+    write true || true;
+    write true && true;
+    write false || false;
+    write false && true;
+    write false && false;
+    write true && false;
     write 2 > 1 && 1 <= 10;
     write 2 < 1 || 2 != 10;
+    write false ^ false;
+    write false ^ true;
+    write true ^ false;
+    write true ^ true;
+    write true ^ true || true ^ false ;
 }

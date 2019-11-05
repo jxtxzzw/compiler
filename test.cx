@@ -1,21 +1,17 @@
-int main() {
-    int x;
-    writeln x;
-    int y = 10;
-    writeln y;
-    int z;
-    z = 20;
-    writeln z;
-
-    int a, b, c;
-    writeln a;
-    writeln b;
-    writeln c;
-
-    bool d, e = true, f = false, g;
-    writeln d;
-    writeln e;
-    writeln f;
-    writeln g;
+int main () {
+    write false || true;
+    write true || false;
+    write true || true;
+    write true && true;
+    write false || false;
+    write false && true;
+    write false && false;
+    write true && false;
+    write 2 > 1 && 1 <= 10;
+    write 2 < 1 || 2 != 10;
+    write false ^ false;
+    write false ^ true;
+    write true ^ false;
+    write true ^ true;
+    write true ^ true || true ^ false ;
 }
-

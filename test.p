@@ -6,67 +6,113 @@ mst 0
 cup 0 main0
 hlt
 main0:
-ssp 15
-ldc i 0
-str i 0 5
-lod i 0 5
-out i
-ldc c '\n'
-out c
-ldc i 10
-str i 0 6
-lod i 0 6
-out i
-ldc c '\n'
-out c
-ldc i 0
-str i 0 7
-ldc i 20
-str i 0 7
-lod i 0 7
-out i
-ldc c '\n'
-out c
-ldc i 0
-str i 0 8
-ldc i 0
-str i 0 9
-ldc i 0
-str i 0 10
-lod i 0 8
-out i
-ldc c '\n'
-out c
-lod i 0 9
-out i
-ldc c '\n'
-out c
-lod i 0 10
-out i
-ldc c '\n'
-out c
+ssp 5
 ldc b f
-str b 0 11
 ldc b t
-str b 0 12
+or
+out b
+ldc b t
 ldc b f
-str b 0 13
+or
+out b
+ldc b t
+ldc b t
+or
+out b
+ldc b t
+ldc b t
+and
+out b
 ldc b f
-str b 0 14
-lod b 0 11
+ldc b f
+or
 out b
-ldc c '\n'
-out c
-lod b 0 12
+ldc b f
+ldc b t
+and
 out b
-ldc c '\n'
-out c
-lod b 0 13
+ldc b f
+ldc b f
+and
 out b
-ldc c '\n'
-out c
-lod b 0 14
+ldc b t
+ldc b f
+and
 out b
-ldc c '\n'
-out c
+ldc i 2
+ldc i 1
+grt i
+ldc i 1
+ldc i 10
+leq i
+and
+out b
+ldc i 2
+ldc i 1
+les i
+ldc i 2
+ldc i 10
+neq i
+or
+out b
+ldc b f
+not
+ldc b f
+and
+ldc b f
+ldc b f
+not
+and
+or
+out b
+ldc b f
+not
+ldc b t
+and
+ldc b f
+ldc b t
+not
+and
+or
+out b
+ldc b t
+not
+ldc b f
+and
+ldc b t
+ldc b f
+not
+and
+or
+out b
+ldc b t
+not
+ldc b t
+and
+ldc b t
+ldc b t
+not
+and
+or
+out b
+ldc b t
+not
+ldc b t
+and
+ldc b t
+ldc b t
+not
+and
+or
+ldc b t
+not
+ldc b f
+and
+ldc b t
+ldc b f
+not
+and
+or
+or
+out b
 retp
