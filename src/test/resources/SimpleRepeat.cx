@@ -5,4 +5,10 @@ int main() {
         x = x + 10;
         writeln x;
     } until (x > 60);
+    x = 100;
+    repeat {
+        x = x + 100;
+        writeln x;
+    } until (x < 600);
+
 }

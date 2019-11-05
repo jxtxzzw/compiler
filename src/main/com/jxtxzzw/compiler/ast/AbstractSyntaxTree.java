@@ -120,19 +120,22 @@ public class AbstractSyntaxTree {
     }
 
     private static Statement buildDoWhileStatement(ParseTree tree) throws Exception {
-        Expression condition = buildExpression(tree.getChild(4));
-        Statement statement = buildStatement(tree.getChild(1));
-        String beginLoopLabel = symbolTable.generateLoopLabel();
-        String endLoopLabel = symbolTable.generateLoopLabel();
-        return new WhileStatement(condition, false, statement, beginLoopLabel, endLoopLabel);
+        return buildDoWhileOrRepeateUntil(tree, false);
     }
 
     private static Statement buildRepeatUntilStatement(ParseTree tree) throws Exception {
+        return buildDoWhileOrRepeateUntil(tree, true);
+    }
+
+    private static Statement buildDoWhileOrRepeateUntil(ParseTree tree, boolean conditionToBreakLoop) throws Exception {
+        CompoundStatement compoundStatement = new CompoundStatement();
         Expression condition = buildExpression(tree.getChild(4));
         Statement statement = buildStatement(tree.getChild(1));
         String beginLoopLabel = symbolTable.generateLoopLabel();
         String endLoopLabel = symbolTable.generateLoopLabel();
-        return new WhileStatement(condition, true, statement, beginLoopLabel, endLoopLabel);
+        compoundStatement.append(statement);
+        compoundStatement.append(new WhileStatement(condition, conditionToBreakLoop, statement, beginLoopLabel, endLoopLabel));
+        return compoundStatement;
     }
 
     private static Expression buildExpression(ParseTree tree) throws Exception {
