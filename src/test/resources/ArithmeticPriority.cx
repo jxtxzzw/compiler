@@ -1,0 +1,11 @@
+int main() {
+    writeln 1 + 2 + 3;
+    writeln 3 * 4 * 5;
+    writeln 3 * 4 + 5 * 6;
+    writeln 3 + 4 * 5 + 6;
+    writeln (3 + 4) * (5 + 6);
+    writeln (3 * 4) * (5 * 6);
+    writeln 5 * 7 % 3;
+    writeln 5 % 3 * 7;
+    writeln 5 % 3 + 2 % 1;
+}

@@ -52,4 +52,11 @@ public class SimpleArithmeticTest {
         PmachineResultTest.checkAnswer("SimpleMod");
     }
 
+    @Test
+    public void ArithmeticPriority() throws Exception {
+        PmachineResultTest.prepareCode("ArithmeticPriority");
+        Compiler.main(null);
+        PmachineResultTest.checkAnswer("ArithmeticPriority");
+    }
+
 }
