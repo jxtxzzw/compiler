@@ -66,4 +66,11 @@ public class SimpleArithmeticTest {
         PmachineResultTest.checkAnswer("SimpleOdd");
     }
 
+    @Test
+    public void Real() throws Exception {
+        PmachineResultTest.prepareCode("Real");
+        Compiler.main(null);
+        PmachineResultTest.checkAnswer("Real");
+    }
+
 }

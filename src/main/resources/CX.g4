@@ -109,7 +109,7 @@ primaryexpression
 | IDENTIFIER LEFTPARENTHESIS (expression (COMMA expression)*)? RIGHTPARENTHESIS
 ;
 
-constant: TRUE | FALSE | NUMBER;
+constant: TRUE | FALSE | INTEGERNUMBER | REALNUMBER;
 
 basetype: INT | VOID | BOOLEAN;
 
@@ -163,7 +163,8 @@ LEFTSHIFT: '<<';
 RIGHTSHIFT: '>>';
 AND: '&';
 QUESTIONMARK: '?';
-NUMBER: '0' | [1-9][0-9]*;
+INTEGERNUMBER: '0' | [1-9][0-9]*;
+REALNUMBER: [1-9][0-9]*'.'[0-9]* | '0.'[0-9]*;
 COLON: ':';
 MOD: '%';
 ODD: 'odd';

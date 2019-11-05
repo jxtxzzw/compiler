@@ -20,6 +20,7 @@ public class TypeFactory {
         map.put("void", new Void());
         map.put("int", new Int());
         map.put("bool", new Bool());
+        map.put("real", new Real());
     }
 
 

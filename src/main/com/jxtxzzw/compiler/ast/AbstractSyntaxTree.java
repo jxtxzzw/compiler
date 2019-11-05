@@ -264,8 +264,10 @@ public class AbstractSyntaxTree {
         } else {
                 // constant
             tree = tree.getChild(0);
-            if (TokenJudgement.isTokenAndEqualTo(tree.getChild(0), CXLexer.NUMBER)) {
-                return buildConstantExpression(tree);
+            if (TokenJudgement.isTokenAndEqualTo(tree.getChild(0), CXLexer.INTEGERNUMBER)) {
+                return buildConstantExpression("int", tree);
+            } else if (TokenJudgement.isTokenAndEqualTo(tree.getChild(0), CXLexer.REALNUMBER)) {
+                return buildConstantExpression("real", tree);
             } else if (TokenJudgement.isTokenAndEqualTo(tree.getChild(0), CXLexer.TRUE)) {
                 return buildBooleanExpression(true);
             } else if (TokenJudgement.isTokenAndEqualTo(tree.getChild(0), CXLexer.FALSE)) {
@@ -285,8 +287,8 @@ public class AbstractSyntaxTree {
 
     }
 
-    private static ConstantExpression buildConstantExpression(ParseTree tree) {
-        return new ConstantExpression(typeFactory.getType("int"), tree);
+    private static ConstantExpression buildConstantExpression(String typeName, ParseTree tree) {
+        return new ConstantExpression(typeFactory.getType(typeName), tree);
     }
 
     private static BooleanExpression buildBooleanExpression(boolean b) {
