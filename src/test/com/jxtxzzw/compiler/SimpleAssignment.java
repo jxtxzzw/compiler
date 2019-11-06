@@ -2,7 +2,9 @@ package com.jxtxzzw.compiler;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -59,6 +61,30 @@ public class SimpleAssignment {
         PmachineResultTest.checkAnswer("DeclarationAnywhere");
     }
 
+    @Test
+    public void Constant() throws Exception {
+        PmachineResultTest.prepareCode("Constant");
+        Compiler.main(null);
+        PmachineResultTest.checkAnswer("Constant");
+    }
 
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
+
+    @Test
+    public void ConstantWithoutInitialValueExceptionExpected() throws Exception {
+        PmachineResultTest.prepareCode("ConstantWithoutInitialValueExceptionExpected");
+        thrown.expect(Exception.class);
+        Compiler.main(null);
+        System.exit(0);
+    }
+
+    @Test
+    public void DuplicatedVarExceptionExpected() throws Exception {
+        PmachineResultTest.prepareCode("DuplicatedVarExceptionExpected");
+        thrown.expect(Exception.class);
+        Compiler.main(null);
+        System.exit(0);
+    }
 
 }

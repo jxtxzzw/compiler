@@ -25,7 +25,11 @@ public class Compiler {
         Program p = new Program();
         p.buildAbstractSyntaxTree(tree);
 
-        BufferedWriter bw = new BufferedWriter(new FileWriter(new File("test.p")));
+        File file = new File("test.p");
+        if(!file.exists()) {
+            file.createNewFile();
+        }
+        BufferedWriter bw = new BufferedWriter(new FileWriter(file));
         bw.write(p.outputCode());
         bw.close();
 

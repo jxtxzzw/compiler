@@ -31,7 +31,11 @@ class PmachineResultTest {
     }
 
     private static void cx(String code) throws IOException {
-        BufferedWriter bw = new BufferedWriter(new FileWriter(new File("test.cx")));
+        File file = new File("test.cx");
+        if(!file.exists()) {
+            file.createNewFile();
+        }
+        BufferedWriter bw = new BufferedWriter(new FileWriter(file));
         bw.write(code);
         bw.close();
     }
