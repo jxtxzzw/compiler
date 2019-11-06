@@ -61,4 +61,12 @@ public class FunctionCall {
         Compiler.main(null);
         PmachineResultTest.checkAnswer("RecursivelyCall");
     }
+
+    @Test
+    public void FunctionScope() throws Exception {
+        PmachineResultTest.prepareCode("FunctionScope");
+        Compiler.main(null);
+        PmachineResultTest.checkAnswer("FunctionScope");
+    }
+
 }
