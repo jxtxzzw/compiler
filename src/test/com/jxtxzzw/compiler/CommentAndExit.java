@@ -12,7 +12,7 @@ import org.junit.Test;
  * @version 1.0
  * @since <pre>10ÔÂ 6, 2019</pre>
  */
-public class Comment {
+public class CommentAndExit {
 
     @Before
     public void before() {
@@ -34,5 +34,11 @@ public class Comment {
         PmachineResultTest.checkAnswer("Comment");
     }
 
+    @Test
+    public void Exit() throws Exception {
+        PmachineResultTest.prepareCode("Exit");
+        Compiler.main(null);
+        PmachineResultTest.checkAnswer("Exit");
+    }
 
 }

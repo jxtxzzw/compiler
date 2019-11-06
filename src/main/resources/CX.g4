@@ -14,6 +14,7 @@ statement
 | READ IDENTIFIER SEMICOLON
 | basetype IDENTIFIER (ASSIGN expression)? (COMMA IDENTIFIER(ASSIGN expression)?)* SEMICOLON?
 | SEMICOLON
+| EXIT SEMICOLON
 ;
 
 compoundstatement: LEFTBRACE statement* RIGHTBRACE;
@@ -187,4 +188,5 @@ REPEAT: 'repeat';
 UNTIL: 'until';
 REAL: 'real';
 READ: 'read';
+EXIT: 'exit';
 IDENTIFIER: ('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;

@@ -27,7 +27,7 @@ public class IO {
     /**
      * Method: main(String[] args)
      */
-    @Test
+//    @Test
     public void Read() throws Exception {
         PmachineResultTest.prepareCode("Read");
         Compiler.main(null);

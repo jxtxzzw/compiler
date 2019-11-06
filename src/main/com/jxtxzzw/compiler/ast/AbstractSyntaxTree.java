@@ -50,6 +50,9 @@ public class AbstractSyntaxTree {
         if (TokenJudgement.isTokenAndEqualTo(tree.getChild(1), CXLexer.IDENTIFIER)) {
             return buildDefinition(tree);
         }
+        if (TokenJudgement.isTokenAndEqualTo(tree.getChild(0), CXLexer.EXIT)) {
+            return new ExitStatement();
+        }
         tree = tree.getChild(0);
         if (TokenJudgement.isTokenAndEqualTo(tree.getChild(1), CXLexer.SEMICOLON)) {
             return buildExpression(tree.getChild(0));
@@ -79,6 +82,7 @@ public class AbstractSyntaxTree {
         if (TokenJudgement.isTokenAndEqualTo(tree.getChild(0), CXLexer.SEMICOLON)) {
             return new EmptyStatement();
         }
+
         throw new Exception();
     }
 
