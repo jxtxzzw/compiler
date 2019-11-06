@@ -56,5 +56,12 @@ public class RealProblemTest {
         PmachineResultTest.checkAnswer("Prime");
     }
 
+    @Test
+    public void LCM() throws Exception {
+        PmachineResultTest.prepareCode("LCM");
+        Compiler.main(null);
+        PmachineResultTest.checkAnswer("LCM");
+    }
+
 
 }

@@ -17,5 +17,16 @@ int main() {
     writeln e;
     writeln f;
     writeln g;
+
+    int aa = 10, bb = 20;
+    writeln aa;
+    writeln bb;
+
+    int x1;
+    int x2 = 5;
+    int x3 = 5, x4;
+    int x5 = 5, x6 = 5;
+    int x7, x8 = 5;
+    int x9, x10;
 }
 

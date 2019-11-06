@@ -11,7 +11,7 @@ statement
 | RETURN (expression|VOID)? SEMICOLON
 | WRITE expression SEMICOLON
 | WRITELN expression SEMICOLON
-| basetype IDENTIFIER ((ASSIGN expression)?|(COMMA IDENTIFIER(ASSIGN expression)?)*) SEMICOLON?
+| basetype IDENTIFIER (ASSIGN expression)? (COMMA IDENTIFIER(ASSIGN expression)?)* SEMICOLON?
 | SEMICOLON
 ;
 
