@@ -87,4 +87,11 @@ public class SimpleArithmeticTest {
         PmachineResultTest.checkAnswer("NegativeExpression");
     }
 
+    @Test
+    public void TypeCast() throws Exception {
+        PmachineResultTest.prepareCode("TypeCast");
+        Compiler.main(null);
+        PmachineResultTest.checkAnswer("TypeCast");
+    }
+
 }

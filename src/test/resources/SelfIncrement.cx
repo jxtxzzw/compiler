@@ -7,4 +7,13 @@ int main() {
     writeln x;
     x--;
     writeln x--;
+
+    x = 10;
+    writeln x;
+    ++x;
+    writeln x;
+    writeln ++x;
+    writeln x;
+    --x;
+    writeln --x;
 }

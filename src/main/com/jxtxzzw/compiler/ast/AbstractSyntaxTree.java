@@ -233,18 +233,27 @@ public class AbstractSyntaxTree {
     private static Expression buildMultiplicativeExpression(ParseTree tree) throws Exception {
         final int[] TOKEN_SET = { CXLexer.MUL, CXLexer.DIV, CXLexer.MOD};
         if (TokenJudgement.isTokenAndEqualTo(tree.getChild(1), TOKEN_SET)) {
-            return new ArithmeticExpression(buildMultiplicativeExpression(tree.getChild(0)), buildPostfixExpression(tree.getChild(2)), TokenJudgement.getToken(tree.getChild(1)));
+            return new ArithmeticExpression(buildMultiplicativeExpression(tree.getChild(0)), buildCastExpression(tree.getChild(2)), TokenJudgement.getToken(tree.getChild(1)));
         } else {
-            return buildPostfixExpression(tree.getChild(0));
+            return buildCastExpression(tree.getChild(0));
         }
     }
 
-    private static Expression buildPostfixExpression(ParseTree tree) throws Exception {
+    private static  Expression buildCastExpression(ParseTree tree) throws Exception {
+        if (TokenJudgement.isTokenAndEqualTo(tree.getChild(0), CXLexer.LEFTPARENTHESIS)) {
+            return new CastExpression(typeFactory.getType(tree.getChild(1).getText()), buildCastExpression(tree.getChild(3)));
+
+        } else {
+            return buildUnaryExpression(tree.getChild(0));
+        }
+    }
+
+    private static Expression buildUnaryExpression(ParseTree tree) throws Exception {
         final int[] TOKEN_SET = { CXLexer.PLUSPLUS, CXLexer.MINUSMINUS};
-        if (TokenJudgement.isTokenAndEqualTo(tree.getChild(1), TOKEN_SET)) {
-            Expression e = buildPostfixExpression(tree.getChild(0));
+        if (TokenJudgement.isTokenAndEqualTo(tree.getChild(0), TOKEN_SET)) {
+            Expression e = buildUnaryExpression(tree.getChild(1));
             if (e instanceof VariableExpression) {
-                return new SelfIncrementExpression((VariableExpression)e, TokenJudgement.getToken(tree.getChild(1)));
+                return new SelfIncrementUnaryExpression(TokenJudgement.getToken(tree.getChild(0)), (VariableExpression)e);
             } else {
                 throw new Exception();
             }
@@ -253,7 +262,22 @@ public class AbstractSyntaxTree {
         } else if (TokenJudgement.isTokenAndEqualTo(tree.getChild(0), CXLexer.ODD)) {
             return buildOddExpression(tree.getChild(1));
         } else if (TokenJudgement.isTokenAndEqualTo(tree.getChild(0), CXLexer.MINUS)) {
-            return buildMinusExpression(tree.getChild(1));
+            return  buildNegativeExpression(tree.getChild(1));
+        } else {
+            return buildPostfixExpression(tree.getChild(0));
+        }
+
+    }
+
+    private static Expression buildPostfixExpression(ParseTree tree) throws Exception {
+        final int[] TOKEN_SET = { CXLexer.PLUSPLUS, CXLexer.MINUSMINUS};
+        if (TokenJudgement.isTokenAndEqualTo(tree.getChild(1), TOKEN_SET)) {
+            Expression e = buildPostfixExpression(tree.getChild(0));
+            if (e instanceof VariableExpression) {
+                return new SelfIncrementPostfixExpression((VariableExpression)e, TokenJudgement.getToken(tree.getChild(1)));
+            } else {
+                throw new Exception();
+            }
         } else {
             return buildPrimaryExpression(tree.getChild(0));
         }
@@ -395,14 +419,14 @@ public class AbstractSyntaxTree {
     }
 
     private static Expression buildLogicalNotExpression(ParseTree tree) throws Exception {
-        return new LogicNotExpression(buildPrimaryExpression(tree));
+        return new LogicNotExpression(buildCastExpression(tree));
     }
 
-    private static Expression buildMinusExpression(ParseTree tree) throws Exception {
-        return new MinusExpression(buildPrimaryExpression(tree));
+    private static Expression buildNegativeExpression(ParseTree tree) throws Exception {
+        return new MinusExpression(buildCastExpression(tree));
     }
 
     private static Expression buildOddExpression(ParseTree tree) throws Exception {
-        return new OddExpression(buildPrimaryExpression(tree));
+        return new OddExpression(buildCastExpression(tree));
     }
 }

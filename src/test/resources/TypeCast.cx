@@ -1,0 +1,7 @@
+int main() {
+    writeln (real)4 * 1.1;
+    writeln 4 * (int)1.1;
+    writeln 4 * 5;
+    writeln 4.0 * 5.0;
+    writeln (int)((real)3 * 1.1);
+}

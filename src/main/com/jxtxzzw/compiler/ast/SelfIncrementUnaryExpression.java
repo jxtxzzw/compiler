@@ -1,15 +1,14 @@
 package com.jxtxzzw.compiler.ast;
 
-import com.jxtxzzw.compiler.type.BaseType;
 import org.antlr.v4.runtime.Token;
 import resources.CXLexer;
 
-public class SelfIncrementExpression extends Expression {
+public class SelfIncrementUnaryExpression extends Expression {
 
-    private VariableExpression variableExpression;
     private Token token;
+    private VariableExpression variableExpression;
 
-    SelfIncrementExpression(VariableExpression variableExpression, Token token) {
+    SelfIncrementUnaryExpression(Token token, VariableExpression variableExpression) {
         super(variableExpression.getBaseType());
         this.variableExpression = variableExpression;
         this.token = token;
@@ -19,12 +18,12 @@ public class SelfIncrementExpression extends Expression {
     public String compile() {
         String code = "";
         code += variableExpression.compile();
-        code += "dpl i\n";
         code += "ldc i 1\n";
         if (token.getType() == CXLexer.PLUSPLUS)
             code += "add i\n";
         else
             code += "sub i\n";
+        code += "dpl i\n";
         code += "str i 0 " + variableExpression.getSymbol().getAddress() + "\n";
         return code;
     }
