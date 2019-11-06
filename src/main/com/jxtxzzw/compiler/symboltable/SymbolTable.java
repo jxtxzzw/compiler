@@ -24,12 +24,12 @@ public class SymbolTable {
 //        }
 //    }
 
-    public void registerSymbol(String identifier, BaseType baseType) throws Exception {
+    public void registerSymbol(String identifier, BaseType baseType, boolean constant) throws Exception {
         if (scope.containsSymbol(identifier)) {
             throw new Exception("Symbol " + identifier + " has already existed.");
         }
         int address = scope.getAllocated();
-        Symbol symbol = new Symbol(identifier, baseType, address);
+        Symbol symbol = new Symbol(identifier, baseType, address, constant);
         scope.addSymbol(symbol);
     }
 
@@ -54,7 +54,7 @@ public class SymbolTable {
         for (int i = 0; i < size; i++) {
             BaseType baseType = parameterTypes.get(i);
             String identifier = parameters.get(i);
-            Symbol symbol = new Symbol(identifier, baseType, currentAddress);
+            Symbol symbol = new Symbol(identifier, baseType, currentAddress, false);
             scope.addSymbol(symbol);
             currentAddress += baseType.getSize();
         }

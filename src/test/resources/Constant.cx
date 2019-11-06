@@ -1,0 +1,13 @@
+int main() {
+
+    int a = 10;
+    writeln a;
+
+    const int x1 = 20, x2 = 30;
+
+    writeln x1;
+    writeln x2;
+
+}
+
+

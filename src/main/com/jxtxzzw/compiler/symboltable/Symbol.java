@@ -8,11 +8,13 @@ public class Symbol {
     private String identifier;
     private BaseType beseType;
     private int address;
+    boolean constant;
 
-    public Symbol(String identifier, BaseType beseType, int address) {
+    public Symbol(String identifier, BaseType beseType, int address, boolean constant) {
         this.identifier = identifier;
         this.beseType = beseType;
         this.address = address + BASE_ADDRESS;
+        this.constant = constant;
     }
 
     public String getIdentifier() {
@@ -25,6 +27,10 @@ public class Symbol {
 
     public int getAddress() {
         return address;
+    }
+
+    public boolean isConstant() {
+        return constant;
     }
 
 }

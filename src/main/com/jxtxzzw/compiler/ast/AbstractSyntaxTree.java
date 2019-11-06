@@ -1,6 +1,7 @@
 package com.jxtxzzw.compiler.ast;
 
 import com.jxtxzzw.compiler.symboltable.Function;
+import com.jxtxzzw.compiler.symboltable.Symbol;
 import com.jxtxzzw.compiler.symboltable.SymbolTable;
 import com.jxtxzzw.compiler.type.BaseType;
 import com.jxtxzzw.compiler.type.TypeFactory;
@@ -47,7 +48,8 @@ public class AbstractSyntaxTree {
         if (TokenJudgement.isTokenAndEqualTo(tree.getChild(0), CXLexer.READ)) {
             return buildReadExpression(tree.getChild(1));
         }
-        if (TokenJudgement.isTokenAndEqualTo(tree.getChild(1), CXLexer.IDENTIFIER)) {
+        if (TokenJudgement.isTokenAndEqualTo(tree.getChild(1), CXLexer.IDENTIFIER)
+            || (TokenJudgement.isTokenAndEqualTo(tree.getChild(0), CXLexer.CONST) && TokenJudgement.isTokenAndEqualTo(tree.getChild(2), CXLexer.IDENTIFIER))) {
             return buildDefinition(tree);
         }
         if (TokenJudgement.isTokenAndEqualTo(tree.getChild(0), CXLexer.EXIT)) {
@@ -154,7 +156,11 @@ public class AbstractSyntaxTree {
     private static Expression buildAssignmentExpression(ParseTree tree) throws Exception {
         if (TokenJudgement.isTokenAndEqualTo(tree.getChild(1), CXLexer.ASSIGN)) {
             String identifier = tree.getChild(0).getText();
-            VariableExpression variableExpression = new VariableExpression(symbolTable.getSymbol(identifier));
+            Symbol symbol = symbolTable.getSymbol(identifier);
+            if (symbol.isConstant()) {
+                throw new Exception();
+            }
+            VariableExpression variableExpression = new VariableExpression(symbol);
             Expression expression = buildAssignmentExpression(tree.getChild(2));
             return new AssignmentExpression(variableExpression, expression);
         } else {
@@ -400,12 +406,18 @@ public class AbstractSyntaxTree {
     }
 
     public static DefinitionInitializationExpression buildDefinition(ParseTree tree) throws Exception {
-        BaseType baseType = typeFactory.getType(tree.getChild(0).getText());
+        boolean constant = false;
+        int cursor = 0;
+        if (TokenJudgement.isTokenAndEqualTo(tree.getChild(0), CXLexer.CONST)) {
+            cursor = 1;
+            constant = true;
+        }
+        BaseType baseType = typeFactory.getType(tree.getChild(cursor).getText());
         DefinitionInitializationExpression list = new DefinitionInitializationExpression(baseType);
-        for (int i = 0; i < tree.getChildCount(); i++) {
+        for (int i = cursor; i < tree.getChildCount(); i++) {
             if (TokenJudgement.isTokenAndEqualTo(tree.getChild(i), CXLexer.IDENTIFIER)) {
                 String identifier = tree.getChild(i).getText();
-                symbolTable.registerSymbol(identifier, baseType);
+                symbolTable.registerSymbol(identifier, baseType, constant);
                 VariableExpression variableExpression = buildVariableExpression(tree.getChild(i));
                 Expression initialValue;
                 if (TokenJudgement.isTokenAndEqualTo(tree.getChild(i + 1), CXLexer.ASSIGN)) {
@@ -413,6 +425,10 @@ public class AbstractSyntaxTree {
                     i += 2;
                 } else {
                     initialValue = null;
+
+                    if (constant) {
+                        throw new Exception("Constant variable must have initial value.");
+                    }
                 }
                 list.append(variableExpression, initialValue);
             }

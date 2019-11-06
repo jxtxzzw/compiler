@@ -12,7 +12,7 @@ statement
 | WRITE expression SEMICOLON
 | WRITELN expression SEMICOLON
 | READ IDENTIFIER SEMICOLON
-| basetype IDENTIFIER (ASSIGN expression)? (COMMA IDENTIFIER(ASSIGN expression)?)* SEMICOLON?
+| CONST? basetype IDENTIFIER (ASSIGN expression)? (COMMA IDENTIFIER(ASSIGN expression)?)* SEMICOLON?
 | SEMICOLON
 | EXIT SEMICOLON
 ;
@@ -189,4 +189,5 @@ UNTIL: 'until';
 REAL: 'real';
 READ: 'read';
 EXIT: 'exit';
+CONST: 'const';
 IDENTIFIER: ('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;
