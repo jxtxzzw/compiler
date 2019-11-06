@@ -11,8 +11,9 @@ public class Program {
     private StringBuffer code = new StringBuffer();
 
     public void buildAbstractSyntaxTree(ParseTree tree) throws Exception {
+        AbstractSyntaxTree ast = new AbstractSyntaxTree();
         tree = tree.getChild(0);
-        statements.addAll(AbstractSyntaxTree.buildProgram(tree));
+        statements.addAll(ast.buildProgram(tree));
 
         // TODO: make sure the exception will not cause halt
 

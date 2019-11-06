@@ -15,10 +15,10 @@ import java.util.ArrayList;
 
 public class AbstractSyntaxTree {
 
-    private static SymbolTable symbolTable = new SymbolTable();
-    private static TypeFactory typeFactory = TypeFactory.getInstance();
+    private SymbolTable symbolTable = new SymbolTable();
+    private TypeFactory typeFactory = TypeFactory.getInstance();
 
-    public static ArrayList<Statement> buildProgram(ParseTree tree) throws Exception {
+    public  ArrayList<Statement> buildProgram(ParseTree tree) throws Exception {
         ArrayList<Statement> statements = new ArrayList<>();
         for (int i = 0; i < tree.getChildCount(); i++) {
             if (TokenJudgement.isTokenAndEqualTo(tree.getChild(i).getChild(1), CXLexer.IDENTIFIER)) {
@@ -28,7 +28,7 @@ public class AbstractSyntaxTree {
         return statements;
     }
 
-    public static Statement buildStatement(ParseTree tree) throws Exception {
+    public  Statement buildStatement(ParseTree tree) throws Exception {
         if (TokenJudgement.isTokenAndEqualTo(tree.getChild(0), CXLexer.SEMICOLON)) {
             return new EmptyStatement();
         }
@@ -88,7 +88,7 @@ public class AbstractSyntaxTree {
         throw new Exception();
     }
 
-    private static Statement buildWhileStatement(ParseTree tree) throws Exception {
+    private  Statement buildWhileStatement(ParseTree tree) throws Exception {
         Expression condition = buildExpression(tree.getChild(2));
         Statement statement = buildStatement(tree.getChild(4));
         String beginLoopLabel = symbolTable.generateLoopLabel();
@@ -96,7 +96,7 @@ public class AbstractSyntaxTree {
         return new WhileStatement(condition, false, statement, beginLoopLabel, endLoopLabel);
     }
 
-    private static Statement buildForStatement(ParseTree tree) throws Exception {
+    private  Statement buildForStatement(ParseTree tree) throws Exception {
         ParseTree[] expressionTree = new ParseTree[3];
         int cursor = 0;
         for (int i = 2; i < tree.getChildCount(); i++) {
@@ -128,15 +128,15 @@ public class AbstractSyntaxTree {
         return forLoop;
     }
 
-    private static Statement buildDoWhileStatement(ParseTree tree) throws Exception {
+    private  Statement buildDoWhileStatement(ParseTree tree) throws Exception {
         return buildDoWhileOrRepeateUntil(tree, false);
     }
 
-    private static Statement buildRepeatUntilStatement(ParseTree tree) throws Exception {
+    private  Statement buildRepeatUntilStatement(ParseTree tree) throws Exception {
         return buildDoWhileOrRepeateUntil(tree, true);
     }
 
-    private static Statement buildDoWhileOrRepeateUntil(ParseTree tree, boolean conditionToBreakLoop) throws Exception {
+    private  Statement buildDoWhileOrRepeateUntil(ParseTree tree, boolean conditionToBreakLoop) throws Exception {
         CompoundStatement compoundStatement = new CompoundStatement();
         Expression condition = buildExpression(tree.getChild(4));
         Statement statement = buildStatement(tree.getChild(1));
@@ -147,13 +147,13 @@ public class AbstractSyntaxTree {
         return compoundStatement;
     }
 
-    private static Expression buildExpression(ParseTree tree) throws Exception {
+    private  Expression buildExpression(ParseTree tree) throws Exception {
         if (tree == null)
             return new EmptyExpression(new Void());
         return buildAssignmentExpression(tree.getChild(0));
     }
 
-    private static Expression buildAssignmentExpression(ParseTree tree) throws Exception {
+    private  Expression buildAssignmentExpression(ParseTree tree) throws Exception {
         if (TokenJudgement.isTokenAndEqualTo(tree.getChild(1), CXLexer.ASSIGN)) {
             String identifier = tree.getChild(0).getText();
             Symbol symbol = symbolTable.getSymbol(identifier);
@@ -168,7 +168,7 @@ public class AbstractSyntaxTree {
         }
     }
 
-    private  static  Expression buildConditionalExpression(ParseTree tree) throws Exception {
+    private    Expression buildConditionalExpression(ParseTree tree) throws Exception {
         if (TokenJudgement.isTokenAndEqualTo(tree.getChild(1), CXLexer.QUESTIONMARK)) {
             throw new Exception();
         } else {
@@ -176,7 +176,7 @@ public class AbstractSyntaxTree {
         }
     }
 
-    private static Expression buildLogicalOrExpression(ParseTree tree) throws Exception {
+    private  Expression buildLogicalOrExpression(ParseTree tree) throws Exception {
         if (TokenJudgement.isTokenAndEqualTo(tree.getChild(1), CXLexer.LOGICALOR)) {
             return new LogicExpression(buildLogicalOrExpression(tree.getChild(0)), buildLogicalAndExpression(tree.getChild(2)), TokenJudgement.getToken(tree.getChild(1)));
         } else {
@@ -184,7 +184,7 @@ public class AbstractSyntaxTree {
         }
     }
 
-    private static Expression buildLogicalAndExpression(ParseTree tree) throws Exception {
+    private  Expression buildLogicalAndExpression(ParseTree tree) throws Exception {
         if (TokenJudgement.isTokenAndEqualTo(tree.getChild(1), CXLexer.LOGICALAND)) {
             return new LogicExpression(buildLogicalAndExpression(tree.getChild(0)), buildInclusiveOrExpression(tree.getChild(2)), TokenJudgement.getToken(tree.getChild(1)));
         } else {
@@ -192,7 +192,7 @@ public class AbstractSyntaxTree {
         }
     }
 
-    private static  Expression buildInclusiveOrExpression(ParseTree tree) throws Exception {
+    private   Expression buildInclusiveOrExpression(ParseTree tree) throws Exception {
         if (TokenJudgement.isTokenAndEqualTo(tree.getChild(1), CXLexer.IOR)) {
             return new LogicExpression(buildInclusiveOrExpression(tree.getChild(0)), buildExclusiveOrExpression(tree.getChild(2)), TokenJudgement.getToken(tree.getChild(1)));
         } else {
@@ -200,7 +200,7 @@ public class AbstractSyntaxTree {
         }
     }
 
-    private static Expression buildExclusiveOrExpression(ParseTree tree) throws Exception {
+    private  Expression buildExclusiveOrExpression(ParseTree tree) throws Exception {
         if (TokenJudgement.isTokenAndEqualTo(tree.getChild(1), CXLexer.XOR)) {
             return new LogicExpression(buildExclusiveOrExpression(tree.getChild(0)), buildAndExpression(tree.getChild(2)), TokenJudgement.getToken(tree.getChild(1)));
         } else {
@@ -208,7 +208,7 @@ public class AbstractSyntaxTree {
         }
     }
 
-    private  static  Expression buildAndExpression(ParseTree tree) throws Exception {
+    private    Expression buildAndExpression(ParseTree tree) throws Exception {
         if (TokenJudgement.isTokenAndEqualTo(tree.getChild(1), CXLexer.AND)) {
             return new LogicExpression(buildAndExpression(tree.getChild(0)), buildEqualityExpression(tree.getChild(2)), TokenJudgement.getToken(tree.getChild(1)));
         } else {
@@ -216,7 +216,7 @@ public class AbstractSyntaxTree {
         }
     }
 
-    private  static  Expression buildEqualityExpression(ParseTree tree) throws Exception {
+    private    Expression buildEqualityExpression(ParseTree tree) throws Exception {
         final int[] TOKEN_SET = { CXLexer.EQUAL, CXLexer.NOTEQUAL};
         if (TokenJudgement.isTokenAndEqualTo(tree.getChild(1), TOKEN_SET)) {
             return new ComparisonExpression(buildEqualityExpression(tree.getChild(0)), buildRelationalExpression(tree.getChild(2)), TokenJudgement.getToken(tree.getChild(1)));
@@ -225,7 +225,7 @@ public class AbstractSyntaxTree {
         }
     }
 
-    private static  Expression buildRelationalExpression(ParseTree tree) throws Exception {
+    private   Expression buildRelationalExpression(ParseTree tree) throws Exception {
         final int[] TOKEN_SET = { CXLexer.LESSTHAN, CXLexer.GREATERTHAN, CXLexer.LESSTHANOREQUAL, CXLexer.GREATERTHANOREQUAL};
         if (TokenJudgement.isTokenAndEqualTo(tree.getChild(1), TOKEN_SET)) {
             return new ComparisonExpression(buildRelationalExpression(tree.getChild(0)), buildAddictiveExpression(tree.getChild(2)), TokenJudgement.getToken(tree.getChild(1)));
@@ -234,7 +234,7 @@ public class AbstractSyntaxTree {
         }
     }
 
-    private static Expression buildAddictiveExpression(ParseTree tree) throws Exception {
+    private  Expression buildAddictiveExpression(ParseTree tree) throws Exception {
         final int[] TOKEN_SET = { CXLexer.PLUS, CXLexer.MINUS};
         if (TokenJudgement.isTokenAndEqualTo(tree.getChild(1), TOKEN_SET)) {
             return new ArithmeticExpression(buildAddictiveExpression(tree.getChild(0)), buildMultiplicativeExpression(tree.getChild(2)), TokenJudgement.getToken(tree.getChild(1)));
@@ -243,7 +243,7 @@ public class AbstractSyntaxTree {
         }
     }
 
-    private static Expression buildMultiplicativeExpression(ParseTree tree) throws Exception {
+    private  Expression buildMultiplicativeExpression(ParseTree tree) throws Exception {
         final int[] TOKEN_SET = { CXLexer.MUL, CXLexer.DIV, CXLexer.MOD};
         if (TokenJudgement.isTokenAndEqualTo(tree.getChild(1), TOKEN_SET)) {
             return new ArithmeticExpression(buildMultiplicativeExpression(tree.getChild(0)), buildCastExpression(tree.getChild(2)), TokenJudgement.getToken(tree.getChild(1)));
@@ -252,7 +252,7 @@ public class AbstractSyntaxTree {
         }
     }
 
-    private static  Expression buildCastExpression(ParseTree tree) throws Exception {
+    private   Expression buildCastExpression(ParseTree tree) throws Exception {
         if (TokenJudgement.isTokenAndEqualTo(tree.getChild(0), CXLexer.LEFTPARENTHESIS)) {
             return new CastExpression(typeFactory.getType(tree.getChild(1).getText()), buildCastExpression(tree.getChild(3)));
 
@@ -261,7 +261,7 @@ public class AbstractSyntaxTree {
         }
     }
 
-    private static Expression buildUnaryExpression(ParseTree tree) throws Exception {
+    private  Expression buildUnaryExpression(ParseTree tree) throws Exception {
         final int[] TOKEN_SET = { CXLexer.PLUSPLUS, CXLexer.MINUSMINUS};
         if (TokenJudgement.isTokenAndEqualTo(tree.getChild(0), TOKEN_SET)) {
             Expression e = buildUnaryExpression(tree.getChild(1));
@@ -282,7 +282,7 @@ public class AbstractSyntaxTree {
 
     }
 
-    private static Expression buildPostfixExpression(ParseTree tree) throws Exception {
+    private  Expression buildPostfixExpression(ParseTree tree) throws Exception {
         final int[] TOKEN_SET = { CXLexer.PLUSPLUS, CXLexer.MINUSMINUS};
         if (TokenJudgement.isTokenAndEqualTo(tree.getChild(1), TOKEN_SET)) {
             Expression e = buildPostfixExpression(tree.getChild(0));
@@ -296,7 +296,7 @@ public class AbstractSyntaxTree {
         }
     }
 
-    private static  Expression buildPrimaryExpression(ParseTree tree) throws Exception {
+    private   Expression buildPrimaryExpression(ParseTree tree) throws Exception {
         if (TokenJudgement.isTokenAndEqualTo(tree.getChild(0), CXLexer.IDENTIFIER)) {
             if (tree.getChildCount() > 1 && TokenJudgement.isTokenAndEqualTo(tree.getChild(1), CXLexer.LEFTPARENTHESIS)) {
                 // function call
@@ -324,7 +324,7 @@ public class AbstractSyntaxTree {
         }
     }
 
-    private static IfElseStatement buildIfElse(ParseTree tree) throws Exception {
+    private  IfElseStatement buildIfElse(ParseTree tree) throws Exception {
         Expression condition = buildExpression(tree.getChild(2));
         Statement thenStatement = tree.getChildCount() > 4 ? buildStatement(tree.getChild(4)) : null;
         Statement elseStatement = tree.getChildCount() > 6 ? buildStatement(tree.getChild(6)) : null;
@@ -334,15 +334,15 @@ public class AbstractSyntaxTree {
 
     }
 
-    private static ConstantExpression buildConstantExpression(String typeName, ParseTree tree) {
+    private  ConstantExpression buildConstantExpression(String typeName, ParseTree tree) {
         return new ConstantExpression(typeFactory.getType(typeName), tree);
     }
 
-    private static BooleanExpression buildBooleanExpression(boolean b) {
+    private  BooleanExpression buildBooleanExpression(boolean b) {
         return new BooleanExpression(b);
     }
 
-    private  static  FunctionCallExpression buildFunctionCallExpression(ParseTree tree) throws Exception {
+    private    FunctionCallExpression buildFunctionCallExpression(ParseTree tree) throws Exception {
         String identifier = tree.getChild(0).getText();
         ArrayList<Expression> parameters = new ArrayList<>();
         ArrayList<BaseType> parameterTypes = new ArrayList<>();
@@ -360,7 +360,7 @@ public class AbstractSyntaxTree {
         return new FunctionCallExpression(function, parameters);
     }
 
-    private static Statement buildFunctionStatement(ParseTree tree) throws Exception {
+    private  Statement buildFunctionStatement(ParseTree tree) throws Exception {
         BaseType returnType = typeFactory.getType(tree.getChild(0).getText());
         String identifier = tree.getChild(1).getText();
         ArrayList<BaseType> parameterTypes = new ArrayList<>();
@@ -394,18 +394,18 @@ public class AbstractSyntaxTree {
         return new FunctionStatement(function, statements);
     }
 
-    public static Statement buildWriteExpression(ParseTree tree) throws Exception {
+    public  Statement buildWriteExpression(ParseTree tree) throws Exception {
         return new WriteStatement(buildExpression(tree));
     }
-    public static Statement buildWritelnExpression(ParseTree tree) throws Exception {
+    public  Statement buildWritelnExpression(ParseTree tree) throws Exception {
         return new WritelnStatement(buildExpression(tree));
     }
 
-    public static Statement buildReadExpression(ParseTree tree) throws Exception {
+    public  Statement buildReadExpression(ParseTree tree) throws Exception {
         return new ReadStatement(buildVariableExpression(tree));
     }
 
-    public static DefinitionInitializationExpression buildDefinition(ParseTree tree) throws Exception {
+    public  DefinitionInitializationExpression buildDefinition(ParseTree tree) throws Exception {
         boolean constant = false;
         int cursor = 0;
         if (TokenJudgement.isTokenAndEqualTo(tree.getChild(0), CXLexer.CONST)) {
@@ -436,24 +436,24 @@ public class AbstractSyntaxTree {
         return list;
     }
 
-    public static VariableExpression buildVariableExpression(ParseTree tree) throws Exception {
+    public  VariableExpression buildVariableExpression(ParseTree tree) throws Exception {
         String identifier = tree.getText();
         return new VariableExpression(symbolTable.getSymbol(identifier));
     }
 
-    private static ReturnExpression buildReturnExpression(ParseTree tree) throws Exception {
+    private  ReturnExpression buildReturnExpression(ParseTree tree) throws Exception {
         return new ReturnExpression(buildExpression(tree));
     }
 
-    private static Expression buildLogicalNotExpression(ParseTree tree) throws Exception {
+    private  Expression buildLogicalNotExpression(ParseTree tree) throws Exception {
         return new LogicNotExpression(buildCastExpression(tree));
     }
 
-    private static Expression buildNegativeExpression(ParseTree tree) throws Exception {
+    private  Expression buildNegativeExpression(ParseTree tree) throws Exception {
         return new MinusExpression(buildCastExpression(tree));
     }
 
-    private static Expression buildOddExpression(ParseTree tree) throws Exception {
+    private  Expression buildOddExpression(ParseTree tree) throws Exception {
         return new OddExpression(buildCastExpression(tree));
     }
 }
