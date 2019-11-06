@@ -1,0 +1,5 @@
+int main() {
+    writeln 1;
+    writeln 2;
+    writeln true;
+}

@@ -44,6 +44,9 @@ public class AbstractSyntaxTree {
         if (TokenJudgement.isTokenAndEqualTo(tree.getChild(0), CXLexer.WRITELN)) {
             return buildWritelnExpression(tree.getChild(1));
         }
+        if (TokenJudgement.isTokenAndEqualTo(tree.getChild(0), CXLexer.READ)) {
+            return buildReadExpression(tree.getChild(1));
+        }
         if (TokenJudgement.isTokenAndEqualTo(tree.getChild(1), CXLexer.IDENTIFIER)) {
             return buildDefinition(tree);
         }
@@ -386,6 +389,10 @@ public class AbstractSyntaxTree {
     }
     public static Statement buildWritelnExpression(ParseTree tree) throws Exception {
         return new WritelnStatement(buildExpression(tree));
+    }
+
+    public static Statement buildReadExpression(ParseTree tree) throws Exception {
+        return new ReadStatement(buildVariableExpression(tree));
     }
 
     public static DefinitionInitializationExpression buildDefinition(ParseTree tree) throws Exception {

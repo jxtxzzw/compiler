@@ -11,6 +11,7 @@ statement
 | RETURN (expression|VOID)? SEMICOLON
 | WRITE expression SEMICOLON
 | WRITELN expression SEMICOLON
+| READ IDENTIFIER SEMICOLON
 | basetype IDENTIFIER (ASSIGN expression)? (COMMA IDENTIFIER(ASSIGN expression)?)* SEMICOLON?
 | SEMICOLON
 ;
@@ -185,4 +186,5 @@ PLUSPLUS: '++';
 REPEAT: 'repeat';
 UNTIL: 'until';
 REAL: 'real';
+READ: 'read';
 IDENTIFIER: ('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;

@@ -1,0 +1,5 @@
+int main() {
+    write 1;
+    write 2;
+    write false;
+}

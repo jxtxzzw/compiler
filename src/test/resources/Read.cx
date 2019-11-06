@@ -1,12 +1,11 @@
 int main() {
     int a = 1;
-    read a; // a = 2;
+    read a; // input: 2;
     write a;
     bool b = false;
-    read b; // t
+    read b; // input: t
     write b;
     real c = 1.1;
-    read c;
+    read c; // input: 2.2
     write c;
-
 }
