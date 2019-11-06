@@ -88,19 +88,30 @@ additiveexpression
 ;
 
 multiplicativeexpression
+: castexpression
+| multiplicativeexpression MUL castexpression
+| multiplicativeexpression DIV castexpression
+| multiplicativeexpression MOD castexpression
+;
+
+castexpression
+: LEFTPARENTHESIS basetype RIGHTPARENTHESIS castexpression
+| unaryexpression
+;
+
+unaryexpression
 : postfixexpression
-| multiplicativeexpression MUL postfixexpression
-| multiplicativeexpression DIV postfixexpression
-| multiplicativeexpression MOD postfixexpression
+| PLUSPLUS unaryexpression
+| MINUSMINUS unaryexpression
+| NOT castexpression
+| ODD castexpression
+| MINUS castexpression
 ;
 
 postfixexpression
 : primaryexpression
 | postfixexpression PLUSPLUS
 | postfixexpression MINUSMINUS
-| NOT primaryexpression
-| ODD primaryexpression
-| MINUS primaryexpression
 ;
 
 primaryexpression
@@ -112,7 +123,7 @@ primaryexpression
 
 constant: TRUE | FALSE | INTEGERNUMBER | REALNUMBER;
 
-basetype: INT | VOID | BOOLEAN;
+basetype: INT | VOID | BOOLEAN | REAL;
 
 COMMENT
 : (BEGININLINECOMMENT .*? NEWLINE
@@ -173,4 +184,5 @@ MINUSMINUS: '--';
 PLUSPLUS: '++';
 REPEAT: 'repeat';
 UNTIL: 'until';
+REAL: 'real';
 IDENTIFIER: ('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;

@@ -198,6 +198,26 @@ public interface CXListener extends ParseTreeListener {
 	 */
 	void exitMultiplicativeexpression(CXParser.MultiplicativeexpressionContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link CXParser#castexpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterCastexpression(CXParser.CastexpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CXParser#castexpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitCastexpression(CXParser.CastexpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CXParser#unaryexpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterUnaryexpression(CXParser.UnaryexpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CXParser#unaryexpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitUnaryexpression(CXParser.UnaryexpressionContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link CXParser#postfixexpression}.
 	 * @param ctx the parse tree
 	 */
