@@ -163,6 +163,12 @@ public class AbstractSyntaxTree {
             VariableExpression variableExpression = new VariableExpression(symbol);
             Expression expression = buildAssignmentExpression(tree.getChild(2));
             return new AssignmentExpression(variableExpression, expression);
+        } else if (TokenJudgement.isTokenAndEqualTo(tree.getChild(1), CXLexer.LEFTSQUAREBRACKET)) {
+            Symbol array = symbolTable.getSymbol(tree.getChild(0).getText());
+            Expression index = buildExpression(tree.getChild(2));
+            ArrayExpression arrayExpression = new ArrayExpression(array, index);
+            Expression expression = buildAssignmentExpression(tree.getChild(5));
+            return new AssignmentExpression(arrayExpression, expression);
         } else {
             return buildConditionalExpression(tree.getChild(0));
         }
@@ -287,10 +293,15 @@ public class AbstractSyntaxTree {
         if (TokenJudgement.isTokenAndEqualTo(tree.getChild(1), TOKEN_SET)) {
             Expression e = buildPostfixExpression(tree.getChild(0));
             if (e instanceof VariableExpression) {
-                return new SelfIncrementPostfixExpression((VariableExpression)e, TokenJudgement.getToken(tree.getChild(1)));
+                return new SelfIncrementPostfixExpression((VariableExpression) e, TokenJudgement.getToken(tree.getChild(1)));
             } else {
                 throw new Exception();
             }
+        } else if (TokenJudgement.isTokenAndEqualTo(tree.getChild(0), CXLexer.IDENTIFIER)) {
+            Symbol array = symbolTable.getSymbol(tree.getChild(0).getText());
+            Expression index = buildExpression(tree.getChild(2));
+            ArrayExpression arrayExpression = new ArrayExpression(array, index);
+            return new VariableExpression(arrayExpression);
         } else {
             return buildPrimaryExpression(tree.getChild(0));
         }
@@ -417,20 +428,27 @@ public class AbstractSyntaxTree {
         for (int i = cursor; i < tree.getChildCount(); i++) {
             if (TokenJudgement.isTokenAndEqualTo(tree.getChild(i), CXLexer.IDENTIFIER)) {
                 String identifier = tree.getChild(i).getText();
-                symbolTable.registerSymbol(identifier, baseType, constant);
-                VariableExpression variableExpression = buildVariableExpression(tree.getChild(i));
-                Expression initialValue;
-                if (TokenJudgement.isTokenAndEqualTo(tree.getChild(i + 1), CXLexer.ASSIGN)) {
-                    initialValue = buildExpression(tree.getChild(i + 2));
-                    i += 2;
+                boolean array = TokenJudgement.isTokenAndEqualTo(tree.getChild(i + 1), CXLexer.LEFTSQUAREBRACKET);
+                if (array) {
+                    int length = Integer.parseInt(tree.getChild(i + 2).getText());
+                    symbolTable.registerSymbol(identifier, baseType, constant, true, length);
+                    i += 3;
                 } else {
-                    initialValue = null;
+                    symbolTable.registerSymbol(identifier, baseType, constant, false, 0);
+                    VariableExpression variableExpression = buildVariableExpression(tree.getChild(i));
+                    Expression initialValue;
+                    if (TokenJudgement.isTokenAndEqualTo(tree.getChild(i + 1), CXLexer.ASSIGN)) {
+                        initialValue = buildExpression(tree.getChild(i + 2));
+                        i += 2;
+                    } else {
+                        initialValue = null;
 
-                    if (constant) {
-                        throw new Exception("Constant variable must have initial value.");
+                        if (constant) {
+                            throw new Exception("Constant variable must have initial value.");
+                        }
                     }
+                    list.append(variableExpression, initialValue);
                 }
-                list.append(variableExpression, initialValue);
             }
         }
         return list;

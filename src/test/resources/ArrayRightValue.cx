@@ -1,0 +1,25 @@
+int main() {
+    int a[10];
+    a[1] = 111;
+    writeln a[1];
+    a[2] = 222;
+    writeln a[2] + a[1];
+    a[3] = 333;
+    writeln a[3] * 2;
+
+    int x = 2, y = 444;
+    a[x * 2] = y + a[1];
+    writeln a[x * 2] - y;
+
+    int i = 6;
+    for (; i < 10; i++) {
+        a[i] = i * i;
+    }
+
+    for (i = 6; i < 10; i++) {
+        writeln a[i];
+    }
+
+
+
+}

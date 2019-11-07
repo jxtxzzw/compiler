@@ -56,7 +56,11 @@ public class Scope {
 
     public void addSymbol(Symbol symbol) {
         symbols.put(symbol.getIdentifier(), symbol);
-        addAllocated(symbol.getBeseType().getSize());
+        if (symbol.isArray()) {
+            addAllocated(symbol.getSize());
+        } else {
+            addAllocated(symbol.getBeseType().getSize());
+        }
     }
 
     public Symbol getSymbol(String identifier) {

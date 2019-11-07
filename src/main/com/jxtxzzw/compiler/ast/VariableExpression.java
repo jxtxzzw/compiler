@@ -4,9 +4,18 @@ import com.jxtxzzw.compiler.symboltable.Symbol;
 
 public class VariableExpression extends Expression {
     private Symbol symbol;
+    private ArrayExpression arrayExpression;
+    private boolean array;
+
     VariableExpression(Symbol symbol) {
         super(symbol.getBeseType());
         this.symbol = symbol;
+        array = false;
+    }
+    VariableExpression(ArrayExpression arrayExpression) {
+        super(arrayExpression.getBaseType());
+        this.arrayExpression = arrayExpression;
+        array = true;
     }
 
     public Symbol getSymbol() {
@@ -15,7 +24,11 @@ public class VariableExpression extends Expression {
 
     @Override
     public String compile() {
-        String code = "lod " + symbol.getBeseType().getCode() + " 0 " + symbol.getAddress() + "\n";
-        return code;
+        if (array) {
+            return arrayExpression.compile() +
+                    "ind " + arrayExpression.getBaseType().getCode() + "\n";
+        } else {
+            return "lod " + symbol.getBeseType().getCode() + " 0 " + symbol.getAddress() + "\n";
+        }
     }
 }

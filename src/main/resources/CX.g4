@@ -12,7 +12,7 @@ statement
 | WRITE expression SEMICOLON
 | WRITELN expression SEMICOLON
 | READ IDENTIFIER SEMICOLON
-| CONST? basetype IDENTIFIER (ASSIGN expression)? (COMMA IDENTIFIER(ASSIGN expression)?)* SEMICOLON?
+| CONST? basetype IDENTIFIER (LEFTSQUAREBRACKET INTEGERNUMBER RIGHTSQUAREBRACKET)? (ASSIGN expression)? (COMMA IDENTIFIER(LEFTSQUAREBRACKET INTEGERNUMBER RIGHTSQUAREBRACKET)? (ASSIGN expression)?)* SEMICOLON?
 | SEMICOLON
 | EXIT SEMICOLON
 ;
@@ -36,7 +36,7 @@ expression
 
 assignmentexpression
 : conditionalexpression
-| IDENTIFIER ASSIGN assignmentexpression
+| IDENTIFIER (LEFTSQUAREBRACKET expression RIGHTSQUAREBRACKET)? ASSIGN assignmentexpression
 ;
 
 conditionalexpression
@@ -114,6 +114,7 @@ postfixexpression
 : primaryexpression
 | postfixexpression PLUSPLUS
 | postfixexpression MINUSMINUS
+| IDENTIFIER LEFTSQUAREBRACKET expression RIGHTSQUAREBRACKET
 ;
 
 primaryexpression
@@ -148,6 +149,8 @@ IF: 'if';
 DO: 'do';
 LEFTPARENTHESIS: '(';
 RIGHTPARENTHESIS: ')';
+LEFTSQUAREBRACKET: '[';
+RIGHTSQUAREBRACKET: ']';
 ELSE: 'else';
 WHILE: 'while';
 FOR: 'for';

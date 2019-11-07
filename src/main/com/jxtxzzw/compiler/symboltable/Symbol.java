@@ -3,18 +3,26 @@ package com.jxtxzzw.compiler.symboltable;
 import com.jxtxzzw.compiler.type.BaseType;
 
 public class Symbol {
-    private final int BASE_ADDRESS = 0;
 
     private String identifier;
-    private BaseType beseType;
+    private BaseType baseType;
     private int address;
-    boolean constant;
+    private boolean constant;
+    private boolean array;
+    private int size; // for array type
 
-    public Symbol(String identifier, BaseType beseType, int address, boolean constant) {
+    Symbol(String identifier, BaseType baseType, int address, boolean constant, boolean array, int length) {
         this.identifier = identifier;
-        this.beseType = beseType;
+        this.baseType = baseType;
+        int BASE_ADDRESS = 0;
         this.address = address + BASE_ADDRESS;
         this.constant = constant;
+        this.array = array;
+        if (array) {
+            size = length * baseType.getSize();
+        } else {
+            size = baseType.getSize();
+        }
     }
 
     public String getIdentifier() {
@@ -22,7 +30,7 @@ public class Symbol {
     }
 
     public BaseType getBeseType() {
-        return beseType;
+        return baseType;
     }
 
     public int getAddress() {
@@ -31,6 +39,14 @@ public class Symbol {
 
     public boolean isConstant() {
         return constant;
+    }
+
+    public boolean isArray() {
+        return array;
+    }
+
+    public int getSize() {
+        return size;
     }
 
 }
