@@ -49,3 +49,5 @@ Base score: 60 score
 Time bonus: 8 score
 I expect 78 more scores
 Total expected: 146 score
+
+![Snap](.\src\test\Snap.png)
