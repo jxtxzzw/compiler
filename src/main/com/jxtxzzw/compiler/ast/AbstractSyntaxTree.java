@@ -160,7 +160,7 @@ public class AbstractSyntaxTree {
             String identifier = tree.getChild(0).getText();
             Symbol symbol = symbolTable.getSymbol(identifier);
             if (symbol.isConstant()) {
-                throw new Exception();
+                throw new Exception("Constant variable can not be assigned.");
             }
             VariableExpression variableExpression = new VariableExpression(symbol);
             Expression expression = buildAssignmentExpression(tree.getChild(2));

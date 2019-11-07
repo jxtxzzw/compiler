@@ -4,5 +4,4 @@ int main() {
             write 1;
         else
             write 3;
-
 }

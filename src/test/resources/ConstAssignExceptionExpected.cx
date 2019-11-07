@@ -1,0 +1,5 @@
+int main() {
+    const int x = 10;
+    x = 20;
+    writeln x;
+}

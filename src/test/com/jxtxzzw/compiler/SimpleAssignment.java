@@ -87,4 +87,12 @@ public class SimpleAssignment {
         System.exit(0);
     }
 
+    @Test
+    public void ConstAssignExceptionExpected() throws Exception {
+        PmachineResultTest.prepareCode("ConstAssignExceptionExpected");
+        thrown.expect(Exception.class);
+        Compiler.main(null);
+        System.exit(0);
+    }
+
 }
