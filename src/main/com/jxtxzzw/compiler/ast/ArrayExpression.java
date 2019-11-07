@@ -4,10 +4,10 @@ import com.jxtxzzw.compiler.symboltable.Symbol;
 
 public class ArrayExpression extends Expression {
 
-    Symbol array;
-    Expression index;
+    private Symbol array;
+    private Expression index;
 
-    public ArrayExpression(Symbol array, Expression index) {
+    ArrayExpression(Symbol array, Expression index) {
         super(array.getBeseType());
         this.array = array;
         this.index = index;

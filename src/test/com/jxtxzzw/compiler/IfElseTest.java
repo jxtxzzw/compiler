@@ -21,7 +21,7 @@ public class IfElseTest {
     }
 
     @After
-    public void after(){
+    public void after() {
     }
 
 

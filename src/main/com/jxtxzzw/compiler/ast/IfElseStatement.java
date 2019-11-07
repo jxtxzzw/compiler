@@ -8,7 +8,7 @@ public class IfElseStatement implements Statement {
     private String endElseLabel;
     private String endIfLabel;
 
-    public IfElseStatement(Expression condition, Statement thenStatement, Statement elseStatement, String endElseLabel, String endIfLabel) {
+    IfElseStatement(Expression condition, Statement thenStatement, Statement elseStatement, String endElseLabel, String endIfLabel) {
         this.condition = condition;
         this.thenStatement = thenStatement;
         this.elseStatement = elseStatement;

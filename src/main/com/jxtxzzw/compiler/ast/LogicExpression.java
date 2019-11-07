@@ -11,14 +11,14 @@ public class LogicExpression extends Expression {
     private Expression rightExpression;
     private Token operator;
 
-    public LogicExpression(Expression leftExpression, Expression rightExpression, Token operator) {
+    LogicExpression(Expression leftExpression, Expression rightExpression, Token operator) {
         super(new Bool());
         this.leftExpression = leftExpression;
         this.rightExpression = rightExpression;
         this.operator = operator;
     }
 
-    public static String xor(String a, String b) {
+    private static String xor(String a, String b) {
         // a xor b ==> (not a and b) or (a and not b) ==> a not b and a b not and or
         String code = "";
         code += a;

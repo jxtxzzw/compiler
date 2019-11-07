@@ -4,7 +4,7 @@ public class WriteStatement implements Statement {
 
     private Expression expression;
 
-    public WriteStatement(Expression expression) {
+    WriteStatement(Expression expression) {
         this.expression = expression;
     }
 

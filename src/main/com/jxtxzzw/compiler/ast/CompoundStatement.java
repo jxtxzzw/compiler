@@ -13,7 +13,7 @@ public class CompoundStatement implements Statement {
     @Override
     public String compile() {
         StringBuilder code = new StringBuilder();
-        for (Statement statement: statements) {
+        for (Statement statement : statements) {
             code.append(statement.compile());
         }
         return code.toString();

@@ -10,7 +10,6 @@ public abstract class Expression implements Statement {
         this.baseType = baseType;
     }
 
-    // TODO: if we need directly getBaseTypeName/getBaseTypeCode
     public BaseType getBaseType() {
         return baseType;
     }

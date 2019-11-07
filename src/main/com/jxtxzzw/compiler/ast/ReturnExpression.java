@@ -1,6 +1,6 @@
 package com.jxtxzzw.compiler.ast;
 
-public class ReturnExpression extends Expression{
+public class ReturnExpression extends Expression {
 
     private Expression expression;
 

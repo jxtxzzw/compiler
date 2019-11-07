@@ -21,7 +21,7 @@ public class FunctionCallExpression extends Expression {
     public String compile() {
         StringBuilder code = new StringBuilder();
         code.append("mst 0\n");
-        for (Expression expression: parameters) {
+        for (Expression expression : parameters) {
             code.append(expression.compile());
         }
         code.append("cup ").append(function.getParameterSize()).append(" ").append(function.getLabel()).append("\n");

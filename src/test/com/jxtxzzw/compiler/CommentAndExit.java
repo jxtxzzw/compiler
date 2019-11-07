@@ -20,7 +20,7 @@ public class CommentAndExit {
     }
 
     @After
-    public void after(){
+    public void after() {
     }
 
 

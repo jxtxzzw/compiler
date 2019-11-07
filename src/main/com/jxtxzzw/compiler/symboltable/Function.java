@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class Function {
 
 
-    public static final int PRE_OCCUPIED = 5;
+    static final int PRE_OCCUPIED = 5;
     private String identifier;
     private BaseType returnType;
     private ArrayList<BaseType> parameterTypes;
@@ -27,7 +27,7 @@ public class Function {
         return label;
     }
 
-    public Function(String identifier, BaseType returnType, ArrayList<BaseType> parameterTypes, ArrayList<String> parameters, String label) {
+    Function(String identifier, BaseType returnType, ArrayList<BaseType> parameterTypes, ArrayList<String> parameters, String label) {
         this.identifier = identifier;
         this.returnType = returnType;
         this.parameterTypes = parameterTypes;
@@ -35,15 +35,15 @@ public class Function {
         this.label = label;
     }
 
-    public ArrayList<BaseType> getParameterTypes() {
+    ArrayList<BaseType> getParameterTypes() {
         return parameterTypes;
     }
 
-    public ArrayList<String> getParameters() {
+    ArrayList<String> getParameters() {
         return parameters;
     }
 
-    public void setStaticSize(int staticSize) {
+    void setStaticSize(int staticSize) {
         this.staticSize = staticSize;
     }
 
@@ -53,7 +53,7 @@ public class Function {
 
     public int getParameterSize() {
         int size = 0;
-        for (BaseType baseType: parameterTypes) {
+        for (BaseType baseType : parameterTypes) {
             size += baseType.getSize();
         }
         return size;

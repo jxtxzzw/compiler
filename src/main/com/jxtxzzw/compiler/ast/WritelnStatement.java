@@ -2,7 +2,7 @@ package com.jxtxzzw.compiler.ast;
 
 public class WritelnStatement extends WriteStatement {
 
-    public WritelnStatement(Expression expression) {
+    WritelnStatement(Expression expression) {
         super(expression);
     }
 

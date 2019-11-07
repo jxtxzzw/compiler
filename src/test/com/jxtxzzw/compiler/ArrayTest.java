@@ -21,7 +21,7 @@ public class ArrayTest {
     }
 
     @After
-    public void after(){
+    public void after() {
     }
 
 
@@ -35,7 +35,7 @@ public class ArrayTest {
         PmachineResultTest.checkAnswer("ArrayDefinition");
     }
 
-//    @Test
+    //    @Test
     public void ArrayDefinitionWithInitialization() throws Exception {
         PmachineResultTest.prepareCode("ArrayDefinitionWithInitialization");
         Compiler.main(null);
@@ -48,6 +48,7 @@ public class ArrayTest {
         Compiler.main(null);
         PmachineResultTest.checkAnswer("ArrayRightValue");
     }
+
     @Test
     public void ArrayLeftValue() throws Exception {
         PmachineResultTest.prepareCode("ArrayLeftValue");
@@ -55,7 +56,7 @@ public class ArrayTest {
         PmachineResultTest.checkAnswer("ArrayLeftValue");
     }
 
-//    @Test
+    //    @Test
     public void ArrayBoundaryCheck() throws Exception {
         PmachineResultTest.prepareCode("ArrayBoundaryCheck");
         Compiler.main(null);

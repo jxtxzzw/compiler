@@ -7,9 +7,9 @@ import java.util.ArrayList;
 public class FunctionStatement implements Statement {
 
     private Function function;
-    private ArrayList<Statement> statements = new ArrayList<>();
+    private ArrayList<Statement> statements;
 
-    public FunctionStatement(Function function, ArrayList<Statement> statements) {
+    FunctionStatement(Function function, ArrayList<Statement> statements) {
         this.function = function;
         this.statements = statements;
     }
@@ -19,7 +19,7 @@ public class FunctionStatement implements Statement {
         StringBuilder code = new StringBuilder();
         code.append(function.getLabel()).append(":\n");
         code.append("ssp ").append(function.getSize()).append("\n");
-        for (Statement statement: statements) {
+        for (Statement statement : statements) {
             code.append(statement.compile());
         }
         code.append("retp\n");

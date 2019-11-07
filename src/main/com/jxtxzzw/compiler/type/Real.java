@@ -1,8 +1,7 @@
 package com.jxtxzzw.compiler.type;
 
-public class Real extends BaseType {
-
-    public Real() {
+class Real extends BaseType {
+    Real() {
         super("real", "r", 1, "0");
     }
 }

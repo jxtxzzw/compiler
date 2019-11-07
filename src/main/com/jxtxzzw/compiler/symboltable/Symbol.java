@@ -41,11 +41,11 @@ public class Symbol {
         return constant;
     }
 
-    public boolean isArray() {
+    boolean isArray() {
         return array;
     }
 
-    public int getSize() {
+    int getSize() {
         return size;
     }
 

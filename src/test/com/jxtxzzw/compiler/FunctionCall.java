@@ -20,7 +20,7 @@ public class FunctionCall {
     }
 
     @After
-    public void after(){
+    public void after() {
     }
 
 

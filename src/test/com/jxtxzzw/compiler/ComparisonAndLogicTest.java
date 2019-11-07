@@ -21,7 +21,7 @@ public class ComparisonAndLogicTest {
     }
 
     @After
-    public void after(){
+    public void after() {
     }
 
 

@@ -12,13 +12,14 @@ public class VariableExpression extends Expression {
         this.symbol = symbol;
         array = false;
     }
+
     VariableExpression(ArrayExpression arrayExpression) {
         super(arrayExpression.getBaseType());
         this.arrayExpression = arrayExpression;
         array = true;
     }
 
-    public Symbol getSymbol() {
+    Symbol getSymbol() {
         return this.symbol;
     }
 

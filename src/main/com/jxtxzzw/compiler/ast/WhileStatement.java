@@ -2,13 +2,13 @@ package com.jxtxzzw.compiler.ast;
 
 public class WhileStatement implements Statement {
 
-    Expression condition;
-    Statement statement;
-    String beginLoopLabel;
-    String endLoopLabel;
-    boolean conditionToBreakLoop;
+    private Expression condition;
+    private Statement statement;
+    private String beginLoopLabel;
+    private String endLoopLabel;
+    private boolean conditionToBreakLoop;
 
-    public WhileStatement(Expression condition, boolean conditionToBreakLoop ,Statement statement, String beginLoopLabel, String endLoopLabel) {
+    WhileStatement(Expression condition, boolean conditionToBreakLoop, Statement statement, String beginLoopLabel, String endLoopLabel) {
         this.condition = condition;
         this.conditionToBreakLoop = conditionToBreakLoop;
         this.statement = statement;

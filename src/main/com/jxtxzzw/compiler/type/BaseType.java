@@ -1,8 +1,5 @@
 package com.jxtxzzw.compiler.type;
 
-import com.jxtxzzw.compiler.ast.Expression;
-import com.jxtxzzw.compiler.ast.Statement;
-
 import java.util.Objects;
 
 public class BaseType {

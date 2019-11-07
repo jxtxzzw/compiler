@@ -1,13 +1,12 @@
 package com.jxtxzzw.compiler.ast;
 
-import com.jxtxzzw.compiler.type.BaseType;
-
 public class AssignmentExpression extends Expression {
 
     private Expression expression;
     private VariableExpression variableExpression;
     private ArrayExpression arrayExpression;
     private boolean array;
+
     AssignmentExpression(VariableExpression variableExpression, Expression expression) {
         super(variableExpression.getBaseType());
         this.variableExpression = variableExpression;
@@ -28,7 +27,6 @@ public class AssignmentExpression extends Expression {
             return arrayExpression.compile() +
                     expression.compile() +
                     "sto " + arrayExpression.getBaseType().getCode() + "\n";
-
         } else {
             return expression.compile() +
                     "str " + variableExpression.getBaseType().getCode() + " 0 " + variableExpression.getSymbol().getAddress() + "\n";

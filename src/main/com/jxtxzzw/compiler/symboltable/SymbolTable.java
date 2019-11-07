@@ -18,7 +18,7 @@ public class SymbolTable {
             throw new Exception("Symbol " + identifier + " has already existed.");
         }
         int address = scope.getAllocated();
-        Symbol symbol = new Symbol(identifier, baseType, address, constant, array,length);
+        Symbol symbol = new Symbol(identifier, baseType, address, constant, array, length);
         scope.addSymbol(symbol);
     }
 
@@ -54,8 +54,10 @@ public class SymbolTable {
         scope = scope.getParent();
     }
 
-    public void registerFunction(String identifier, BaseType returnType, ArrayList<BaseType> parameterTypes, ArrayList<String> parameters) {
-        // TODO if contains: exception
+    public void registerFunction(String identifier, BaseType returnType, ArrayList<BaseType> parameterTypes, ArrayList<String> parameters) throws Exception {
+        if (scope.containsFunction(identifier, parameterTypes)) {
+            throw new Exception("Function " + identifier + "(" + parameterTypes + ") exists.");
+        }
         String label = generateLabel(identifier);
         Function function = new Function(identifier, returnType, parameterTypes, parameters, label);
         scope.addFunction(function);
@@ -81,7 +83,7 @@ public class SymbolTable {
         return generateLabel("loop");
     }
 
-    private String generateLabel(String name){
+    private String generateLabel(String name) {
         if (labels.containsKey(name)) {
             labels.put(name, labels.get(name) + 1);
         } else {

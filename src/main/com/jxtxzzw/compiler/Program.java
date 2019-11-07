@@ -14,14 +14,10 @@ public class Program {
         AbstractSyntaxTree ast = new AbstractSyntaxTree();
         tree = tree.getChild(0);
         statements.addAll(ast.buildProgram(tree));
-
-        // TODO: make sure the exception will not cause halt
-
     }
 
     private void generateCode() {
         code.append("mst 0\n").append("cup 0 init\n").append("init:\n").append("ssp 5\n").append("mst 0\n").append("cup 0 main0\n").append("hlt\n");
-//        System.out.println(statements.get(0));
         for (Statement statement : statements) {
             code.append(statement.compile());
         }

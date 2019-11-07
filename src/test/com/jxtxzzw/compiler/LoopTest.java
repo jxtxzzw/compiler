@@ -21,7 +21,7 @@ public class LoopTest {
     }
 
     @After
-    public void after(){
+    public void after() {
     }
 
 
@@ -55,6 +55,5 @@ public class LoopTest {
         Compiler.main(null);
         PmachineResultTest.checkAnswer("SimpleRepeat");
     }
-
 
 }

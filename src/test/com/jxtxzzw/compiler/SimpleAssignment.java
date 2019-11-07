@@ -26,7 +26,7 @@ public class SimpleAssignment {
     }
 
     @After
-    public void after(){
+    public void after() {
     }
 
 

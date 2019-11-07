@@ -3,8 +3,6 @@ package com.jxtxzzw.compiler.ast;
 import org.antlr.v4.runtime.Token;
 import resources.CXLexer;
 
-import com.jxtxzzw.compiler.type.BaseType;
-
 public class ArithmeticExpression extends Expression {
 
     private Expression leftExpression;
@@ -42,7 +40,7 @@ public class ArithmeticExpression extends Expression {
             code += rightExpression.compile();
             switch (token.getType()) {
                 case CXLexer.PLUS:
-                    code += "add "  + getBaseType().getCode() + "\n";
+                    code += "add " + getBaseType().getCode() + "\n";
                     break;
                 case CXLexer.MINUS:
                     code += "sub " + getBaseType().getCode() + "\n";
@@ -54,7 +52,6 @@ public class ArithmeticExpression extends Expression {
                     code += "div " + getBaseType().getCode() + "\n";
                     break;
                 default:
-//                    throw new Exception();
             }
         }
         return code;

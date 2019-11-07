@@ -19,7 +19,7 @@ public class CompoundExpression extends Expression {
     @Override
     public String compile() {
         StringBuilder code = new StringBuilder();
-        for (Expression expression: expressions) {
+        for (Expression expression : expressions) {
             code.append(expression.compile());
         }
         return code.toString();

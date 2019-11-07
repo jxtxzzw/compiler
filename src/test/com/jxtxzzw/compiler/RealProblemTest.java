@@ -20,7 +20,7 @@ public class RealProblemTest {
     }
 
     @After
-    public void after(){
+    public void after() {
     }
 
 
