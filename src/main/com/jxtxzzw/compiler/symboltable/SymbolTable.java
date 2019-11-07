@@ -13,6 +13,14 @@ public class SymbolTable {
         scope = new Scope(null, 0);
     }
 
+    public void openScope() {
+        scope = scope.openScope(scope.getAllocated());
+    }
+
+    public void closeScope() {
+        scope = scope.getParent();
+    }
+
     public void registerSymbol(String identifier, BaseType baseType, boolean constant, boolean array, int length) throws Exception {
         if (scope.containsSymbol(identifier)) {
             throw new Exception("Symbol " + identifier + " has already existed.");

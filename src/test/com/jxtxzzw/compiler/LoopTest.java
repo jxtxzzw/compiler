@@ -56,4 +56,11 @@ public class LoopTest {
         PmachineResultTest.checkAnswer("SimpleRepeat");
     }
 
+    @Test
+    public void LoopScope() throws Exception {
+        PmachineResultTest.prepareCode("LoopScope");
+        Compiler.main(null);
+        PmachineResultTest.checkAnswer("LoopScope");
+    }
+
 }

@@ -1,0 +1,12 @@
+int main() {
+    int x = 1;
+    if (2 > 1) {
+        int x = 10;
+        {
+            int x = 20;
+            writeln x;
+        }
+        writeln x;
+    }
+    writeln x;
+}

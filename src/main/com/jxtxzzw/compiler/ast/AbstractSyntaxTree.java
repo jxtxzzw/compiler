@@ -63,10 +63,12 @@ public class AbstractSyntaxTree {
             return buildIfElse(tree);
         }
         if (TokenJudgement.isTokenAndEqualTo(tree.getChild(0), CXLexer.LEFTBRACE)) {
+            symbolTable.openScope();
             CompoundStatement statements = new CompoundStatement();
             for (int i = 1; i < tree.getChildCount() - 1; i++) {
                 statements.append(buildStatement(tree.getChild(i)));
             }
+            symbolTable.closeScope();
             return statements;
         }
         if (TokenJudgement.isTokenAndEqualTo(tree.getChild(0), CXLexer.WHILE)) {

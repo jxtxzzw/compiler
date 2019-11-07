@@ -8,6 +8,11 @@ int main() {
     writeln x1;
     writeln x2;
 
+    int b = 10 + 20;
+    const int c = 10 + 20;
+    writeln b;
+    writeln c;
+
 }
 
 

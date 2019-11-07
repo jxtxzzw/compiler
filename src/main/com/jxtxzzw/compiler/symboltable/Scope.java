@@ -93,9 +93,6 @@ public class Scope {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-//        for (int i = 0; i < level(); i++) {
-//            sb.append(" ");
-//        }
         sb.append(functions);
         sb.append("\n");
         return sb.toString();

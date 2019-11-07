@@ -49,4 +49,11 @@ public class IfElseTest {
         PmachineResultTest.checkAnswer("IfElseStmt");
     }
 
+    @Test
+    public void IfElseScope() throws Exception {
+        PmachineResultTest.prepareCode("IfElseScope");
+        Compiler.main(null);
+        PmachineResultTest.checkAnswer("IfElseScope");
+    }
+
 }
