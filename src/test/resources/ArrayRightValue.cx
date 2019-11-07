@@ -20,6 +20,14 @@ int main() {
         writeln a[i];
     }
 
+    i = 10;
+    while (i > 0) {
+        a[--i] = i;
+    }
 
+    i = 0;
+    do {
+        writeln a[i++];
+    } while (i != 10);
 
 }
