@@ -80,7 +80,7 @@ public class SymbolTable {
                 currentScope = currentScope.getParent();
             }
         }
-        throw new Exception("no function");
+        throw new Exception("No Function " + identifier + " found.");
     }
 
     public String generateIfElseLabel() {

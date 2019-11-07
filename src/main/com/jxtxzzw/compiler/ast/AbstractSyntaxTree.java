@@ -87,7 +87,7 @@ public class AbstractSyntaxTree {
             return new EmptyStatement();
         }
 
-        throw new Exception();
+        throw new Exception("Invalid statement.");
     }
 
     private Statement buildWhileStatement(ParseTree tree) throws Exception {
@@ -178,7 +178,7 @@ public class AbstractSyntaxTree {
 
     private Expression buildConditionalExpression(ParseTree tree) throws Exception {
         if (TokenJudgement.isTokenAndEqualTo(tree.getChild(1), CXLexer.QUESTIONMARK)) {
-            throw new Exception();
+            throw new Exception("Does not support something like `bool ? expr1 : expr2`");
         } else {
             return buildLogicalOrExpression(tree.getChild(0));
         }
@@ -276,7 +276,7 @@ public class AbstractSyntaxTree {
             if (e instanceof VariableExpression) {
                 return new SelfIncrementUnaryExpression(TokenJudgement.getToken(tree.getChild(0)), (VariableExpression) e);
             } else {
-                throw new Exception();
+                throw new Exception("You can only assign value to a Variable Expression.");
             }
         } else if (TokenJudgement.isTokenAndEqualTo(tree.getChild(0), CXLexer.NOT)) {
             return buildLogicalNotExpression(tree.getChild(1));
@@ -297,7 +297,7 @@ public class AbstractSyntaxTree {
             if (e instanceof VariableExpression) {
                 return new SelfIncrementPostfixExpression((VariableExpression) e, TokenJudgement.getToken(tree.getChild(1)));
             } else {
-                throw new Exception();
+                throw new Exception("You can only assign value to a Variable Expression.");
             }
         } else if (TokenJudgement.isTokenAndEqualTo(tree.getChild(0), CXLexer.IDENTIFIER)) {
             Symbol array = symbolTable.getSymbol(tree.getChild(0).getText());
@@ -333,7 +333,7 @@ public class AbstractSyntaxTree {
             } else if (TokenJudgement.isTokenAndEqualTo(tree.getChild(0), CXLexer.FALSE)) {
                 return buildBooleanExpression(false);
             }
-            throw new Exception();
+            throw new Exception("Invalid Expression.");
         }
     }
 
