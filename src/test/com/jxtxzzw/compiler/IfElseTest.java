@@ -56,4 +56,11 @@ public class IfElseTest {
         PmachineResultTest.checkAnswer("IfElseScope");
     }
 
+    @Test
+    public void TrailingElse() throws Exception {
+        PmachineResultTest.prepareCode("TrailingElse");
+        Compiler.main(null);
+        PmachineResultTest.checkAnswer("TrailingElse");
+    }
+
 }
